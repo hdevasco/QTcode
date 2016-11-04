@@ -13,7 +13,21 @@
 %   result, 1].  The 1 means that result was observed 1 time.  It is
 %   included for compatibilty with repeated measurement results.
 
-number_of_angles = size(angles,1);
+if ~isreal(angles)
+    error('angles is not real.')
+end
+if ~isvector(angles)
+    error('angles is not a vector.')
+end
+if isrow(angles)
+    angles = angles.';
+end
+if ~iscolumn(angles)
+    error('angles is not a column vector.')
+end
+
+
+number_of_angles = length(angles);
 samples = [angles,zeros(number_of_angles,1),ones(number_of_angles,1)];
 
 n=S.photons;

@@ -45,7 +45,6 @@ if isnumeric(Measurements)
     Measurements = make_measurement_struct(Measurements, eta, S);
 end
 
-
 % initial guess to begin maxlik r*rho*r algorithm, the maximally mixed
 % state
 if ~exist('rho', 'var') || (exist('rho', 'var') && isempty(rho)) || strcmp(rho, 'maxMix')
@@ -61,12 +60,40 @@ nIteration = 0;
 R = make_r_struct(rho, Measurements, linearForm);
 Diagnostics = add_diagnostics(R, Diagnostics, nIteration, timeStart);
 while R.stop  > stop && nIteration < maxIterations
-   nIteration = nIteration+1;
-   rho = R.r * rho * R.r;
-   rho= rho ./ trace(rho);
-   R = make_r_struct(rho, Measurements, linearForm);
-   Diagnostics = add_diagnostics(R, Diagnostics, nIteration, timeStart);
+    nIteration = nIteration+1;
+    R.r = (R.r' + R.r)/2; % force hermiticity in R
+    Rtr = trace(R.r);  % Scale R by its trace for R*rho*R
+    rho = R.r./Rtr * rho * R.r/Rtr;  
+    rho = (rho' + rho)/2; % force hermiticity for rho
+    rho = rho ./ trace(rho);   % Rescale rho
+    
+    % Attempt to fix rho to be positive definite (method #1)
+%     [V,D] = eig(rho);
+%     D(D<0) = 0;
+%     rho = V*D*V';
+%     rho = (rho' + rho)/2; % force hermiticity
+%     rho = rho ./ trace(rho);
+
+    % Attempt to fix rho to be positive definite (method #2)
+    min_eig = min(eig(rho));
+    min_eig(min_eig > 0) = 0; % only do this for negative eigenvalues
+    rho = rho - min_eig*eye(S.dimHilbertSpace);
+    rho = rho/(1-min_eig*S.dimHilbertSpace);
+    
+    R = make_r_struct(rho, Measurements, linearForm);
+    Diagnostics = add_diagnostics(R, Diagnostics, nIteration, timeStart);
 end
+
+% After iterations, check if rho is physical "enough"
+check_rho_physical(rho)
+
+
+% Check stopping criteria at higher precision
+final_stop = real(max(eig(vpa(sym(R.r),50)))) - Measurements.nTotalMeasurements;
+if final_stop > stop && nIteration < maxIterations
+    warning('Final stop condition was not satisfied at high precision')
+end
+
 if nIteration == maxIterations && exist('continueOpt', 'var')~=1;
     warning('Tomography:fewIterations','maximum number of iterations reached before fidelity converged')
 end
@@ -85,7 +112,6 @@ Diagnostics.typeList = ['start'; cellstr(repmat('RrhoR',nIteration, 1))];
 
 Diagnostics.ratio (extraRow:end)=[];
 rho = R.rho;
-
 end
 
 function Diagnostics = add_diagnostics(R, Diagnostics, nIteration, timeStart)
@@ -99,4 +125,33 @@ Diagnostics.linearTermList(nRow, 1) = R.linearTerm;
 Diagnostics.timeList(nRow,1) = toc(timeStart);
 %Diagnostics.timeList(nRow,1) =0;
 
+end
+
+function check = check_rho_physical(rho)
+% Check if rho is physical within some tolerances
+    check = 1;
+    tolerance = 1e-12;
+    
+    % Check hermiticity 
+    if ~all(all(rho == rho'))
+        warning('Rho is not hermitian')
+        check = 0;
+    end
+    
+    % Check trace = 1
+    if abs(trace(rho) - 1)> tolerance
+        warning('Trace of rho is not 1')
+    end
+    
+    % Check if rho is positive semidefinite
+    vals = eig(rho);
+    % Only complain about negative eigenvalues if they are big enough
+    if any(vals < -tolerance) 
+        warning('Rho is not positive semidefinite')        
+        check = 0;
+    end
+    
+    if check
+        warning('Rho is not physical') 
+    end
 end

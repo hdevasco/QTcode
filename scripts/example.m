@@ -48,22 +48,23 @@ Povms = make_measurement_struct(samples,etaDetector,S);
 % maximum log-likelihood and the log-likelihood of that iterations's state.
 maxIterations = 2000;
 stoppingCriterion = 0.2;
-[rhoML1, Diagnostics1] = rrhor_optimization(samples, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
+[rhoML1, Diagnostics1] = rrhor_optimization(Povms, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
 % output is the maximum likelihood state, rhoML1, and a big structure
 % Diagnostics1 containing information about each iterations's progress.
 
 % Rather than using R*rho*R, we can use a combination of R*rho*R followed
 % by iterations of our new algorithm, the regularized gradient ascent.
 % This is usually faster, especially if you want to be very close to the
-% true maximum likelihood state.
-[rhoML2, Diagnostics2 ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
+% true maximum likelihood state.  Normally, you will want to run only one
+% of the two optimization functions, but I put them both here for examples.
+[rhoML2, Diagnostics2 ] = combined_optimization(Povms, S, etaDetector, 0, maxIterations, stoppingCriterion);
 
 % Fidelity of true state and estimate
 fidelity(rhoML2, rho)
 
 
 % We can plot the Wigner function of the the maximum likelihood state.
-wignerStepSize = 0.1;
-[x,p] = meshgrid(-6:wignerStepSize:6,-6:wignerStepSize:6);
-wignerML = wigner(rhoML2, x,p);
-pcolor(x,p,wignerML)
+% wignerStepSize = 0.1;
+% [x,p] = meshgrid(-6:wignerStepSize:6,-6:wignerStepSize:6);
+% wignerML = wigner(rhoML2, x,p);
+% pcolor(x,p,wignerML)
