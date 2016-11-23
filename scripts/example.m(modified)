@@ -26,7 +26,7 @@ rho = apply_loss(psi,etaState,S);
 
 % We choose a random list of phases at which our homodyne detecotr will
 % measure this state.
-nMeasurements = 4000;
+nMeasurements = 20000;% 20 * 1000 (The measurements of each angle are placed in 1000 bins)
 m = 20;
                 angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]/m; 
                angles = repmat(angles,1,ceil (nMeasurements/m)); 
@@ -37,7 +37,10 @@ etaDetector = 0.9;
 % Now, we make the measurements of state rho.  Notice we have to specify
 % maximum and minimum possible measurement results -7 and 7.
 samples = homodyne_samples(-7,7,etaDetector,angles,rho,S);
-h = homodyne_hist(samples,bidWidth)%Presents the quadrature values in each bin according to the conditions of homodyne_hist
+x = samples(:,2);% Uses the quadrature values to group them into quantities of bins to be determined
+nbins = 1000; % Divides the values of the squares into 1000 bins of the same size.
+h= histogram(x,nbins)
+%[homodyne_hist] = homodyne_hist(samples,bidWidth)
 % Structure containing the POVM element corresponding to each measurement
 % result.  Note that the POVMs are not pure projectors.  The homodyne
 % detector's efficiency has been included in the computation of the POVMs.
