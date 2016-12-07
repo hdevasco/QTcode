@@ -37,31 +37,59 @@ etaDetector = 0.9;
 % Now, we make the measurements of state rho.  Notice we have to specify
 % maximum and minimum possible measurement results -7 and 7.
 samples = homodyne_samples(-7,7,etaDetector,angles,rho,S);
-%Now let's form histograms with the quadrature values for each angle separately. 
-%Each vector below represents the quadrature measurements for a given equally spaced angle of 0 to pi.
+
+% In matrix H, each column equals the values of the quadrature measurements of the samples matrix for each angle separately.
 H = zeros(1000,20);
-k=-19;
+% In matrix A, each angle is repeated a thousand times in each column in order to transform it into a column vector for the construction of M.
+A = zeros(1000,20);
+% In matrix N, we have the count number of the bins of the histograms of each equally spaced angle.
+N = zeros(1000,20);
+% In matrix C, each column equals the centers of the boxes of the histograms of each angle separately, both placed in 1000 bins.
+C = zeros(1000,20);
+
 
     for (i=1:20)
-        for (j=1:1000)
-            H(j,i) = samples(((20*j)+k),2); 
-        end
-        k = k+1;
+        
+        A(:,i) = samples((i:20:end),1);
+        
+        H(:,i) = samples((i:20:end),2); 
+  % The histcounts function calculates the values at the edges and the number of counts in each bin for each angle at a time.
+       
+         [N(:,i),edges] = histcounts(H(:,i),1000);
+  % "d" is the increment to be added to each edge to obtain the centers of the boxes
+  
+       d = diff(edges)/2;
+  % Centers calculates the centers of the boxes in each on each histogram at a time
+  
+       centers = edges(1:end-1)+d;
+       
+        C(:,i)= centers';
+        
+        figure;
+
+        title('h(i)');
+     %"h (i)" plots the histograms of the quadrature measurements of each angle separately by placing them in 1000 bins.
+     
+        h(i) = histogram(H(:,i),1000)
+        
     end
-   [N,edges]= histcounts(H(:,i),1000)
+  % In matrix M, the columns are respectively (angles, centers of bins, number of counts in each bin)
+  
+   M=[A(:),C(:),N(:)];
+
 %[homodyne_hist] = homodyne_hist(samples,bidWidth)
 % Structure containing the POVM element corresponding to each measurement
 % result.  Note that the POVMs are not pure projectors.  The homodyne
 % detector's efficiency has been included in the computation of the POVMs.
-Povms = make_measurement_struct(samples,etaDetector,S);
+%Povms = make_measurement_struct(samples,etaDetector,S);
 
 % Now we will use the R*rho*R algorithm until we have done 2000 iterations
 % or we reach stoppingCriterion 0.01 (whichever happens first).
 % stoppingCriterion is an upper bound on the difference between the true
 % maximum log-likelihood and the log-likelihood of that iterations's state.
-maxIterations = 2000;%20 * 1000 (The measurements of each angle are placed in 1000 bins)
-stoppingCriterion = 0.01;
-[rhoML1, Diagnostics] = rrhor_optimization(samples, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
+%maxIterations = 2000;%20 * 1000 (The measurements of each angle are placed in 1000 bins)
+%stoppingCriterion = 0.01;
+%[rhoML1, Diagnostics] = rrhor_optimization(samples, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
 % output is the maximum likelihood state, rhoML, and a big structure
 % Diagnostics containing information about each iterations's progress.
 
@@ -69,10 +97,10 @@ stoppingCriterion = 0.01;
 % by iterations of our new algorithm, the regularized gradient ascent.
 % This is usually faster, especially if you want to be very close to the
 % true maximum likelihood state.
-[rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
+%[rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
 
 % Fidelity of true state and estimate
-fidelity(rhoML2, rho)
+%fidelity(rhoML2, rho)
 
 
 % We can plot the Wigner function of the the maximum likelihood state.
