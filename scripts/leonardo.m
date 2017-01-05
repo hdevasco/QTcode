@@ -27,11 +27,17 @@ clear all;
 % W will be the vector with the differences in each simulation of the respective fidelities
 % (rhoML2, rho) - (rhohistogram, rho) calculated 100 times.
 
-W = zeros(100,1)
-for k = 1:100;
-    
-    
- % Let's truncate Hilbert space into photons maxPhotonNumber
+W = zeros(100,1);
+
+% Matriz contendo os tempos de simulação pela estimativa não histograma
+% Matrix containing the simulation times by the non-histogram estimate
+T1= zeros(100,1);
+
+% Matriz contendo os tempos de simulação pela estimativa histograma
+% Matrix containing the simulation times by histogram estimation
+T2= zeros(100,1);
+
+% Let's truncate Hilbert space into photons maxPhotonNumber
 maxPhotonNumber = 10;
 
 % Primeiro, pré-computar um lote de números, como coeficientes para Hermite polinômios fatoriais, coeficientes binomiais.
@@ -50,8 +56,6 @@ alpha = 1;  % Amplitude de estados coerentes na superposição
 % phase between superposition
 phase = 0;  % Fase entre a superposição
 
-
-psi = generate_cat_vector(alpha, phase, S);
 % O estado do gato de Schrodinger sofre de alguma perda passando por
 %   um meio com 80% de eficiência.
 
@@ -59,110 +63,122 @@ psi = generate_cat_vector(alpha, phase, S);
 % medium with 80 % efficiency.
 etaState = 0.8;
 
-rho = apply_loss(psi,etaState,S);
-
 % Agora ele deve ser representado por uma matriz de densidade, rho.
-%  Escolhemos 20 fases igualmente espaçados em que o nosso detector
-%  mede este estado.
+	%  Escolhemos 20 fases igualmente espaçados em que o nosso detector
+	%  mede este estado.
 
-% Now it should be represented by a density matrix, rho. 
-% We chose 20 equally spaced phases where our detector measures this state.
+	% Now it should be represented by a density matrix, rho. 
+	% We chose 20 equally spaced phases where our detector measures this state.
 
-nMeasurements = 20000;
-
+	nMeasurements = 20000;
+	
 % Number of equally spaced angles
-m = 20;% Número de ângulos igualmente espaçados
-                angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]/m; 
-               angles = repmat(angles,1,ceil (nMeasurements/m)); 
-                angles = angles(1:nMeasurements).';
-                
+	m = 20;% Número de ângulos igualmente espaçados
+					angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]/m; 
+				   angles = repmat(angles,1,ceil (nMeasurements/m)); 
+					angles = angles(1:nMeasurements).';
+					
 
-% A eficiência do detector é de 90 %.
+	% A eficiência do detector é de 90 %.
 
-% The efficiency of the detector is 90%.
-etaDetector = 0.9;
+	% The efficiency of the detector is 90%.
+	etaDetector = 0.9;
+	
+	maxIterations = 2000;
+		 stoppingCriterion = 0.01;
+         
+         b=1000;
+	     m=20;
 
-% Agora, fazemos as medições do estado rho. Observe que temos que especificar
-% Resultados de medição máximo e mínimo possíveis -7 e 7.
+for k = 1:100;
 
-% Now, we make the measurements of state rho.  Notice we have to specify
-% maximum and minimum possible measurement results -7 and 7.
+	psi = generate_cat_vector(alpha, phase, S);
+	
 
-samples = homodyne_samples(-7,7,etaDetector,angles,rho,S);
-
-% Estrutura contendo o elemento POVM correspondente a cada medida
-% resultado. Observe que os POVMs não são projetores puros.
-% A eficiência do detector foi incluída no cálculo dos POVMs.
-
-% Structure containing the POVM element corresponding to each measurement
-% result.  Note that the POVMs are not pure projectors.  The homodyne
-% detector's efficiency has been included in the computation of the POVMs.
-
-Povms = make_measurement_struct(samples,etaDetector,S);
-
-% Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iterações
-% Ou chegarmos a parar a diferença 0.01 (o que ocorrer primeiro).
-% A intercepção é um limite superior da diferença entre o verdadeiro
-% Log-verossimilhança máxima e a log-verossimilhança do estado de iterações.
-
-% Now we will use the R*rho*R algorithm until we have done 2000 iterations
-% or we reach stoppingCriterion 0.01 (whichever happens first).
-% stoppingCriterion is an upper bound on the difference between the true
-% maximum log-likelihood and the log-likelihood of that iterations's state.
-
- maxIterations = 2000;
- stoppingCriterion = 0.01;
-    
-
-%  [rhoML1, Diagnostics] = rrhor_optimization(samples, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
-%  Saída é o estado de máxima verossimilhança, rhoML e uma estrutura grande
-%   de diagnósticos contendo informações sobre o progresso de cada iteração.
-% 
-%   Em vez de usar R * rho * R, podemos usar uma combinação de R * rho * R seguido
-%   Por iterações de nosso novo algoritmo, a ascensão gradiente regularizada.
-%   Isso geralmente é mais rápido, especialmente se você quiser estar no
-%   Verdadeiro estado de máxima verossimilhança.
-
-% output is the maximum likelihood state, rhoML, and a big structure
-% Diagnostics containing information about each iterations's progress.
-
-% Rather than using R*rho*R, we can use a combination of R*rho*R followed
-% by iterations of our new algorithm, the regularized gradient ascent.
-% This is usually faster, especially if you want to be very close to the
-% true maximum likelihood state.
-
-[rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
- 
-    
-% Fidelidade entre o estado verdadeiro e o estado estimado.
-
-% Fidelity of true state and estimate
-fidelity(rhoML2, rho)
+	rho = apply_loss(psi,etaState,S);
 
 
-b=1000;
-m=20;
-%Constrói a matriz M que tem como linhas(ângulo, centro do bin,número de contagens no bin) 
+	% Agora, fazemos as medições do estado rho. Observe que temos que especificar
+	% Resultados de medição máximo e mínimo possíveis -7 e 7.
 
-% It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
-M = matrix_histogram(samples,b,m);
+	% Now, we make the measurements of state rho.  Notice we have to specify
+	% maximum and minimum possible measurement results -7 and 7.
+
+	samples = homodyne_samples(-7,7,etaDetector,angles,rho,S);
+
+	% Estrutura contendo o elemento POVM correspondente a cada medida
+	% resultado. Observe que os POVMs não são projetores puros.
+	% A eficiência do detector foi incluída no cálculo dos POVMs.
+
+	% Structure containing the POVM element corresponding to each measurement
+	% result.  Note that the POVMs are not pure projectors.  The homodyne
+	% detector's efficiency has been included in the computation of the POVMs.
+	tic;
+		Povms = make_measurement_struct(samples,etaDetector,S);
+
+		% Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iterações
+		% Ou chegarmos a parar a diferença 0.01 (o que ocorrer primeiro).
+		% A intercepção é um limite superior da diferença entre o verdadeiro
+		% Log-verossimilhança máxima e a log-verossimilhança do estado de iterações.
+
+		% Now we will use the R*rho*R algorithm until we have done 2000 iterations
+		% or we reach stoppingCriterion 0.01 (whichever happens first).
+		% stoppingCriterion is an upper bound on the difference between the true
+		% maximum log-likelihood and the log-likelihood of that iterations's state.
+
+		 
+			
+
+		%  [rhoML1, Diagnostics] = rrhor_optimization(samples, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
+		%  Saída é o estado de máxima verossimilhança, rhoML e uma estrutura grande
+		%   de diagnósticos contendo informações sobre o progresso de cada iteração.
+		% 
+		%   Em vez de usar R * rho * R, podemos usar uma combinação de R * rho * R seguido
+		%   Por iterações de nosso novo algoritmo, a ascensão gradiente regularizada.
+		%   Isso geralmente é mais rápido, especialmente se você quiser estar no
+		%   Verdadeiro estado de máxima verossimilhança.
+
+		% output is the maximum likelihood state, rhoML, and a big structure
+		% Diagnostics containing information about each iterations's progress.
+
+		% Rather than using R*rho*R, we can use a combination of R*rho*R followed
+		% by iterations of our new algorithm, the regularized gradient ascent.
+		% This is usually faster, especially if you want to be very close to the
+		% true maximum likelihood state.
+
+		[rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
+		 
+			
+		% Fidelidade entre o estado verdadeiro e o estado estimado.
+
+		% Fidelity of true state and estimate
+		f1 = fidelity(rhoML2, rho);
+	T1(k) = toc;
 
 
-Povmshistogram = make_measurement_struct(M,etaDetector,S);
+	%Constrói a matriz M que tem como linhas(ângulo, centro do bin,número de contagens no bin) 
 
-% [rhoML1, Diagnostics] = rrhor_optimization(M, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
-
-[rhohistogram, Diagnostics] = combined_optimization( M, S, etaDetector, 0, maxIterations, stoppingCriterion);
-
-% Calcula a fidelidade entre o estado verdadeiro e o estado reconstruído
-% usando o histograma
-
-% Calculates the fidelity between the true state and the reconstructed state using the histogram
-
-fidelity(rhohistogram, rho)
+	% It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
+	tic;
+		M = matrix_histogram(samples,b,m);
 
 
- W(k)= fidelity(rhoML2, rho)-fidelity(rhohistogram, rho);
+		Povmshistogram = make_measurement_struct(M,etaDetector,S);
+
+		% [rhoML1, Diagnostics] = rrhor_optimization(M, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
+
+		[rhohistogram, Diagnostics] = combined_optimization( M, S, etaDetector, 0, maxIterations, stoppingCriterion);
+
+		% Calcula a fidelidade entre o estado verdadeiro e o estado reconstruído
+		% usando o histograma
+
+		% Calculates the fidelity between the true state and the reconstructed state using the histogram
+
+		f2 = fidelity(rhohistogram, rho);
+	T2(k) = toc;
+
+
+	 W(k)= f1-f2;
 
 end
 
@@ -179,4 +195,13 @@ mean(W);
 
 % Calculates the standard deviation of the fidelity difference (rhoML2-rhohistogram)
 D=std(W);
+
+% Tempo médio da simulação pela estimativa não-histograma
+% Mean time of simulation by non-histogram estimationt
+t1=mean(T1);
+
+% Tempo médio da simulação pela estimativa histograma
+% Mean time of simulation by histogram estimation
+t2=mean(T2);
+
 toc;
