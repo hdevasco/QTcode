@@ -21,6 +21,7 @@ clear all;
 % on the basis of the number of photons. 
 
 
+
 % W será o vetor com as diferenças em cada simulação das respectivas
 % fidelidades (rhoML2, rho)-(rhohistogram, rho) calculadas 100 vezes.
 
@@ -33,9 +34,21 @@ W = zeros(100,1);
 % Matrix containing the simulation times by the non-histogram estimate
 T1= zeros(100,1);
 
-% Matriz contendo os tempos de simulação pela estimativa histograma
+% Matriz contendo os tempos de simulação para a construção do histograma
 % Matrix containing the simulation times by histogram estimation
 T2= zeros(100,1);
+
+% Matriz contendo os tempos de estimação para a criação de (rhohistogram) a partir do cálculo dos POVM'S 
+% Matrix containing the estimation times for the creation of (rhohistogram) from the calculation of the POVM'S
+T3= zeros(100,1);
+
+% Matriz contendo o cálculo das fidelidades de (rhoML2,rho)
+% Matrix containing the fidelity calculation of (rhoML2, rho)
+F1= zeros(100,1);
+
+% Matriz contendo o cálculo das fidelidades de (rhohistogram,rho)
+% Matrix containing the fidelity calculation of (rhohistogram, rho)
+F2= zeros(100,1);
 
 % Let's truncate Hilbert space into photons maxPhotonNumber
 maxPhotonNumber = 10;
@@ -70,7 +83,7 @@ etaState = 0.8;
 	% Now it should be represented by a density matrix, rho. 
 	% We chose 20 equally spaced phases where our detector measures this state.
 
-	nMeasurements = 20000;
+	nMeasurements = 2000;
 	
 % Number of equally spaced angles
 	m = 20;% Número de ângulos igualmente espaçados
@@ -87,15 +100,16 @@ etaState = 0.8;
 	maxIterations = 2000;
 		 stoppingCriterion = 0.01;
          
-         b=1000;
+         b=100;
 	     m=20;
+         
+psi = generate_cat_vector(alpha, phase, S);
+% O estado do gato de Schrodinger sofre de alguma perda passando por
+%   um meio com 80% de eficiência.
+
+rho = apply_loss(psi,etaState,S);
 
 for k = 1:100;
-
-	psi = generate_cat_vector(alpha, phase, S);
-	
-
-	rho = apply_loss(psi,etaState,S);
 
 
 	% Agora, fazemos as medições do estado rho. Observe que temos que especificar
@@ -152,7 +166,7 @@ for k = 1:100;
 		% Fidelidade entre o estado verdadeiro e o estado estimado.
 
 		% Fidelity of true state and estimate
-		f1 = fidelity(rhoML2, rho);
+		F1(k) = fidelity(rhoML2, rho);
 	T1(k) = toc;
 
 
@@ -162,7 +176,9 @@ for k = 1:100;
 	tic;
 		M = matrix_histogram(samples,b,m);
 
-
+    T2(k) = toc;
+    
+    tic;
 		Povmshistogram = make_measurement_struct(M,etaDetector,S);
 
 		% [rhoML1, Diagnostics] = rrhor_optimization(M, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
@@ -174,12 +190,12 @@ for k = 1:100;
 
 		% Calculates the fidelity between the true state and the reconstructed state using the histogram
 
-		f2 = fidelity(rhohistogram, rho);
-	T2(k) = toc;
+		F2(k) = fidelity(rhohistogram, rho);
+	T3(k) = toc;
 
 
-	 W(k)= f1-f2;
-
+	 W(k)= F1(k)-F2(k);
+     
 end
 
 % Calcula a média das diferenças entre as fidelidades 
@@ -196,12 +212,16 @@ mean(W);
 % Calculates the standard deviation of the fidelity difference (rhoML2-rhohistogram)
 D=std(W);
 
-% Tempo médio da simulação pela estimativa não-histograma
-% Mean time of simulation by non-histogram estimationt
+% Tempo médio para a criação de rhoML2 a partir dos POVM'S
+% Average time for the creation of rhoML2 from the POVM'S
 t1=mean(T1);
 
-% Tempo médio da simulação pela estimativa histograma
-% Mean time of simulation by histogram estimation
+% Tempo médio para a criação do histograma
+% Average time to create histogram
 t2=mean(T2);
+
+% Tempo médio para a criação de rhohistogram a partir dos POVM'S
+% Average time to create rhohistogram from POVM'S
+t3=mean(T3);
 
 toc;
