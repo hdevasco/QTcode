@@ -32,49 +32,53 @@ W = zeros(100,1);
 
 % Matriz contendo os tempos de simulação pela estimativa não histograma
 % Matrix containing the simulation times by the non-histogram estimate
-T1= zeros(100,1);
+%T1= zeros(100,1);
 
 % Matriz contendo os tempos de simulação para a construção do histograma
 % Matrix containing the simulation times by histogram estimation
-T2= zeros(100,1);
+%T2= zeros(100,1);
 
 % Matriz contendo os tempos de estimação para a criação de (rhohistogram) a partir do cálculo dos POVM'S 
 % Matrix containing the estimation times for the creation of (rhohistogram) from the calculation of the POVM'S
-T3= zeros(100,1);
+%T3= zeros(100,1);
 
 % Matriz contendo o cálculo das fidelidades de (rhoML2,rho)
 % Matrix containing the fidelity calculation of (rhoML2, rho)
-F1= zeros(100,1);
+F1 = zeros(100,1);
 
 % Matriz contendo o cálculo das fidelidades de (rhohistogram,rho)
 % Matrix containing the fidelity calculation of (rhohistogram, rho)
-F2= zeros(100,1);
+F2 = zeros(100,1);
 
+% Matriz contendo o cálculo da fidelidade de (rhohistogram, psi)
+% Matrix containing the calculation of the fidelities of (rhohistogram, psi)
+ F3 = zeros(100,1)
+ 
 % Let's truncate Hilbert space into photons maxPhotonNumber
-maxPhotonNumber = 10;
+ maxPhotonNumber = 10;
 
 % Primeiro, pré-computar um lote de números, como coeficientes para Hermite polinômios fatoriais, coeficientes binomiais.
 
 % First, pre-compute a lot of numbers, such as coefficients for Hermite
-% polynomials factorials, bi,nomial coefficients.
+% polynomials factorials, binomial coefficients.
 
-S = init_tables(maxPhotonNumber);
+%S = init_tables(maxPhotonNumber);
 
 % Faça o vetor do estado para o estado do gato de Schrodinger.
 % Make state vector for Schrodinger cat state
 
 % amplitude of coherent states in the superposition
-alpha = 1;  % Amplitude de estados coerentes na superposição
+%alpha = 1;  % Amplitude de estados coerentes na superposição
 
 % phase between superposition
-phase = 0;  % Fase entre a superposição
+% phase = 0;  % Fase entre a superposição
 
 % O estado do gato de Schrodinger sofre de alguma perda passando por
 %   um meio com 80% de eficiência.
 
 % The Schrodinger cat state suffers from some loss by passing through a
 % medium with 80 % efficiency.
-etaState = 0.8;
+% etaState = 0.8;
 
 % Agora ele deve ser representado por uma matriz de densidade, rho.
 	%  Escolhemos 20 fases igualmente espaçados em que o nosso detector
@@ -100,18 +104,25 @@ etaState = 0.8;
 	maxIterations = 2000;
 		 stoppingCriterion = 0.01;
          
-         b=100;
-	     m=20;
+         b=100; % number of bins
+	     m=20;  % Number of equally spaced angles
          
-psi = generate_cat_vector(alpha, phase, S);
-% O estado do gato de Schrodinger sofre de alguma perda passando por
-%   um meio com 80% de eficiência.
-
-rho = apply_loss(psi,etaState,S);
+         
 
 for k = 1:100;
-
-
+   
+   S = init_tables(maxPhotonNumber);
+    
+    alpha = 1;
+   
+    phase = 0;
+    
+    psi = generate_cat_vector(alpha, phase, S);
+    
+    etaState = 0.8;
+    
+    rho = apply_loss(psi,etaState,S);
+    
 	% Agora, fazemos as medições do estado rho. Observe que temos que especificar
 	% Resultados de medição máximo e mínimo possíveis -7 e 7.
 
@@ -192,7 +203,8 @@ for k = 1:100;
 
 		F2(k) = fidelity(rhohistogram, rho);
 	T3(k) = toc;
-
+       
+        F3(k) = fidelity(rhohistogram, psi)
 
 	 W(k)= F1(k)-F2(k);
      
@@ -204,7 +216,20 @@ end
 % Calculates the mean of the differences between the fidelities
 % (rhoML2, rho) - (rhohistogram, rho)
 
-mean(W);
+w = mean(W);
+
+% Calcula a fidelidade média entre os estados (rhoML2,rho)
+% Calculates the average fidelity between states (rhoML2,rho)
+f1 = mean(F1);
+
+% Calcula a fidelidade média entre os estados (rhohistogram,rho)
+% Calculates the average fidelity between states (rhohistogram,rho)
+f2 = mean(F2);
+
+
+% Calcula a fidelidade média entre os estados (rhohistogram,psi)
+% Calculates the average fidelity between states (rhohistogram, psi)
+f3 = mean(F3);
 
 % Calcula o desvio padrão da diferença das fidelidades
 % (rhoML2-rhohistogram)
@@ -218,10 +243,10 @@ t1=mean(T1);
 
 % Tempo médio para a criação do histograma
 % Average time to create histogram
-t2=mean(T2);
+ t2=mean(T2);
 
 % Tempo médio para a criação de rhohistogram a partir dos POVM'S
 % Average time to create rhohistogram from POVM'S
-t3=mean(T3);
+ t3=mean(T3);
 
 toc;
