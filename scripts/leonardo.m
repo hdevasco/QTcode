@@ -112,7 +112,7 @@ F2 = zeros(100,1);
          
          
 
-for k = 1:100;
+for k = 1:300;
    
    S = init_tables(maxPhotonNumber);
     
