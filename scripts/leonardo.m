@@ -32,15 +32,15 @@ W = zeros(100,1);
 
 % Matriz contendo os tempos de simulação pela estimativa não histograma
 % Matrix containing the simulation times by the non-histogram estimate
-%T1= zeros(100,1);
+T1= zeros(100,1);
 
 % Matriz contendo os tempos de simulação para a construção do histograma
 % Matrix containing the simulation times by histogram estimation
-%T2= zeros(100,1);
+T2= zeros(100,1);
 
 % Matriz contendo os tempos de estimação para a criação de (rhohistogram) a partir do cálculo dos POVM'S 
 % Matrix containing the estimation times for the creation of (rhohistogram) from the calculation of the POVM'S
-%T3= zeros(100,1);
+T3= zeros(100,1);
 
 % Matriz contendo o cálculo das fidelidades de (rhoML2,rho)
 % Matrix containing the fidelity calculation of (rhoML2, rho)
@@ -54,13 +54,16 @@ F2 = zeros(100,1);
 % Matrix containing the calculation of the fidelities of (rhohistogram, psi)
  F3 = zeros(100,1)
  
+% Matriz contendo o cálculo da fidelidade de (rhoML2, psi)
+% Matrix containing the calculation of the fidelities of (rhoML2, psi)
+ F4 = zeros(100,1)
 % Let's truncate Hilbert space into photons maxPhotonNumber
  maxPhotonNumber = 10;
 
 % Primeiro, pré-computar um lote de números, como coeficientes para Hermite polinômios fatoriais, coeficientes binomiais.
 
 % First, pre-compute a lot of numbers, such as coefficients for Hermite
-% polynomials factorials, binomial coefficients.
+% polynomials factorials, bi,nomial coefficients.
 
 %S = init_tables(maxPhotonNumber);
 
@@ -204,7 +207,9 @@ for k = 1:100;
 		F2(k) = fidelity(rhohistogram, rho);
 	T3(k) = toc;
        
-        F3(k) = fidelity(rhohistogram, psi)
+        F3(k) = fidelity(rhohistogram, psi);
+        
+        F4(k) = fidelity(rhoML2,psi);
 
 	 W(k)= F1(k)-F2(k);
      
@@ -230,6 +235,10 @@ f2 = mean(F2);
 % Calcula a fidelidade média entre os estados (rhohistogram,psi)
 % Calculates the average fidelity between states (rhohistogram, psi)
 f3 = mean(F3);
+
+% Calcula a fidelidade média entre os estados (rhoML2,psi)
+% Calculates the average fidelity between states (rhoML2, psi)
+f4 = mean(F4);
 
 % Calcula o desvio padrão da diferença das fidelidades
 % (rhoML2-rhohistogram)
