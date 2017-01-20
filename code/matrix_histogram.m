@@ -1,31 +1,29 @@
 function M = matrix_histogram(samples,b,m) 
 % As amostras de entrada tem um formato específico de medir todos os
-% ângulos uma vez, medindo-os novamente até completar a simulação. Samples
-% tem número de linhas(número de ângulos*número de bins).
-%The input samples have a specific format for measuring all
-%   angles once, measuring them again to complete the simulation. Samples
-%   has number of lines (number of angles * number of bins).
+% ângulos uma vez, medindo-os novamente até completar a simulação. 
+% The input samples have a specific format for measuring all
+%   angles once, measuring them again to complete the simulation. 
 
 % matrix_histogram constructs an array from samples whose columns are respectively
 % . m equally spaced angles between 0 to pi with each angle being repeated a thousand times
 % . Center of the boxes of each histogram formed by the quadrature measurements of samples of each angle separately, placed in "b" bins.
 % . Number of quadrature measure counts in each bin in respective histograms
 
-%Na matriz H, cada coluna é igual aos valores das medidas em quadratura da matriz de amostras para cada ângulo separadamente.
+% Na matriz H, cada coluna é igual aos valores das medidas em quadratura da matriz de amostras para cada ângulo separadamente.
 % In matrix H, each column equals the values of the quadrature measurements of the samples matrix for each angle separately.
 H = zeros(b,m);
 
-%Na matriz A, cada ângulo é repetido mil vezes em cada coluna para transformá-la em um vetorcoluna para a construção de M.
+% Na matriz A, cada ângulo é repetido "b" vezes em cada coluna para transformá-la em um vetorcoluna para a construção de M.
 % In matrix A, each angle is repeated a thousand times in each column in order to transform it into a column vector for the construction of M.
 A = zeros(b,m);
 
-%Na matriz N, temos o número de contagem das caixas dos histogramas de cada ângulo igualmente espaçado.
+% Na matriz N, temos o número de contagem das caixas dos histogramas de cada ângulo igualmente espaçado.
 % In matrix N, we have the count number of the bins of the histograms of each equally spaced angle.
 
 N = zeros(b,m);
 
-%Na matriz C, cada coluna é igual aos centros das caixas dos histogramas de cada ângulo separadamente, ambos colocados em b caixas.
-% In matrix C, each column equals the centers of the boxes of the histograms of each angle separately, both placed in b bins.
+%Na matriz C, cada coluna é igual aos centros das caixas dos histogramas de cada ângulo separadamente, ambos colocados em "b" caixas.
+% In matrix C, each column equals the centers of the boxes of the histograms of each angle separately, both placed in "b" bins.
 C = zeros(b,m);
 
     for i=1:m,
