@@ -1,4 +1,11 @@
 function M = matrix_histogram(samples,b,m) 
+% As amostras de entrada tem um formato específico de medir todos os
+% ângulos uma vez, medindo-os novamente até completar a simulação. Samples
+% tem número de linhas(número de ângulos*número de bins).
+%The input samples have a specific format for measuring all
+%   angles once, measuring them again to complete the simulation. Samples
+%   has number of lines (number of angles * number of bins).
+
 % matrix_histogram constructs an array from samples whose columns are respectively
 % . m equally spaced angles between 0 to pi with each angle being repeated a thousand times
 % . Center of the boxes of each histogram formed by the quadrature measurements of samples of each angle separately, placed in "b" bins.
@@ -8,7 +15,7 @@ function M = matrix_histogram(samples,b,m)
 % In matrix H, each column equals the values of the quadrature measurements of the samples matrix for each angle separately.
 H = zeros(b,m);
 
-%Na matriz A, cada ângulo é repetido "b" vezes em cada coluna para transformá-la em um vetorcoluna para a construção de M.
+%Na matriz A, cada ângulo é repetido mil vezes em cada coluna para transformá-la em um vetorcoluna para a construção de M.
 % In matrix A, each angle is repeated a thousand times in each column in order to transform it into a column vector for the construction of M.
 A = zeros(b,m);
 
@@ -17,17 +24,17 @@ A = zeros(b,m);
 
 N = zeros(b,m);
 
-%Na matriz C, cada coluna é igual aos centros das caixas dos histogramas de cada ângulo separadamente, ambos colocados em "b" caixas.
-% In matrix C, each column equals the centers of the boxes of the histograms of each angle separately, both placed in "b" bins.
+%Na matriz C, cada coluna é igual aos centros das caixas dos histogramas de cada ângulo separadamente, ambos colocados em b caixas.
+% In matrix C, each column equals the centers of the boxes of the histograms of each angle separately, both placed in b bins.
 C = zeros(b,m);
 
-    for (i=1:m)
+    for i=1:m,
         
-        A(:,i) = samples((i:m:end),1);
+        A(:,i) = samples((i:m:(b*m)),1);
         
-        H(:,i) = samples((i:m:end),2); 
+        H(:,i) = samples((i:m:(b*m)),2); 
         
-         [N(:,i),edges] = histcounts(H(:,i),b);
+        [N(:,i),edges] = histcounts(H(:,i),b);
   
        d = diff(edges)/2;
        
@@ -36,13 +43,13 @@ C = zeros(b,m);
        
         C(:,i)= centers';
         
-        figure;
-
-        title('h(i)');
-     
-        h(i) = histogram(H(:,i),b)
+%         figure;
+% 
+%         title('h(i)');
+%      
+%         h(i) = histogram(H(:,i),b)
         
         
     end
-  
-  M=[A(:),C(:),N(:)];
+    
+    M = [A(:),C(:),N(:)];
