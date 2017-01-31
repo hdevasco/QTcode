@@ -31,7 +31,7 @@ Mph = [10];
 
 
 % Values for the number of bins
-b = [1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 1000];
+b = [1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000];
 
 
 % Number of measurements
@@ -195,8 +195,8 @@ for i=1:length(Mph),
                 t2 = mean (T2); % Average time to calculate loyalty (rhohistogram, rho)
                 t3 = mean (T3); % Average time to calculate loyalty (rhohistogram, psi)
                 t4 = mean (T4); % Average time to calculate loyalty (rhoML2, psi)
-                d1 = std(T1); % Standard deviation of the fidelity estimation times (rhoML2,rho)
-                d2 = std(T2); % Standard deviation of the fidelity estimation times (rhohistogram,rho)
+                d1 = std(T1);
+                d2 = std(T2);
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/num_sim*100);
                 t=t+1;
