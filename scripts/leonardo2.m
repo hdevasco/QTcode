@@ -31,8 +31,7 @@ Mph = [10];
 
 
 % Values for the number of bins
-b = [1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000];
-
+b = [10, 50, 100, 200, 500, 800, 1000, 1250, 1500, 2000];
 
 % Number of measurements
 nM = [20000];
@@ -76,7 +75,7 @@ for i=1:length(Mph),
                 tic;
                 
                 m = 20;% Number of equally spaced angles
-                angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]/m;
+                angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,19]/m;
                 angles = repmat(angles,1,ceil (nMeasurements/m));
                 angles = angles(1:nMeasurements)';
                 
@@ -156,7 +155,7 @@ for i=1:length(Mph),
                 % It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
                 
                 disp('>> matrix histogram ...');
-                M = matrix_histogram(samples,b(j),m);
+                M = matrix_histogram(samples,angles,nM,b(j),m);
                 
                 
                 tic;
