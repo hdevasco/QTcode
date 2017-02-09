@@ -55,8 +55,8 @@ for i=1:length(Mph),
                 W = zeros(num_sim,1);
                 T1 = zeros(num_sim,1);
                 T2 = zeros(num_sim,1);
-                T3 = zeros(num_sim,1);
-                T4 = zeros(num_sim,1);
+%                 T3 = zeros(num_sim,1);
+%                 T4 = zeros(num_sim,1);
                 
                 nMeasurements       = nM(k);
                 etaDetector         = 0.9;
@@ -106,7 +106,7 @@ for i=1:length(Mph),
                 % Structure containing the POVM element corresponding to each measurement
                 % result.  Note that the POVMs are not pure projectors.  The homodyne
                 % detector's efficiency has been included in the computation of the POVMs.
-                tic;
+                
                 %     Povms = make_measurement_struct(samples,etaDetector,S);
                 
                 % Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iteraÃ§Ãµes
@@ -139,13 +139,14 @@ for i=1:length(Mph),
                 % This is usually faster, especially if you want to be very close to the
                 % true maximum likelihood state.
                 fprintf(['>> combined optimization... iteraction ',num2str(t), '\n']);
+                tic;
                 [rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 
                 
                 % Fidelidade entre o estado verdadeiro e o estado estimado.
                 
                 % Fidelity of true state and estimate
-                disp('>> fidelity (samples)...');
+%                 disp('>> fidelity (samples)...');
                 F1(t) = fidelity(rhoML2, rho);
                 T1(t) = toc;
                 
@@ -155,22 +156,21 @@ for i=1:length(Mph),
                 % It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
                 
                 disp('>> matrix histogram ...');
+                tic;
                 M = matrix_histogram(samples,angles,nM,b(j),m);
                 
-                
-                tic;
                 %     Povmshistogram = make_measurement_struct(M,etaDetector,S);
                 
                 % [rhoML1, Diagnostics] = rrhor_optimization(M, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
                 
-                fprintf(['>> combined optimization (M)... iteraction ',num2str(t), '\n']);
+%                 fprintf(['>> combined optimization (M)... iteraction ',num2str(t), '\n']);
                 [rhohistogram, Diagnostics] = combined_optimization( M, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 
                 % Calcula a fidelidade entre o estado verdadeiro e o estado reconstruído
                 % usando o histograma
                 
                 % Calculates the fidelity between the true state and the reconstructed state using the histogram
-                disp('>> fidelity (rhohistogram x rho)...');
+%                 disp('>> fidelity (rhohistogram x rho)...');
                 F2(t) = fidelity(rhohistogram, rho);
                 T2(t) = toc;
                 
@@ -192,10 +192,12 @@ for i=1:length(Mph),
                 f4 = mean (F4); % Average fidelity (rhoML2, psi)
                 t1 = mean (T1); % Average time to calculate loyalty (rhoML2, rho)
                 t2 = mean (T2); % Average time to calculate loyalty (rhohistogram, rho)
-                t3 = mean (T3); % Average time to calculate loyalty (rhohistogram, psi)
-                t4 = mean (T4); % Average time to calculate loyalty (rhoML2, psi)
+%                 t3 = mean (T3); % Average time to calculate loyalty (rhohistogram, psi)
+%                 t4 = mean (T4); % Average time to calculate loyalty (rhoML2, psi)
                 d1 = std(T1);
                 d2 = std(T2);
+                dF1= std(F1);
+                dF2= std(F2);
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/num_sim*100);
                 t=t+1;
