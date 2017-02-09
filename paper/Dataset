@@ -9,50 +9,69 @@ b ( number of bins)
  f4 = mean (F4); % Average fidelity (rhoML2, psi)
  t1 = mean (T1); % Average time to calculate loyalty (rhoML2, rho)
  t2 = mean (T2); % Average time to calculate loyalty (rhohistogram, rho)
-d1= std(T1) % Standard deviation of the mean fidelity estimation times (rhoML2, rho)
-d2= std(T2) %Standard deviation of the mean fidelity estimation times (rhohistogram, rho)
+d1= std(T1) % Standard deviation of the fidelity estimation times (rhoML2, rho)
+d2= std(T2) %Standard deviation of the  fidelity estimation times (rhohistogram, rho)
+w = mean (W) % Standard deviation of the  mean difference between fidelity ((rhoML2, rho) - (rhohistogram, rho))
+dF1= std(F1) % standard deviation of the fidelity(rhoML2,rho)
+dF2= std(F2) % standard deviation of the fidelity(rhohistogram,rho)
+D = std(W) % standard deviation of the difference between fidelity ((rhoML2, rho) - (rhohistogram, rho))
+
 
 b=10
 f1= 0.9942
 f2= 0.9816
 f3= 0.8361
 f4= 0.8692
-t1= 18.7152 s
-t2=   0.5243 s
-d1= 3.1142
-d2= 0.1130
+t1= 18.5655 s
+t2=   0.5276 s
+d1= 3.0950
+d2= 0.1088
+DF1= 0.0036
+dF2 = 0.0063
+w= 0.0126
+D=0.0039
 
 b=50
 f1= 0.9952
 f2= 0.9952
 f3= 0.8672
 f4= 0.8681
-t1= 19.1119 s
-t2=  1.2704 s
-d1= 2.8189
-d2= 0.2380
+t1= 18.9651 s
+t2=  1.3314 s
+d1= 2.7683
+d2= 0.2385
+Df1= 0.0033
+Df2= 0.0034
+w = 3.2920e-06
+D= 4.0560e-04
 
 b=100
 f1= 0.9946
 f2= 0.9946
 f3= 0.8694
 f4= 0.8696
-t1= 19.6676 s
-t2=   2.1653 s
-d1= 3.2439
-d2= 0.3206
+t1= 18.4395 s
+t2=   2.1487 s
+d1= 2.7588
+d2= 0.3027
+Df1= 0.0030
+Df2= 0.0031
+w= -4.4854e-05
+D= 1.8473e-04
 
 b=200
 f1= 0.9940
 f2= 0.9940
 f3= 0.8665
 f4= 0.8665
-t1= 18.5209 s
-t2=  3.9856 s
-d1= 2.7925
-d2= 0.6114
-
-
+t1= 18.1464 s
+t2=  3.9248 s
+d1= 2.4118
+d2= 0.5458
+Df1= 0.0033
+Df2= 0.0033
+w= -3.2619
+D=8.9400e-05
 
 
 
@@ -61,50 +80,74 @@ f1= 0.9938
 f2= 0.9938
 f3= 0.8693
 f4= 0.8693
-t1= 19.3827 s
-t2=   9.6171 s
-d1= 3.4425
-d2= 1.4653
+t1= 18.7646 s
+t2=   9.4996 s
+d1= 3.0867
+d2= 1.3658
+Df1= 0.0034
+Df2= 0.0034
+w= -1.1731e-05
+D=4.6003e-05
 
 b=800
 f1= 0.9938
 f2= 0.9938
 f3= 0.8694
 f4= 0.8693
-t1= 18.1270 s
-t2= 14.9573 s
-d1= 2.4168
-d2= 1.8730
+t1= 18.0398 s
+t2= 14.8588 s
+d1= 2.4290
+d2= 1.6982
+Df1= 0.0038
+Df2= 0.0038
+w=-1.7836e-05
+D= 2.8043e-05
+
 
 b=1000
 f1= 0.9943
 f2= 0.9943
 f3= 0.8680
 f4= 0.8680
-t1= 18.5936 s
-t2= 19.2037 s
-d1= 2.8173
-d2= 2.4342
+t1= 18.4732 s
+t2= 19.2602 s
+d1= 2.8088
+d2= 2.4411
+Df1= 0.0034
+Df2=0.0034
+w= -9.9930e-06
+D=2.0724e-05
 
 b=1250
 f1= 0.9943
 f2= 0.9943
 f3= 0.8696
 f4= 0.8696
-t1= 18.7661 s
-t2= 24.5766 s
-d1= 2.6771
-d2= 2.9536
+t1= 18.5866 s
+t2= 24.7433 s
+d1= 2.6492
+d2= 2.9548
+Df1= 0.0035
+Df2= 0.0035
+w= -1.1467e-05
+D=1.6750e-05
 
 b=1500
 f1= 0.9948
 f2= 0.9948
 f3= 0.8698
 f4= 0.8698
-t1= 18.5991 s
-t2= 30.1544 s
-d1= 2.6805
-d2= 2.5088
+t1= 18.4667 s
+t2= 30.2918 s
+d1= 2.6685
+d2= 3.5201
+Df1= 0.0028
+Df2= 0.0028
+w= -7.4683e-06
+D= 1.0573e-05
+
+
+
 
 
 
@@ -115,9 +158,13 @@ f1= 0.9943
 f2= 0.9943
 f3= 0.8692
 f4= 0.8692
-t1= 19.1010 s
-t2= 44.4344 s                                
-d1= 2.8720
-d2= 4.9778
+t1= 18.9678 s
+t2= 44.3139 s                                
+d1= 2.8604
+d2= 4.8675
+dF1= 0.0034
+Df2= 0.0034
+w= -2.3896e-06
+D=1.1580e-05
 
 
