@@ -170,9 +170,11 @@ for i=1:length(Mph),
 %                 fprintf(['>> combined optimization (M)... iteraction ',num2str(t), '\n']);
                 tic;
                 [rhohistogram, Diagnostics] = combined_optimization( M, S, etaDetector, 0, maxIterations, stoppingCriterion);
+                T4(t) = toc;
+                
                 % Calcula a fidelidade entre o estado verdadeiro e o estado reconstruído
                 % usando o histograma
-                T4(t) = toc;
+                
                 % Calculates the fidelity between the true state and the reconstructed state using the histogram
 %                 disp('>> fidelity (rhohistogram x rho)...');
                  tic;
@@ -207,8 +209,8 @@ for i=1:length(Mph),
                 d3 = std(T3); %  Standard deviation of the mean time of construction of M
                 d4 = std(T4); % Standard deviation of the mean time of the rhohistogram construction
                 d5 = std(T5); % Standard deviation of the fidelity estimation time (rhohistogram, rho)
-                dF1= std(F1); % Standard deviation of the mean fidelity of (rhoML2, rho)
-                dF2= std(F2); % Standard deviation of the mean fidelity of (rhohistogram, rho)
+                dF1= std(F1); % Standard deviation of the  fidelity of (rhoML2, rho)
+                dF2= std(F2); % Standard deviation of the  fidelity of (rhohistogram, rho)
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/num_sim*100);
                 t=t+1;
