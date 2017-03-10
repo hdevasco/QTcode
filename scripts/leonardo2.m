@@ -31,10 +31,19 @@ Mph = [10];
 
 
 % Values for the number of bins
-b = [10, 50, 100, 200, 500, 800, 1000, 1250, 1500, 2000];
+% b =[10, 50, 100, 200, 500, 800, 1000, 1250, 1500, 2000];
+
+% Atribuímos um valor a b para inicializar a simulação da tomografia usando
+% o método de largura ótima para o histograma usado na estimação do estado.
+
+% We assign a value a to initialize the tomography simulation using the optimal width
+% method for the histogram used in the state estimation.
+
+b = [10];
 
 % Number of measurements
 nM = [20000];
+
 
 for i=1:length(Mph),
     for j=1:length(b),
@@ -55,9 +64,10 @@ for i=1:length(Mph),
                 W = zeros(num_sim,1);
                 T1 = zeros(num_sim,1);
                 T2 = zeros(num_sim,1);
-%                 T3 = zeros(num_sim,1);
-%                 T4 = zeros(num_sim,1);
-                
+                T3 = zeros(num_sim,1);
+                T4 = zeros(num_sim,1);
+                T5= zeros(num_sim,1);
+               
                 nMeasurements       = nM(k);
                 etaDetector         = 0.9;
                 maxIterations       = 2000;
@@ -106,7 +116,7 @@ for i=1:length(Mph),
                 % Structure containing the POVM element corresponding to each measurement
                 % result.  Note that the POVMs are not pure projectors.  The homodyne
                 % detector's efficiency has been included in the computation of the POVMs.
-                
+%                 tic;
                 %     Povms = make_measurement_struct(samples,etaDetector,S);
                 
                 % Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iteraÃ§Ãµes
@@ -140,49 +150,70 @@ for i=1:length(Mph),
                 % true maximum likelihood state.
                 fprintf(['>> combined optimization... iteraction ',num2str(t), '\n']);
                 tic;
-                [rhoML2, Diagnostics ] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
+                [rhoML2, Diagnostics] = combined_optimization( samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 
-                
+                T1(t) = toc;
                 % Fidelidade entre o estado verdadeiro e o estado estimado.
                 
                 % Fidelity of true state and estimate
 %                 disp('>> fidelity (samples)...');
+                tic;
                 F1(t) = fidelity(rhoML2, rho);
-                T1(t) = toc;
+                T2(t)= toc;
                 
+               
                 
-                %Constrói a matriz M que tem como linhas(Ângulo, centro do bin,nÚmero de contagens no bin)
+                %Constrói a matriz M que tem como linhas(Ângulo, centro do bin,número de contagens no bin)
                 
                 % It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
                 
                 disp('>> matrix histogram ...');
-                tic;
-                M = matrix_histogram(samples,angles,nM,b(j),m);
                 
+%                 M  será construída a partir de histogramas utilizando as medidas
+%                 de quadratura de samples nas 20 fases igualmente espaçadas de 0 a pi.
+%                 Usaremos o método de Scott para estimar a largura ótima dos bins.
+                
+                % M will be constructed from histograms using the measures
+                % of quadrature of samples in the 20 equally spaced phases from 0 to pi. 
+                % We will use Scott's method to estimate the optimal width of the bins.
+                
+                method = 'scott';
+                tic;
+%                  M = matrix_histogram(samples,angles,nM,b(j),m,);
+                
+                M = matrix_histogram(samples,angles,nM,b(j),m, method);
+                T3(t) = toc;
+              
+               
                 %     Povmshistogram = make_measurement_struct(M,etaDetector,S);
                 
                 % [rhoML1, Diagnostics] = rrhor_optimization(M, S, etaDetector, 0, maxIterations, stoppingCriterion, []);
                 
 %                 fprintf(['>> combined optimization (M)... iteraction ',num2str(t), '\n']);
+                tic;
                 [rhohistogram, Diagnostics] = combined_optimization( M, S, etaDetector, 0, maxIterations, stoppingCriterion);
+                T4(t) = toc;
                 
                 % Calcula a fidelidade entre o estado verdadeiro e o estado reconstruído
                 % usando o histograma
                 
                 % Calculates the fidelity between the true state and the reconstructed state using the histogram
 %                 disp('>> fidelity (rhohistogram x rho)...');
+                 tic;
+
                 F2(t) = fidelity(rhohistogram, rho);
-                T2(t) = toc;
+                 T5(t)= toc;
                 
                 disp('>> fidelity (rhohistogram x psi)...');
-                tic;
-                F3(t) = fidelity(rhohistogram, psi);
-                T3(t) = toc;
+                 
+                  F3(t) = fidelity(rhohistogram, psi);
+                
                 
                 disp('>> fidelity (rhoML2 x psi)...');
-                tic;
+                
                 F4(t) = fidelity(rhoML2,psi);
-                T4(t)= toc;
+               
+                
                 W(t)= F1(t)-F2(t);
                 w= mean(W);
                 D = std(W);
@@ -190,14 +221,18 @@ for i=1:length(Mph),
                 f2 = mean (F2); % Average fidelity (rhohistogram, rho)
                 f3 = mean (F3); % Average fidelity (rhohistogram, psi)
                 f4 = mean (F4); % Average fidelity (rhoML2, psi)
-                t1 = mean (T1); % Average time to calculate loyalty (rhoML2, rho)
-                t2 = mean (T2); % Average time to calculate loyalty (rhohistogram, rho)
-%                 t3 = mean (T3); % Average time to calculate loyalty (rhohistogram, psi)
-%                 t4 = mean (T4); % Average time to calculate loyalty (rhoML2, psi)
-                d1 = std(T1);
-                d2 = std(T2);
-                dF1= std(F1);
-                dF2= std(F2);
+                t1 = mean (T1); % Average time to build (rhoML2)
+                t2 = mean (T2); % Average time to calculate  fidelity (rhoML2,rho)
+                t3 = mean (T3); % Average time to build M
+                t4 = mean (T4); %  Average time to build (rhohistogram)
+                t5 = mean (T5); % Average time to calculate fidelity(rhohistogram, rho)
+                d1 = std(T1); %  Standard deviation of the mean time of the rhoML2 construct
+                d2 = std(T2); % Standard deviation of the fidelity estimation time (rhoML2, rho)
+                d3 = std(T3); %  Standard deviation of the mean time of construction of M
+                d4 = std(T4); % Standard deviation of the mean time of the rhohistogram construction
+                d5 = std(T5); % Standard deviation of the fidelity estimation time (rhohistogram, rho)
+                dF1= std(F1); % Standard deviation of the  fidelity of (rhoML2, rho)
+                dF2= std(F2); % Standard deviation of the  fidelity of (rhohistogram, rho)
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/num_sim*100);
                 t=t+1;
