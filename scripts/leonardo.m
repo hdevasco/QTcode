@@ -30,23 +30,68 @@ clear;
 Mph = [10];
 
 
-% Values for the number of bins
-b =[10, 50, 100, 200, 500, 800, 1000, 1250, 1500, 2000];
-
 % Number of measurements
-nM = [20000];
+num_measurements = [20000];
+
+
+% Simulates the reconstruction of the quantum state using the bins number method determined for the histogram
+
+% num_bins = [100];
+
+% for i=1:length(Mph),
+%     for j=1:length(num_bins),
+%         for k=1:length(num_measurements),
+%             
+%             fileName = ['maxnumberMph',num2str(Mph(i)),'b',num2str(num_bins(j)),'nM',num2str(num_measurements(k)),'.mat'];
+
+%  if exist(fileName,'file') == 2,
+%                 load(fileName);
+%             else
+%                 maxPhotonNumber = Mph(i);
+%                 num_bins = num_bins(j);
+%                 num_sim  = 100;
+%                 F1 = zeros(num_sim,1);
+%                 F2 = zeros(num_sim,1);
+%                 F3 = zeros(num_sim,1);
+%                 F4 = zeros(num_sim,1);
+%                 W = zeros(num_sim,1);
+%                 T1 = zeros(num_sim,1);
+%                 T2 = zeros(num_sim,1);
+%                 T3 = zeros(num_sim,1);
+%                 T4 = zeros(num_sim,1);
+%                 T5= zeros(num_sim,1);
+%                
+%                 num_measurements       = num_measurements(k);
+%                 etaDetector         = 0.9;
+%                 maxIterations       = 2000;
+%                 stoppingCriterion   = 0.01;
+%                 alpha = 1;
+%                 phase = 0;
+%                 etaState = 0.8;
+%                 t=1;
+%                 
+%                 save(fileName);
+%             end
+%             while t <= num_sim,
+
+% Simula a reconstrução do estado usando o método de largura ótima para o
+% histograma
+
+% Simulates quantum state reconstruction using the optimal width method for the histogram
+
+option = [2];
 
 for i=1:length(Mph),
-    for j=1:length(b),
-        for k=1:length(nM),
+    for j=1:length(option),
+        for k=1:length(num_measurements),
             
-            fileName = ['maxnumberMph',num2str(Mph(i)),'b',num2str(b(j)),'nM',num2str(nM(k)),'.mat'];
+            fileName = ['maxnumberMph',num2str(Mph(i)),'option',num2str(option(j)),'nM',num2str(num_measurements(k)),'.mat'];
             
             if exist(fileName,'file') == 2,
                 load(fileName);
             else
                 maxPhotonNumber = Mph(i);
-                numberbins = b(j);
+                num_bins = option(j);
                 num_sim  = 100;
                 F1 = zeros(num_sim,1);
                 F2 = zeros(num_sim,1);
@@ -59,7 +104,7 @@ for i=1:length(Mph),
                 T4 = zeros(num_sim,1);
                 T5= zeros(num_sim,1);
                
-                nMeasurements       = nM(k);
+                num_measurements       = num_measurements(k);
                 etaDetector         = 0.9;
                 maxIterations       = 2000;
                 stoppingCriterion   = 0.01;
@@ -75,10 +120,10 @@ for i=1:length(Mph),
                 fprintf('>> Generating angles... ');
                 tic;
                 
-                m = 20;% Number of equally spaced angles
-                angles = pi*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,19]/m;
-                angles = repmat(angles,1,ceil (nMeasurements/m));
-                angles = angles(1:nMeasurements)';
+                num_angles = 20;% Number of equally spaced angles
+                angles = pi*(0:num_angles-1)/num_angles;
+                angles = repmat(angles,1,ceil (num_measurements/num_angles));
+                angles = angles(1:num_measurements)';
                 
                 
                 disp('>> init tables...');
@@ -107,10 +152,10 @@ for i=1:length(Mph),
                 % Structure containing the POVM element corresponding to each measurement
                 % result.  Note that the POVMs are not pure projectors.  The homodyne
                 % detector's efficiency has been included in the computation of the POVMs.
-%                 tic;
+                %  tic;
                 %     Povms = make_measurement_struct(samples,etaDetector,S);
                 
-                % Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iteraÃ§Ãµes
+                % Agora vamos usar o algoritmo R * rho * R até termos feito 2000 iterações
                 % Ou chegarmos a parar a diferença 0.01 (o que ocorrer primeiro).
                 % A intercepção é um limite superior da diferença entre o verdadeiro
                 % Log-verossimilhanÃ§a máxima e a log-verossimilhança do estado de iterações.
@@ -152,14 +197,27 @@ for i=1:length(Mph),
                 F1(t) = fidelity(rhoML2, rho);
                 T2(t)= toc;
                 
+               
                 
-                %Constrói a matriz M que tem como linhas(Ângulo, centro do bin,nÚmero de contagens no bin)
+                %Constrói a matriz M que tem como linhas(Ângulo, centro do bin,número de contagens no bin)
                 
                 % It constructs the matrix M that has as lines (angle, center of the bin, number of counts in the bin)
                 
                 disp('>> matrix histogram ...');
+                
+%                 M  será construída a partir de histogramas utilizando as medidas
+%                 de quadratura de samples nas 20 fases igualmente espaçadas de 0 a pi.
+%                 Usaremos o método de Scott para estimar a largura ótima dos bins.
+                
+                % M will be constructed from histograms using the measures
+                % of quadrature of samples in the 20 equally spaced phases from 0 to pi. 
+                % We will use Scott's method to estimate the optimal width of the bins.
+                
+                option = 2 ;
+                
                 tic;
-                M = matrix_histogram(samples,angles,nM,b(j),m);
+                
+                M = matrix_histogram(samples,option);
                 T3(t) = toc;
               
                
