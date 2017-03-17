@@ -20,20 +20,20 @@ method = {'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'};
 if option > 6,
     num_bins = option;
     angles = pi*(0:num_angles-1)/num_angles;
-    angles = repmat(angles,b,(num_measurements/num_angles));
+    angles = repmat(angles,num_bins,(num_measurements/num_angles));
     angles = angles(1:num_bins*num_angles)';
     A = angles;
 
     H = zeros(num_measurements/num_angles, num_angles);
     N = zeros(num_bins, num_angles);
 
-    for i=1:m;
+    for i=1:num_angles;
          
-        H(:,i) = samples((i:m:end),2); 
+        H(:,i) = samples((i:num_angles:end),2); 
         [N(:,i),edges] = histcounts(H(:,i), num_bins);
         d = diff(edges)/2;
         centers = edges(1:end-1)+d;
-        C = centers';        
+        C(:,i) = centers';        
     end
     
     A2 = A(:);
