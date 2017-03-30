@@ -8,8 +8,8 @@ maxPhotonNumber    = 10;
 numMeasurements    = 20000;
 
 % Simulates the reconstruction of the quantum state using the Scott's Method and the bins number method determined for the histogram
-numBins            = 100;
-option             = [numBins];
+% numBins            = 100;
+option             = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
 % Number of simulations
 numSim             = 100;
@@ -19,7 +19,7 @@ maxIterations      = 2000;
 stoppingCriterion  = 0.01;
 alpha              = 1;
 phase              = 0;
-etaState           = 1/2; % antes era 0.8
+etaState           = 1/2; 
 
 % Number of angles equally spaced from 0 to pi
 numAngles          = 20;
@@ -47,7 +47,7 @@ for i=1:length(maxPhotonNumber),
                 timeRhoHistogram    = zeros(numSim,1);
                 timeRhoScott        = zeros(numSim,1);
                 t                   = 1;
-                ratioSwitch     = 'true variance';
+                ratioSwitch     = 'ratio';
                 save(fileName1);
             end
             
@@ -63,8 +63,8 @@ for i=1:length(maxPhotonNumber),
                 
                 % novo estado pedido Dr.Glancy, estado de vácuo comprimido
                 % com variância de 3/4 do vácuo
-                varianceOrRatio = 3/4;
-                state = generate_squeezed_vacuum_vector(varianceOrRatio, maxPhotonNumber, ratioSwitch);
+                variance = 3/4;
+                state = generate_squeezed_vacuum_vector(variance, maxPhotonNumber, ratioSwitch);
                 
                 Rho = apply_loss(state,etaState,S);
                 
@@ -124,6 +124,12 @@ for i=1:length(maxPhotonNumber),
                 stdFHistogram           = std(fHistogram);        % Standard deviation of fHistogram
                 stdFML2                 = std(fML2);              % Standard deviation of fML2
                 stdFScott               = std(fScott);            % Standard deviation of fScott
+                stdTML2                 = std(timeML2);
+                stdTMHistogram          = std(timeMhistogram);
+                stdTMScott              = std(timeMScott);
+                stdTRhoHistogram        = std(timeRhoHistogram);
+                stdTRhoScott            = std(timeRhoScott);
+                
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/numSim*100);
                 t=t+1;
