@@ -18,8 +18,9 @@ maxPhotonNumber    = 10;
 numMeasurements    = 20000;
 
 % Simulates the reconstruction of the quantum state using the Scott's Method and the bins number method determined for the histogram
-numBins            = 100;
-option             = [numBins];
+% numBins            = 100;
+option             = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
 
 % Number of simulations
 numSim             = 100;
@@ -120,8 +121,8 @@ for i=1:length(maxPhotonNumber),
                 meanFScott          = mean(fScott);
                 meanFML2Psi         = mean(fML2Psi);
                 meanFHistogramPsi   = mean(fHistogramPsi);
-                meanFScottPsi          = mean(fScottPsi);     
-                meanTimeRhoML2             = mean(timeML2);
+                meanFScottPsi           = mean(fScottPsi);     
+                meanTimeRhoML2          = mean(timeML2);
                 meanTimeMHistogram      = mean(timeMhistogram);
                 meanTimeMScott          = mean(timeMScott);
                 meanTimeRhoHistogram    = mean(timeRhoHistogram);
@@ -129,6 +130,12 @@ for i=1:length(maxPhotonNumber),
                 stdFHistogram           = std(fHistogram);        % Standard deviation of fHistogram
                 stdFML2                 = std(fML2);              % Standard deviation of fML2
                 stdFScott               = std(fScott);            % Standard deviation of fScott
+                stdTML2                 = std(timeML2);
+                stdTMHistogram          = std(timeMhistogram);
+                stdTMScott              = std(timeMScott);
+                stdTRhoHistogram        = std(timeRhoHistogram);
+                stdTRhoScott            = std(timeRhoScott);
+                
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/numSim*100);
                 t=t+1;
