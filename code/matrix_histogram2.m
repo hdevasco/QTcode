@@ -3,9 +3,13 @@ function M2 = matrix_histogram2(samples,deltaq)
     Bin_Width  = deltaq;
     num_measurements = size(samples, 1);
     num_angles = num_measurements/1000;
-
+%     angles = pi*(0:num_angles-1)/num_angles;
+%     angles = repmat(angles,(num_measurements/num_angles),(num_measurements/num_angles));
+%     angles = angles(1:(num_measurements/num_angles)*num_angles)';
+%     A = angles;
 
     H = zeros(num_measurements/num_angles, num_angles);
+%     N = zeros(num_measurements/num_angles, num_angles);
     M = zeros(1,3);
     
     for i=1:num_angles;
@@ -21,4 +25,4 @@ function M2 = matrix_histogram2(samples,deltaq)
         
         
     end
-    M =M(2:end,:);
+    M2 =M(2:end,:);
