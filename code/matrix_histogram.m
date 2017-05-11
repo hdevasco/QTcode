@@ -10,7 +10,8 @@ function M = matrix_histogram(samples, option, deltaq)
 %       4 = 'integers'
 %       5 = 'sturges'
 %       6 = 'sqrt'
-%       7 = 'deltaq'
+%       7 = 'BinWidth'(Option 7 specifies the width of the bin, which must be initialized 
+%       in matrix_histogram(sample, 7, bin width(scalar))).
 %       values grater than 7 indicates a number of bins.
 
 num_measurements = size(samples, 1);
