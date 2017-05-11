@@ -71,7 +71,7 @@ for i=1:length(Mph),
                     
                 % Constructs the MHistogram matrix using the BinWidth (case option= 7 in the matrix_histogram function)
                 tic;
-                MHistogram = matrix_histogram2(Samples, 7, deltaq(j));  
+                MHistogram = matrix_histogram(Samples, 7, deltaq(j));  
                 timeMhistogram(t) = toc;
                 
                 % Constructs the MScott array using the optimal width method (case option = 2 in the matrix_histogram function)
