@@ -7,14 +7,9 @@ Mph = [10];
 
 
 % Specified Bin Width
-deltaq =[0.34];
-
-% Number of measurements
-numMeasurements = [20000];
-
-% Number of simulations
+deltaq =[0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.2, 0.34]
 numSim             = 100;
-
+numMeasurements = 20000;
 etaDetector        = 0.9;
 maxIterations      = 2000;
 stoppingCriterion  = 0.01;
@@ -29,7 +24,7 @@ for i=1:length(Mph),
     for k=1:length(numMeasurements),
          for j=1:length(deltaq),
             
-            fileName1 = ['maxPhNum',num2str(Mph(i)),'op',num2str(deltaq(j)),'nM',num2str(numMeasurements(k)),'.mat'];
+            fileName1 = ['maxPhNum',num2str(Mph(i)),'BinWidth',num2str(deltaq(j)),'nM',num2str(numMeasurements(k)),'.mat'];
             
             if exist(fileName1,'file') == 2,
                 load(fileName1);
@@ -74,9 +69,9 @@ for i=1:length(Mph),
                 % Calculates the fidelity of RhoML2 and Rho
                 fML2(t) = fidelity(RhoML2, Rho);
                     
-                % Constructs the MHistogram matrix using the specified BinWidth(matrix_histogram2 function)
+                % Constructs the MHistogram matrix using the BinWidth (case option= 7 in the matrix_histogram function)
                 tic;
-                MHistogram = matrix_histogram2(Samples, deltaq(j));  
+                MHistogram = matrix_histogram2(Samples, 7, deltaq(j));  
                 timeMhistogram(t) = toc;
                 
                 % Constructs the MScott array using the optimal width method (case option = 2 in the matrix_histogram function)
@@ -84,7 +79,6 @@ for i=1:length(Mph),
                 MScott = matrix_histogram(Samples, 2);
                 timeMScott(t) =toc;
                 
-                % Constructs RhoHistogram using the combined_optimization
                 [RhoHistogram, Diagnostics] = combined_optimization( MHistogram, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 timeRhoHistogram(t) = toc;
                 
