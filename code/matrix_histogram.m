@@ -1,4 +1,4 @@
-function M = matrix_histogram(samples, option) 
+function M = matrix_histogram(samples, option, deltaq) 
 % M = MATRIX_HISTOGRAM(samples, option) 
 %  This functions makes a matrix histogram using as input samples a matrix
 %  Mx3 of columns [angles, measurements of quadratures, measures number in each bin]
@@ -10,14 +10,15 @@ function M = matrix_histogram(samples, option)
 %       4 = 'integers'
 %       5 = 'sturges'
 %       6 = 'sqrt'
-%       values grater than 6 indicates a number of bins.
+%       7 = 'deltaq'
+%       values grater than 7 indicates a number of bins.
 
 num_measurements = size(samples, 1);
 num_angles = num_measurements/1000;
 method = {'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'};
 
 % Specify number of bins
-if option > 6,
+if option > 7,
     num_bins = option;
     angles = pi*(0:num_angles-1)/num_angles;
     angles = repmat(angles,num_bins,(num_measurements/num_angles));
@@ -48,6 +49,30 @@ if option > 6,
     
     M = [A3, C3, N3];
 else
+    % Specified BinWidth
+    if (option ==7),
+    Bin_Width  = deltaq;
+    num_measurements = size(samples, 1);
+    num_angles = num_measurements/1000;
+    
+    H = zeros(num_measurements/num_angles, num_angles);
+    M = zeros(1,3);
+    
+    for i=1:num_angles;
+        
+        angle = samples(i,1); 
+        H(:,i) = samples((i:num_angles:end),2); 
+        [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width);
+        d = diff(edges)/2;
+        centers = edges(1:end-1)+d;
+        C = centers';  
+        MA = [repmat(angle,length(N),1), C, N'];
+        M = [M; MA];
+        
+        
+    end
+    M =M(2:end,:);
+else
     % Specify method
     if (option > 0) && (option < 7),
 
@@ -56,17 +81,21 @@ else
 
         for i=1:num_angles;
 
-            angle = samples(i,1);
-            H(:,i) = samples((i:num_angles:end),2); 
-            [N,edges] = histcounts(H(:,i),'BinMethod', method{option});
-            d = diff(edges)/2;
-            centers = edges(1:end-1)+d;
-            C = centers';
-            MA = [repmat(angle,length(N),1), C, N'];
-            M = [M; MA];
+                angle = samples(i,1);
+                H(:,i) = samples((i:num_angles:end),2); 
+                [N,edges] = histcounts(H(:,i),'BinMethod', method{option});
+                d = diff(edges)/2;
+                centers = edges(1:end-1)+d;
+                C = centers';
+                MA = [repmat(angle,length(N),1), C, N'];
+                M = [M; MA];
 
+         end
+
+             M =M(2:end,:);
+    
         end
-
-        M =M(2:end,:);
     end
+end 
+
 end
