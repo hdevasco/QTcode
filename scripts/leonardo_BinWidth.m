@@ -1,15 +1,17 @@
 tic;
 clc;
 clear;
-
 %Maximum number of photons
-Mph = [10];
+ maxPhotonNumber    = 10;
 
+% Number of measurements
+numMeasurements    = 20000;
 
-% Specified Bin Width
-deltaq =[0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.2, 0.34]
+% Specified BinWidth
+deltaq             = [0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.2, 0.34];
+% Number of simulations
 numSim             = 100;
-numMeasurements = 20000;
+
 etaDetector        = 0.9;
 maxIterations      = 2000;
 stoppingCriterion  = 0.01;
@@ -20,11 +22,25 @@ etaState           = 0.8;
 % Number of angles equally spaced from 0 to pi
 numAngles          = 20;
 
-for i=1:length(Mph),
+% Gerar estado Rho
+            
+            angles = pi*(0:numAngles-1)/numAngles;
+            angles = repmat(angles,1, ceil(numMeasurements/numAngles));
+            angles = angles(1:numMeasurements)';
+
+
+             S   = init_tables(maxPhotonNumber);
+                psi = generate_cat_vector(alpha, phase, S);
+                Rho = apply_loss(psi,etaState,S);
+            
+                
+             Samples = homodyne_samples(-7,7,etaDetector,angles,Rho,S);
+                
+ for i=1:length(maxPhotonNumber),
     for k=1:length(numMeasurements),
          for j=1:length(deltaq),
             
-            fileName1 = ['maxPhNum',num2str(Mph(i)),'BinWidth',num2str(deltaq(j)),'nM',num2str(numMeasurements(k)),'.mat'];
+            fileName1 = ['maxPhNum',num2str(maxPhotonNumber(i)),'BinWidth',num2str(deltaq(j)),'nM',num2str(numMeasurements(k)),'.mat'];
             
             if exist(fileName1,'file') == 2,
                 load(fileName1);
@@ -47,38 +63,29 @@ for i=1:length(Mph),
                 save(fileName1);
             end
             
-            angles = pi*(0:numAngles-1)/numAngles;
-            angles = repmat(angles,1, ceil(numMeasurements(k)/numAngles));
-            angles = angles(1:numMeasurements(k))';
-            
-           while t <= numSim,
+
+            while t <= numSim,
                 fprintf(['Iteraction ',num2str(t), '\n']);
                 
-                tic;
-                S   = init_tables(Mph(i));
-                psi = generate_cat_vector(alpha, phase, S);
-                Rho = apply_loss(psi,etaState,S);
-                
-                Samples = homodyne_samples(-7,7,etaDetector,angles,Rho,S);
-                
-                % Constructs RhoML2 using the combined_optimization
-                tic;
+              tic;
                 [RhoML2, Diagnostics] = combined_optimization( Samples, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 timeML2(t) = toc;
                 
                 % Calculates the fidelity of RhoML2 and Rho
                 fML2(t) = fidelity(RhoML2, Rho);
                     
-                % Constructs the MHistogram matrix using the BinWidth (case option= 7 in the matrix_histogram function)
+                % Constructs the MHistogram matrix using the given number of bins (case option> 6 in the matrix_histogram function)
                 tic;
-                MHistogram = matrix_histogram(Samples, 7, deltaq(j));  
+                MHistogram = matrix_histogram(Samples, 7, deltaq(j));
                 timeMhistogram(t) = toc;
                 
                 % Constructs the MScott array using the optimal width method (case option = 2 in the matrix_histogram function)
                 tic;
                 MScott = matrix_histogram(Samples, 2);
-                timeMScott(t) =toc;
+                timeMScott(t) = toc;
                 
+                %  Constructs RhoHistogram using the combined_optimization
+                tic;
                 [RhoHistogram, Diagnostics] = combined_optimization( MHistogram, S, etaDetector, 0, maxIterations, stoppingCriterion);
                 timeRhoHistogram(t) = toc;
                 
@@ -127,4 +134,4 @@ for i=1:length(Mph),
             end
         end
     end
-end
+end   
