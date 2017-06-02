@@ -22,7 +22,7 @@ etaState           = 0.8;
 % Number of angles equally spaced from 0 to pi
 numAngles          = 20;
 
-% Gerar estado Rho
+% Generate state Rho
             
             angles = pi*(0:numAngles-1)/numAngles;
             angles = repmat(angles,1, ceil(numMeasurements/numAngles));
