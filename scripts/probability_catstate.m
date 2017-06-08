@@ -2,20 +2,20 @@ tic;
 clc;
 clear;
 
+% Probability distribution of n photons in cat state
 
 alpha = 1;
     
-number_photons = 1:1:15;
+number_photons = 0:1:16;
 
  % Probability
-for i= 1:15; 
+for i= 1:17; 
 
-    p = 0:1:15; 
     
  % Normalization
  N = (2+2*exp(-2*alpha^2));
  
- P(i)= ((2/(N*factorial(i)))*(exp(-alpha^2)*(alpha.^2)^(i)+exp(-alpha^2)*(-alpha^2)^(i)));
+ P(i)= ((2/(N*factorial(i-1)))*(exp(-alpha^2)*(alpha^2)^(i-1)+exp(-alpha^2)*(-alpha^2)^(i-1)));
  
  
 end
