@@ -1,6 +1,3 @@
-% Probabilidade de termos 10 fótons no espaço de Hilbert conforme
-% variamos o número de fótons do estado de gato
-
 % Probability of having 10 photons in the Hilbert space as we vary the number of photons in the cat state
 
 P_10 = zeros(9,1);
@@ -9,7 +6,7 @@ alpha = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 for j= 1:1:9;
 
-psi = generate_cat_vector(j-1, 0, 10)
+psi = generate_cat_vector(j-1, 0, 100)
 
 rho = psi*psi';
 
