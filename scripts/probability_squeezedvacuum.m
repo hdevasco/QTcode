@@ -1,8 +1,6 @@
-% Probabilidade de termos mais de "n" fótons no estado de vácuo comprimido
-
 %  Probability of having more than "n" photons in the vacuum state squeezed
 
-psi = generate_squeezed_vacuum_vector(3/4, 10, 'ratio');
+psi = generate_squeezed_vacuum_vector(3/4, 100, 'ratio');
 
 % generate state squeezed
 rho = psi*psi';
