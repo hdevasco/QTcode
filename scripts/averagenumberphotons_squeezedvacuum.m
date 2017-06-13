@@ -1,4 +1,4 @@
-psi = generate_squeezed_vacuum_vector(3/4, 10, 'ratio');
+psi = generate_squeezed_vacuum_vector(3/4, 100, 'ratio');
 
 rho = psi*psi';
 
