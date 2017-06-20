@@ -20,7 +20,7 @@ for i= 1:9;
  t = (-((i-1)^2)-(1/2)*(((i-1)^2)*exp(1j*theta)+((i-1)^2)*exp(-1j*theta))*tanh(r));
  
  
- P(i)= (((1/2)*(tanh(r))^n)/((factorial(n)*cosh(r)))*exp(t)*abs(hermiteH(10,t))^2);
+ P(i)= (((1/2)*(tanh(r))^n)/((factorial(n)*cosh(r)))*exp(t)*abs(hermiteH(10,z))^2);
  
  
 end
