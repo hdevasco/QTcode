@@ -1,7 +1,19 @@
-psi = generate_squeezed_vacuum_vector(3/4, 100, 'ratio');
+% (<|alpha,r|n|alpha,r>) Average number of protons according to the alpha value (Squeezed State)
 
-rho = psi*psi';
+average_number_photons = zeros(9,1);
 
-% n = <n>: average number of photons
+r= 0.14;
 
-n = mean_photons(rho);
+alpha = [0,1, 2, 3, 4, 5, 6, 7, 8];
+
+theta = 0;
+
+for j=1:1:9;
+
+
+average_number_photons(j)= (j-1)^2*(cosh(r)^2+sinh(r)^2)-(j-1)^2*(exp(1i*theta)*sinh(r)*cosh(r))-(j-1)^2*(exp(-1i*theta)*sinh(r)*cosh(r))+sinh(r)^2;
+
+end
+
+
+plot(alpha, average_number_photons)
