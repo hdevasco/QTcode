@@ -14,7 +14,7 @@ theta = 0;
 
 for i= 1:9; 
 
- z = ((i-1)+(i-1)*exp(1j*theta)*tanh(r))/((2*exp(1j*theta)*tanh(r))^(1/2));
+ z = ((i-1)*cosh(r)+(i-1)*exp(1j*theta)*sinh(r))/((exp(1j*theta)*sinh(2*r))^(1/2));
  
  
  t = (-((i-1)^2)-(1/2)*(((i-1)^2)*exp(1j*theta)+((i-1)^2)*exp(-1j*theta))*tanh(r));
@@ -27,4 +27,3 @@ end
 
   plot(alpha,P);       
                 
-
