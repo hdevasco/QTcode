@@ -1,19 +1,29 @@
-%  Probability of having more than "n" photons in the vacuum state squeezed
+tic;
+clc;
+clear;
 
-psi = generate_squeezed_vacuum_vector(3/4, 100, 'ratio');
+% Probability distribution of n photons in squeezed state
 
-% generate state squeezed
-rho = psi*psi';
+r = 0.14;
 
-w = length(psi);
-p_n = zeros(w,1);
-
-for i=1:w-1,
-    n = zeros(w,1);
-    n(i,1) = 1;
+n = 10
     
-    p_n(i,1) = n'*rho*n;
+alpha = 0:1:8;
+
+theta = 0;
+
+for i= 1:9; 
+
+ z = ((i-1)+(i-1)*exp(1j*theta)*tanh(r))/((2*exp(1j*theta)*tanh(r))^(-1/2));
+ 
+ 
+ t = (-((i-1)^2)-(1/2)*(((i-1)^2)*exp(1j*theta)+((i-1)^2)*exp(-1j*theta))*tanh(r));
+ 
+ 
+ P(i)= (((1/2)*(tanh(r))^n)/((factorial(n)*cosh(r)))*exp(t)*abs(hermiteH(10,t))^2);
+ 
+ 
 end
 
-
-P_10= 1-sum(p_n(1:11));
+  plot(alpha,P);       
+                
