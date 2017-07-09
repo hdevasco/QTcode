@@ -1,6 +1,6 @@
-% Probability of having 10 photons in the Hilbert space as we vary the number of photons in the cat state
+% Probability of having 15 photons in the Hilbert space as we vary the number of photons in the cat state
 
-P_10 =                        zeros(9,1);
+P_15 =                        zeros(9,1);
 average_numberphotons =       zeros(9,1);
 
 alpha =      [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -25,11 +25,13 @@ rho = apply_loss(psi,etaState,S);
 
 % Probability of obtaining 10 our more photons
 
-P_10(j)= 1-sum(p_n(1:11));
+% P_10(j)= 1-sum(p_n(1:11));
+
+P_15(j)= 1-sum(p_n(1:16));
 
 
 average_numberphotons(j)= mean_photons(rho);
 
 end
 
-plot(alpha,P_10)
+plot(alpha,P_15)
