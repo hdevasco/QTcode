@@ -16,15 +16,11 @@ psi = generate_cat_vector(j-1, 0, 100)
 
 rho = apply_loss(psi,etaState,S);
 
-w = length(rho);
-p_n = zeros(w,1);
 
-for i=1:w-1,
     
-    % p_n constructs an array whose lines are the probabilities of p (n).
-    p_n(:,1) = diag(rho);
+    % p_n constructs the probabilities of p (n).
+    p_n = diag(rho);
     
-end
 
 
 % Probability of obtaining 10 our more photons
