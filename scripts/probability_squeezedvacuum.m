@@ -9,15 +9,10 @@ S               = init_tables(maxPhotonNumber);
 % Apply_loss returns the density matrix after passing through a lossy medium
 rho = apply_loss(psi, 0.8, S);
 
-w = length(rho);
-p_n = zeros(w,1);
 
-
-for i=1:w-1,
-    % p_n constructs an array whose lines are the probabilities of p (n).
-    p_n(:,1) = diag(rho);
+    % p_n constructs the probabilities of p (n).
+    p_n = diag(rho);
     
-end
 
 % Probability of the squeezed state to have 10 our more photons 
 P_10= 1-sum(p_n(1:11));
