@@ -12,7 +12,8 @@ numMeasurements    = 20000;
 
 
 % Specified BinWidth
-deltaq             = [0.47];
+% delta < q/8, q/4 e q/2
+deltaq             = [0.11,0.23, 0.47];
 
 % Number of simulations
 numSim             = 100;
@@ -35,12 +36,12 @@ for i=1:length(maxPhotonNumber),
             if exist(fileName1,'file') == 2,
                 load(fileName1);
             else
-                fML2                = zeros(numSim,1);
+                 fML2                = zeros(numSim,1);
                 fScott              = zeros(numSim,1);
                 fHistogram          = zeros(numSim,1);
-                fHistogramVacumm    = zeros(numSim,1);
-                fML2Vacumm          = zeros(numSim,1);
-                fScottVacumm        = zeros(numSim,1);
+                fHistogramPsi       = zeros(numSim,1);
+                fML2Psi             = zeros(numSim,1);
+                fScottPsi           = zeros(numSim,1);
                 fidelityDiff        = zeros(numSim,1);
                 fidelityDiff2       = zeros(numSim,1);
                 timeML2             = zeros(numSim,1);
@@ -50,6 +51,7 @@ for i=1:length(maxPhotonNumber),
                 timeRhoScott        = zeros(numSim,1);
                 t                   = 1;
                 
+               
                 save(fileName1);
             end
             
@@ -99,22 +101,22 @@ for i=1:length(maxPhotonNumber),
                 
                 fHistogram(t)       = fidelity(RhoHistogram, Rho); % Calculates the fidelity of RhoHistogram and Rho
                 fScott(t)           = fidelity(RhoScott, Rho);     % Calculates the fidelity of RhoScott and Rho
-                fHistogramVacumm(t)    = fidelity(RhoHistogram, state); % Calculates the fidelity of RhoHistogram and Psi
-                fML2Vacumm(t)          = fidelity(RhoML2, state);       % Calculates the fidelity of RhoML2 and Psi
-                fScottVacumm(t)        = fidelity(RhoScott, state);     % Calculates the fidelity of RhoScott and Rho
+                fHistogramPsi(t)    = fidelity(RhoHistogram, psi); % Calculates the fidelity of RhoHistogram and Psi
+                fML2Psi(t)          = fidelity(RhoML2, psi);       % Calculates the fidelity of RhoML2 and Psi
+                fScottPsi(t)        = fidelity(RhoScott, psi);     % Calculates the fidelity of RhoScott and Rho
                 
                 fidelityDiff(t)     = fML2(t)-fHistogram(t);       % Difference between fidelities [fidelity(RhoML2,Rho)-fidelity(RhoHistogram,Rho)]
                 fidelityDiff2(t)    = fML2(t)-fScott(t);           % Difference between fidelities [fidelity(RhoML2,Rho)-fidelity(RhoScott,Rho)]
                 wHistogram          = mean(fidelityDiff);
                 wHistogram2         = mean(fidelityDiff2);
                 Dhistogram          = std(fidelityDiff);           % Standard deviation of the difference between the fidelities(fML2,fHistogram)
-                Dhistogram2         = std(fidelityDiff2);         % Standard deviation of the difference between the fidelities(fML2,fScott)
+                Dhistogram2          = std(fidelityDiff2);         % Standard deviation of the difference between the fidelities(fML2,fScott)
                 meanFML2            = mean(fML2);                  
                 meanFHistogram      = mean(fHistogram);
                 meanFScott          = mean(fScott);
-                meanFML2Vacumm         = mean(fML2Vacumm);
-                meanFHistogramVacumm    = mean(fHistogramVacumm);
-                meanFScottVacumm        = mean(fScottVacumm);     
+                meanFML2Psi         = mean(fML2Psi);
+                meanFHistogramPsi   = mean(fHistogramPsi);
+                meanFScottPsi           = mean(fScottPsi);     
                 meanTimeRhoML2          = mean(timeML2);
                 meanTimeMHistogram      = mean(timeMhistogram);
                 meanTimeMScott          = mean(timeMScott);
@@ -137,4 +139,4 @@ for i=1:length(maxPhotonNumber),
             end
         end
     end
-end
+end   
