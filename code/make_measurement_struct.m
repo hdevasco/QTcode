@@ -23,11 +23,20 @@ end
 
 nTotalMeasurements = sum(measurementArray(:,3));
 
+% loss_operation will make the Krauss operators, which we use to correct
+% the POVMs for homodyne inefficiency.  These are the Hermitian conjugates
+% of the operator elements which one would apply to a state.
+if eta ==1
+    eHC = 1;
+else
+    eHC = loss_operation(eta, S, 'ToPOVM');
+end
+
 povmArray = zeros(S.dimHilbertSpace,S.dimHilbertSpace,nMeasurements);
 
 for n = 1:nMeasurements
-    povmArray(:,:,n) = homodyne_loss_measurement(measurementArray(n,1:2), ...
-                                                 eta, S, 'return matrix');
+    povmArray(:,:,n) = coarse_measurement(measurementArray(n,1:3), ...
+                                                 eHC, S, 'return matrix');
 end
 
 Measurements = struct('nMeasurements', nMeasurements, ...
