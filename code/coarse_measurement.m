@@ -1,10 +1,9 @@
-function [H_int] = coarse_measurement(paramList,edges)
+function [H_int] = coarse_measurement(paramList,eta, S, returnMatrix)
 % coarse_measurement returns the integrated measurement matrix along the bin where the integration
 % limits x = a and x = b are the edges of the bin.
 
-for i=1:length(edges)-1,
-   
-H_int = integral(@(x) homodyne_loss_measurement([x,2],eta,S,'return matrix'),edges(i),edges(i+1),'ArrayValued',true);
-
-end
+theta = paramList(1);
+a = paramList(2);
+b = paramList(3);
+H_int = integral(@(x) homodyne_loss_measurement([x,theta],eta,S,returnMatrix),a,b,'ArrayValued',true);
 
