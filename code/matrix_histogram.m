@@ -57,20 +57,23 @@ else
     num_angles = num_measurements/1000;
     
     H = zeros(num_measurements/num_angles, num_angles);
-    M = zeros(1,3);
-    
+    M = zeros(1,4);
+    % The matrix B is the matrix N by 2 that represents in each line the limits of the bin.
+    B = zeros(length(edges-1),2);
     for i=1:num_angles;
         
         angle = samples(i,1); 
         H(:,i) = samples((i:num_angles:end),2); 
         [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width);
-        d = diff(edges)/2;
-        centers = edges(1:end-1)+d;
-        C = centers';  
-        MA = [repmat(angle,length(N),1), C, N'];
-        M = [M; MA];
+        B = [edges(1:end-1)',edges(2:end)'];
+        MA = [repmat([angle,length(N),1), B , N'];
+%         d = diff(edges)/2;
+%         centers = edges(1:end-1)+d;
+%         C = centers';  
+%         MA = [repmat(angle,length(N),1), C, N'];
+         M = [M; MA];
         
-        
+        end
     end
     M =M(2:end,:);
 else
