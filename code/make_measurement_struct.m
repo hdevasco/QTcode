@@ -35,7 +35,7 @@ end
 povmArray = zeros(S.dimHilbertSpace,S.dimHilbertSpace,nMeasurements);
 
 for n = 1:nMeasurements
-    povmArray(:,:,n) = coarse_measurement(measurementArray(n,1:3), ...
+    povmArray(:,:,n) = homodyne_loss__measurement(measurementArray(n,1:2), ...
                                                  eHC, S, 'return matrix');
 end
 
