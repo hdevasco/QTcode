@@ -1,0 +1,105 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: histogram.aux
+The style file: apsrev4-1.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: histogramNotes.bib
+Database file #2: histogram.bib
+I was expecting a `,' or a `}'---line 421 of file histogram.bib
+ :    
+ :    %url = "http://iopscience.iop.org/1367-2630/page/Focus\%20on\%20Quantum\%20Tomography"
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 689 of file histogram.bib
+ :   
+ :   pages = {041802(R)},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "qip" is undefined
+--line 1117 of file histogram.bib
+I was expecting a `,' or a `}'---line 1273 of file histogram.bib
+ :   
+ :   year = {2003},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1293 of file histogram.bib
+ :   
+ :   year = {2006},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1313 of file histogram.bib
+ :   
+ :   year = {1998},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1335 of file histogram.bib
+ :   
+ :   year = {2004},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+control{REVTEX41Control}, control.key{N/A}, control.author{N/A}, control.editor{N/A}, control.title{N/A}, control.pages{N/A}, control.year{N/A}, control.eprint{N/A}, 
+control{apsrev41Control}, control.key{N/A}, control.author{00}, control.editor{1}, control.title{0}, control.pages{1}, control.year{0}, control.eprint{N/A}, 
+Warning--jnrlst (dependency: not reversed) set 1
+Warning--dotless (dependency: not initials) set 1
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+merlin.mbs apsrev4-1.bst 2010-07-25 4.21a (PWD, AO, DPC) hacked
+Control: key (0) 
+Control: author (0) dotless jnrlst
+Control: editor formatted (1) identically to author
+Control: production of article title (0) allowed
+Control: page (1) range
+Control: year (0) verbatim
+Control: production of eprint (0) enabled
+Warning--empty year in Neergaard2006
+Warning--empty year in Nielsen1998
+Warning--empty year in Mitchell2003
+Warning--empty year in Obrien2004
+Warning--empty journal in Luiz2017
+You've used 47 entries,
+            5847 wiz_defined-function locations,
+            2020 strings with 23320 characters,
+and the built_in function-call counts, 52337 in all, are:
+= -- 3253
+> -- 1468
+< -- 350
++ -- 442
+- -- 364
+* -- 8341
+:= -- 5015
+add.period$ -- 89
+call.type$ -- 47
+change.case$ -- 224
+chr.to.int$ -- 57
+cite$ -- 52
+duplicate$ -- 4965
+empty$ -- 3939
+format.name$ -- 831
+if$ -- 10280
+int.to.chr$ -- 1
+int.to.str$ -- 55
+missing$ -- 637
+newline$ -- 187
+num.names$ -- 135
+pop$ -- 1964
+preamble$ -- 1
+purify$ -- 180
+quote$ -- 0
+skip$ -- 1850
+stack$ -- 0
+substring$ -- 1364
+swap$ -- 4791
+text.length$ -- 171
+text.prefix$ -- 0
+top$ -- 10
+type$ -- 678
+warning$ -- 7
+while$ -- 140
+width$ -- 0
+write$ -- 449
+(There were 6 error messages)

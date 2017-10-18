@@ -1,0 +1,206 @@
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[
+reprint,
+superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+showpacs,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+amsmath,
+amssymb,
+aps,
+pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+longbibliography
+]{revtex4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{color}% Allows color text
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+\usepackage{ulem}% allows strike-out using sout
+\usepackage[caption=false]{subfig}
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\providecommand{\auedit}[1]{#1}
+\newif\ifcmnt
+%  Use \cmntfalse to not see comments when it is latex'ed
+%\cmntfalse
+%  Use \cmnttrue to see the comments
+\cmnttrue
+
+\ifcmnt
+    \providecommand{\aucmnt}[1]{#1}
+\else
+    \providecommand{\aucmnt}[1]{}
+\fi
+\newcommand{\HV}[1]{\auedit{\textcolor{blue}{#1}}}
+\newcommand{\HVc}[1]{\aucmnt{\textcolor{blue}{[HV: #1]}}}
+\newcommand{\HVs}[1]{\auedit{\textcolor{blue}{\sout{#1}}}}
+\newcommand{\SG}[1]{\auedit{\textcolor{magenta}{#1}}}
+\newcommand{\SGc}[1]{\aucmnt{\textcolor{magenta}{[SG: #1]}}}
+\newcommand{\SGs}[1]{\auedit{\textcolor{magenta}{\sout{#1}}}}
+\newcommand{\LS}[1]{\auedit{\textcolor{green}{#1}}}
+\newcommand{\LSc}[1]{\aucmnt{\textcolor{green}{[GS: #1]}}}
+\newcommand{\TC}[1]{\auedit{\textcolor{red}{#1}}}
+
+\newcommand{\rhotrue}{\rho_{\text{true}}}
+
+\begin{document}
+
+% \preprint{APS/123-QED}
+
+\title{Quadrature Histograms in Maximum Likelihood Quantum State Tomography}% Force line breaks with \\
+%\thanks{A footnote to the article title}%
+\author{J. L. E. Silva}
+\affiliation{Departamento de Engenharia de Teleinform\'atica, Universidade Federal do Cear\'a, Fortaleza, Cear\'a, 60440, Brazil}
+\author{H. M. Vasconcelos}
+\email{hilma@ufc.br}
+\affiliation{Departamento de Engenharia de Teleinform\'atica, Universidade Federal do Cear\'a, Fortaleza, Cear\'a, 60440, Brazil}
+\affiliation{Applied and Computational Mathematics Division, National Institute of Standards and Technology, Boulder, Colorado, 80305, USA}
+\author{S. Glancy}
+\affiliation{Applied and Computational Mathematics Division, National Institute of Standards and Technology, Boulder, Colorado, 80305, USA}
+
+%\collaboration{MUSO Collaboration}%\noaffiliation
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+Quantum state tomography (QST) aims to determine the quantum state of a system from measured data and is an essential tool for quantum information. When dealing with quantum states of light, QST is done by measuring  quantum  noise  statistics  of the  field  amplitudes  at different  optical  phases using homodyne detection. The quadrature-phase homodyne measurement outputs a continuous variable, but we can histogram the continuous measurements and make the statistical estimation faster without losing too much information. This paper investigate different ways to determine the quadrature 
+histograms for optical homodyne QST.
+
+\end{abstract}
+
+\pacs{
+03.65.Wj, %State reconstruction, quantum tomography
+03.67.-a, % Quantum information
+42.50.Dv %Quantum state engineering and measurements in quantum optics
+} % PACS, the Physics and Astronomy Classification Scheme.
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+                              %display desired
+\maketitle
+
+%\tableofcontents
+
+\section{Introduction}
+\label{intro}
+Quantum information science and engineering is now at the point where 
+rudimentary quantum computers are available in the laboratory and 
+commercially~\cite{kandala2017,Linke2017,Monk2017,Denchev2016}.
+Consequently, precise reconstruction and diagnostic tools used to estimate 
+quantum states~\cite{Vogel1989, Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007, Neergaard2006}, processes~\cite{Chuang1997, Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003, Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999, Fiurasek2001, Dariano2004, Lundeen2009} are fundamental.
+
+Quantum tomography techniques for quantum states of light became a subject of
+major interest in recent years, since quantum light sources are essential
+for implementations of continuous-variable (CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002, Jeong2002, Ralph2003}. These source are also extensively exploited in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002, Pirandola2008, Luiz2017}, quantum metrology~\cite{Eberle2010, Demkowicz2013}, state teleportation~\cite{Vaidman1994, Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014} and cloning~\cite{Cerf2000, Braunstein2001}. 
+
+In quantum state tomography, we perform a large number of experimental measurements on
+a collection of quantum systems, all prepared in a same unknown state. The goal is to
+estimate this unknown state from the experimental measurements results. This estimation
+can be done from the experimental statistical data by different methods. In here
+we will be dealing with Maximum Likelihood estimation, that finds among all possible
+states, the one which maximizes the probability of obtaining the experimental data set
+in hand. 
+
+Quantum homodyne tomography is one of the most popular optical tomography techniques
+available. It rapidly became a versatile tool and has been applied in many different quantum optics experimental settings since it was proposed by Vogel and Risken in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et al.} in 1993~\cite{Smithey1993}. This technique permits to characterize a light quantum state by means of the electric field quantum noise statistics collected through multiple phase-sensitive measurements. 
+
+A homodyne measurement generates a continuous value. While no data binning is necessarily
+needed, we believe that the loss due to binning may be insignificant. On the other hand,
+discretization of the data by binning it reduces considerably the number of data, expediting the reconstruction algorithm. But how can we estimate the quadrature bin width, such that the bins are not too small nor too big? Bins should not be too small in order to avoid significant statistical fluctuation due to scarcity of samples in each bin. And bins should not be too large in order to avoid a lack of resolution, making the histogram a poor representation of the underlying distribution shape.
+ 
+In this paper, we use numerical experiments to simulate optical homodyne tomography of quantum optical states and perform maximum likelihood tomography on the data with
+and without binning. When choosing a quadrature bin width, we use and compare two different ways: Scott's rule~\cite{Scott2010} and equation (5.136) from Leonhardt's book~\cite{Leonhardt1997}. The paper is divide as follow: in Section \ref{MLE} we review maximum likelihood in homodyne tomography.  In Section \ref{numerical-experiments} we describe our numerical experiments and present our results. In Section \ref{conclusion} we discuss the interpretation of our results and make some concluding remarks.
+
+
+\section{Maximum likelihood in homodyne tomography}
+\label{MLE}
+
+
+\section{Numerical experiments}
+\label{numerical-experiments}
+
+\section{Conclusion}
+\label{conclusion}
+
+
+
+\begin{acknowledgments}
+%We thank Kevin Coakley, Adam Keith, and Emanuel Knill for helpful
+%comments on the manuscript.  H. M. Vasconcelos thanks the Instituto
+%Nacional de Ci\^encia e Tecnologia de Informa\c c\~ao Qu\^antica
+%(INCT-IQ). G. B. Silva thanks Coordena\c c\~ao de Aperfei\c coamento
+%de Pessoal de N\'ivel Superior (CAPES) for financial support. This
+%work includes contributions of the National Institute of Standards and
+%Technology, which are not subject to U.S. copyright.
+\end{acknowledgments}
+
+
+% BibTeX users please use one of
+%\bibliographystyle{spbasic}      % basic style, author-year citations
+%\bibliographystyle{spmpsci}      % mathematics and physical sciences
+%\bibliographystyle{spphys}       % APS-like style for physics
+% Scott: My LaTeX does not know about spphys, but it is not necessary
+% to specify a bibliography style.  revtex should authomatically use
+% the correct style based on the documentclass.
+\bibliography{histogram}   % name your BibTeX data base
+
+
+% Non-BibTeX users please use%\begin{thebibliography}{}
+%
+% and use \bibitem to create references. Consult the Instructions
+% for authors for reference list style.
+
+
+%\end{thebibliography}
+
+
+\end{document}
+
+%
+% ****** End of file apssamp.tex ******
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
