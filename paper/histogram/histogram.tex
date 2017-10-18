@@ -106,8 +106,11 @@ longbibliography
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Quantum state tomography (QST) aims to determine the quantum state of a system from measured data and is an essential tool for quantum information. When dealing with quantum states of light, QST is done by measuring  quantum  noise  statistics  of the  field  amplitudes  at different  optical  phases using homodyne detection. The quadrature-phase homodyne measurement outputs a continuous variable, but we can histogram the continuous measurements and make the statistical estimation faster without losing too much information. This paper investigate different ways to determine the quadrature 
-histograms for optical homodyne QST.
+Quantum state tomography (QST) aims to determine the quantum state of a system from measured data and is an essential tool for quantum information. 
+When dealing with quantum states of light, QST is done by measuring  quantum  noise  statistics  of the  field  amplitudes  at different  optical  
+phases using homodyne detection. The quadrature-phase homodyne measurement outputs a continuous variable, but we can histogram the continuous 
+measurements and make the statistical estimation faster without losing too much information. This paper investigate different ways to determine the 
+quadrature histograms for optical homodyne QST.
 
 \end{abstract}
 
@@ -128,11 +131,16 @@ Quantum information science and engineering is now at the point where
 rudimentary quantum computers are available in the laboratory and 
 commercially~\cite{kandala2017,Linke2017,Monk2017,Denchev2016}.
 Consequently, precise reconstruction and diagnostic tools used to estimate 
-quantum states~\cite{Vogel1989, Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007, Neergaard2006}, processes~\cite{Chuang1997, Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003, Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999, Fiurasek2001, Dariano2004, Lundeen2009} are fundamental.
+quantum states~\cite{Vogel1989, Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007, Neergaard2006}, 
+processes~\cite{Chuang1997, Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003, Obrien2004,Kupchak2015}, and 
+measurements~\cite{Luis1999, Fiurasek2001, Dariano2004, Lundeen2009} are fundamental.
 
 Quantum tomography techniques for quantum states of light became a subject of
 major interest in recent years, since quantum light sources are essential
-for implementations of continuous-variable (CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002, Jeong2002, Ralph2003}. These source are also extensively exploited in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002, Pirandola2008, Luiz2017}, quantum metrology~\cite{Eberle2010, Demkowicz2013}, state teleportation~\cite{Vaidman1994, Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014} and cloning~\cite{Cerf2000, Braunstein2001}. 
+for implementations of continuous-variable (CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002, Jeong2002, Ralph2003}. 
+These source are also extensively exploited in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002, Pirandola2008, Luiz2017}, 
+quantum metrology~\cite{Eberle2010, Demkowicz2013}, state teleportation~\cite{Vaidman1994, Braunstein1998, He2015}, dense 
+coding~\cite{Braunstein2000, Lee2014} and cloning~\cite{Cerf2000, Braunstein2001}. 
 
 In quantum state tomography, we perform a large number of experimental measurements on
 a collection of quantum systems, all prepared in a same unknown state. The goal is to
@@ -143,14 +151,25 @@ states, the one which maximizes the probability of obtaining the experimental da
 in hand. 
 
 Quantum homodyne tomography is one of the most popular optical tomography techniques
-available. It rapidly became a versatile tool and has been applied in many different quantum optics experimental settings since it was proposed by Vogel and Risken in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et al.} in 1993~\cite{Smithey1993}. This technique permits to characterize a light quantum state by means of the electric field quantum noise statistics collected through multiple phase-sensitive measurements. 
+available. It rapidly became a versatile tool and has been applied in many different quantum optics experimental settings since 
+it was proposed by Vogel and Risken in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et al.} in 1993~\cite{Smithey1993}. 
+This technique permits to characterize a light quantum state by means of the electric field quantum noise statistics 
+collected through multiple phase-sensitive measurements. 
 
 A homodyne measurement generates a continuous value. While no data binning is necessarily
 needed, we believe that the loss due to binning may be insignificant. On the other hand,
-discretization of the data by binning it reduces considerably the number of data, expediting the reconstruction algorithm. But how can we estimate the quadrature bin width, such that the bins are not too small nor too big? Bins should not be too small in order to avoid significant statistical fluctuation due to scarcity of samples in each bin. And bins should not be too large in order to avoid a lack of resolution, making the histogram a poor representation of the underlying distribution shape.
+discretization of the data by binning it reduces considerably the number of data, expediting the reconstruction 
+algorithm. But how can we estimate the quadrature bin width, such that the bins are not too small nor too big? 
+Bins should not be too small in order to guarantee a save in calculation time and memory. 
+And bins should not be too large in order to avoid a lack of resolution, making the histogram a poor representation 
+of the underlying distribution shape.
  
-In this paper, we use numerical experiments to simulate optical homodyne tomography of quantum optical states and perform maximum likelihood tomography on the data with
-and without binning. When choosing a quadrature bin width, we use and compare two different ways: Scott's rule~\cite{Scott2010} and equation (5.136) from Leonhardt's book~\cite{Leonhardt1997}. The paper is divide as follow: in Section \ref{MLE} we review maximum likelihood in homodyne tomography.  In Section \ref{numerical-experiments} we describe our numerical experiments and present our results. In Section \ref{conclusion} we discuss the interpretation of our results and make some concluding remarks.
+In this paper, we use numerical experiments to simulate optical homodyne tomography of quantum optical states and 
+perform maximum likelihood tomography on the data with and without binning. When choosing a quadrature bin width, 
+we use and compare two different ways: Scott's rule~\cite{Scott2010} and equation (5.136) from Leonhardt's 
+book~\cite{Leonhardt1997}. The paper is divide as follow: in Section \ref{MLE} we review maximum 
+likelihood in homodyne tomography.  In Section \ref{numerical-experiments} we describe our numerical experiments and present 
+our results. In Section \ref{conclusion} we discuss the interpretation of our results and make some concluding remarks.
 
 
 \section{Maximum likelihood in homodyne tomography}
