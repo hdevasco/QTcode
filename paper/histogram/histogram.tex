@@ -155,6 +155,30 @@ and without binning. When choosing a quadrature bin width, we use and compare tw
 
 \section{Maximum likelihood in homodyne tomography}
 \label{MLE}
+Let us consider $N$ quantum systems, each of them prepared in an optical state described by a density matrix $\rhotrue$. In each experimental run, we measure the field quadrature at different phases $\theta$ of a local oscillator, i.e. a reference system prepared in a high amplitude coherent state. Each measurement is associated with an observable $\hat{X}_{\theta} = \hat{X} \cos \theta + \hat{P} \sin \theta$, where $\hat{X}$ and $\hat{P}$ are the position and momentum operators, respectively. For a given phase $\theta$, we measure a quadrature value $x$, resulting on a data set $\{(\theta_i, x_i)\}$.
+
+The outcome of the $i$-th measurement is described by a positive-operator-valued measure (POVM) element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set \{$(\theta_{i},
+x_i): i = 1, ..., N$\}, we can write the likelihood of a candidate density matrix $\rho$ as
+\begin{eqnarray}
+\mathcal{L} (\rho)= \prod_{i=1}^{N} \mathrm{Tr} (\Pi_i \rho),
+\label{eq-likelihood}
+\end{eqnarray}
+where $\mathrm{Tr}(\rho \Pi_i)$ is the probability, when measuring with phase $\theta_i$, to obtain outcome $x_i$, according to the candidate density matrix $\rho$.
+
+MLE searches within the density matrix space the one that maximizes the likelihood in~(\ref{eq-likelihood}). Equivalently, it usually is more convenient to maximize the logarithm of the likelihood (the ``log-likelihood''):
+\begin{eqnarray}
+L (\rho) = \ln \mathcal{L} (\rho)= \sum_{i=1}^{N} \ln [\mathrm{Tr} (\Pi_i \rho)],
+\end{eqnarray} 
+which is maximized by the same density matrix as the likelihood. The MLE is essentially a function optimization problem, and since the log-likelihood function is concave, the convergence to an unique solution will be achieved by most iterative optimization methods.
+
+In our numerical simulations, we use an algorithm for likelihood maximization that begins with interactions of the $R\rho R$ algorithm~\cite{Rehacek2007} followed by iterations of a regularized gradient ascent algorithm (RGA). The main reason to switch from one algorithm to another is the fact that an expressive slow-down is observed in the $R\rho R$ algorithm after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is parametrized as 
+\begin{equation}
+  \rho^{(k+1)}=\frac{\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)}{\mathrm{Tr}\left[\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)\right]},
+\label{eq-rho-k+1}
+\end{equation}
+where $\rho^{(k)}$ is the density found by the last interaction of $R \rho R$, and $A$ may be any complex matrix of the same dimensions as $\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a physical density matrix for any choosed $A$. The matrix $A$ should maximize the quadratic
+approximation of the log-likelihood subject to $\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number adjusted by the algorithm to guarantee that the log-likelihood increases with
+each iteration. To halt the interactions, we use the stopping criterion of \cite{Glancy2012}, $L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 
 
 \section{Numerical experiments}
