@@ -1,0 +1,72 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: teachingQO.aux
+The style file: spphys.bst
+Database file #1: teachingQO.bib
+I was expecting a `,' or a `}'---line 437 of file teachingQO.bib
+ :    
+ :    %url = "http://iopscience.iop.org/1367-2630/page/Focus\%20on\%20Quantum\%20Tomography"
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1173 of file teachingQO.bib
+ :   
+ :   year = {2003},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1193 of file teachingQO.bib
+ :   
+ :   year = {2006},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1213 of file teachingQO.bib
+ :   
+ :   year = {1998},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 1235 of file teachingQO.bib
+ :   
+ :   year = {2004},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 13 entries,
+            2812 wiz_defined-function locations,
+            865 strings with 8151 characters,
+and the built_in function-call counts, 4759 in all, are:
+= -- 347
+> -- 109
+< -- 2
++ -- 51
+- -- 32
+* -- 247
+:= -- 509
+add.period$ -- 0
+call.type$ -- 13
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 13
+duplicate$ -- 538
+empty$ -- 497
+format.name$ -- 38
+if$ -- 1098
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 122
+newline$ -- 47
+num.names$ -- 14
+pop$ -- 233
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 180
+stack$ -- 0
+substring$ -- 163
+swap$ -- 339
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 27
+width$ -- 15
+write$ -- 109
+(There were 5 error messages)
