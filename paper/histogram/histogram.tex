@@ -202,6 +202,39 @@ each iteration. To halt the interactions, we use the stopping criterion of \cite
 
 \section{Numerical experiments}
 \label{numerical-experiments}
+Our numerical experiments simulate single mode optical homodyne
+measurements~\cite{Lvovsky2009} of Gaussian cat and squeezed vacuum states. 
+Each considered state is represented by a density matrix $\rho_{\mathrm{true}}$ in an $n$ photon basis. 
+
+In order to calculate the probability to obtain homodyne measurement outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase $\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon basis considered. If $|x\rangle$ is the photon number basis representation of the x-quadrature eigenstate with eigenvalue $x$, and $U(\theta)$ is the phase evolution unitary operator, then for an ideal homodyne measurement, we have $\Pi (x|\theta) = U(\theta)^{\dagger}|x\rangle \langle x| U(\theta)$. Moreover, it is more realistic to consider that homodyne detectors suffer from photon loss, by including that loss in the POVM elements. In this case, the projector operator is replaced by $\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger} U(\theta)^{\dagger}|x\rangle \langle x| U(\theta) E_i(\eta)$, where $\eta = 0.9$, which is typical for state-of-the-art homodyne detectors, is used in all
+simulations. Using this strategy, we are able to estimate the state of the system before the occurrence of the regarded loss. We use rejection
+sampling from the distribution given by $P(x|\theta)$ to guarantee random samples of homodyne measurement results~\cite{Kennedy1980}.
+
+To choose the phases at which the homodyne measurements are performed, we divide the upper-half-circle evenly among $m$ phases between 0 and $\pi$ and measure $N/m$ times at each phase, where $N$ is the total number of measurements. In all simulations, we use $m=20$ and $N = 20,000$. To secure a single maximum of the likelihood function, we need an informationally complete set of measurement operators, which can be obtained if we use $n+1$ different phases to reconstruct a state that contains at most $n$ photons~\cite{Leonhardt1997}. 
+
+To quantify how similar a reconstructed state, $\rho$, is of a true state, $\rho_{\mathrm{true}}$, we use the fidelity, defined by:
+\begin{eqnarray}
+F = Tr \sqrt{\rho^{1/2}\, \rho_{\mathrm{true}} \, \rho^{1/2}}.
+\end{eqnarray}  
+The fidelity shown in the graphs are obtained by calculating the arithmetic mean of the 100 fidelities, since we reconstruct each state 100 times, each time obtaining the fidelity between the reconstructed state and the true state. The uncertainty in each fidelity estimate (shown as error bars in the figures) is the standard deviation of the mean of the fidelity.
+
+We calculate and compare the fidelity between the reconstructed state and the true state for three different situations: (i) the state is reconstructed using the continuous values of homodyne measurement results, that is without binning; (ii) the state is reconstructed using homodyne measurement data binning with a bin width given by Scott's rule~\cite{Scott2010}; and (iii) the state is reconstructed using homodyne measurement data binning with a bin width suggested by Leonhardt in~\cite{Leonhardt1997}.
+
+In 1979 Scott derived a formula for the asymptotically optimal bin width:
+\begin{eqnarray}
+h^{\star} = \left[ \frac{6}{n \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
+\label{eq-hstar}
+\end{eqnarray}
+where $f(x)$ is a continuous probability density function with two continuous bounded derivatives and $n$ is the sample size. For a Gaussian probability density, we have
+\begin{eqnarray}
+\int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
+\label{eq-intnormaldist}
+\end{eqnarray}
+where $\sigma$ is the standard deviation. Combining Eq. (\ref{eq-hstar}) and Eq. (\ref{eq-intnormaldist}), we obtain the optimal bin width for normal data distribution:
+\begin{eqnarray}
+h = 3.5 \, \sigma \, n^{-1/3}.
+\end{eqnarray}
+This formula is known as Scott's rule, and is optimal if the data is close to being normally distributed, but is also appropriate for most other distributions.
 
 \section{Conclusion}
 \label{conclusion}
