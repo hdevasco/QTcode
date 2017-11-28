@@ -1,12 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.10.18)  4 NOV 2017 17:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  28 NOV 2017 15:42
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**histogram.tex
-(./histogram.tex
-LaTeX2e <2017-04-15>
-Babel <3.12> and hyphenation patterns for 10 language(s) loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/revtex/revtex4-1.cls
+**\input histogram.tex
+(./histogram.tex (/local/texlive/2016/texmf-dist/tex/latex/revtex/revtex4-1.cls
 Document Class: revtex4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revt
 ex4/ for documentation)
  Copyright (c) 2009 The American Physical Society.
@@ -66,7 +64,7 @@ Class revtex4-1 Info: Overriding \@vspace, \@vspacer, \@no@pgbk, \@newline, and
 \widetext@top=\box39
 \widetext@bot=\box40
 Class revtex4-1 Info: Selecting society aps on input line 7542.
-(/usr/share/texlive/texmf-dist/tex/latex/revtex/aps4-1.rtx
+(/local/texlive/2016/texmf-dist/tex/latex/revtex/aps4-1.rtx
 File: aps4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for docu
 mentation)
 Class revtex4-1 Info: RevTeX society APS selected on input line 31.
@@ -74,18 +72,18 @@ Class revtex4-1 Info: RevTeX society APS selected on input line 31.
 Class revtex4-1 Info: Selecting journal pra on input line 7544.
 Class revtex4-1 Info: APS journal PRA selected on input line 7545.
 
-(/usr/share/texlive/texmf-dist/tex/latex/revtex/aps10pt4-1.rtx
+(/local/texlive/2016/texmf-dist/tex/latex/revtex/aps10pt4-1.rtx
 File: aps10pt4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for 
 documentation)
 Class revtex4-1 Info: RevTeX pointsize 10pt selected on input line 30.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty
+(/local/texlive/2016/texmf-dist/tex/latex/textcase/textcase.sty
 Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks16
 \symAMSa=\mathgroup4
@@ -93,26 +91,26 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/11/05 v2.16a AMS math features
+(/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip44
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks17
 \ex@=\dimen102
 )
 LaTeX Info: Redefining \text on input line 28.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen103
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count94
@@ -153,11 +151,11 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+(/local/texlive/2016/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+(/local/texlive/2016/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip47
 \bibsep=\skip48
@@ -166,41 +164,41 @@ LaTeX Info: Redefining \cite on input line 694.
 )
 Class revtex4-1 Info: Repairing natbib's \BibitemShut on input line 7549.
 
-(/usr/share/texlive/texmf-dist/tex/latex/revtex/revsymb4-1.sty
+(/local/texlive/2016/texmf-dist/tex/latex/revtex/revsymb4-1.sty
 Package: revsymb4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ f
 or documentation)
 LaTeX Info: Redefining \frak on input line 95.
 LaTeX Info: Redefining \Bbb on input line 111.
 LaTeX Info: Redefining \REV@mathfrak on input line 119.
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/local/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+(/local/texlive/2016/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks22
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+(/local/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+(/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+(/local/texlive/2016/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2017/06/24 v1.0g Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen111
 \Gin@req@width=\dimen112
 )
-(/usr/share/texlive/texmf-dist/tex/latex/tools/dcolumn.sty
+(/local/texlive/2016/texmf-dist/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
 
-(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+(/local/texlive/2016/texmf-dist/tex/latex/tools/array.sty
 Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen113
 \extrarowheight=\dimen114
@@ -208,7 +206,7 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \extratabsurround=\skip49
 \backup@length=\skip50
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty
+(/local/texlive/2016/texmf-dist/tex/latex/tools/bm.sty
 Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup6
 \symboldletters=\mathgroup7
@@ -216,15 +214,15 @@ Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
 LaTeX Info: Redefining \bm on input line 207.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/local/texlive/2016/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 )
-(/usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty
+(/local/texlive/2016/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box43
 \UL@hyphenbox=\box44
 \UL@skip=\skip51
@@ -236,10 +234,10 @@ Package color Info: Driver file: pdftex.def on input line 147.
 Package: ulem 2012/05/18
 \ULdepth=\dimen117
 )
-(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+(/local/texlive/2016/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+(/local/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 67.
 \captionmargin=\dimen118
@@ -290,7 +288,7 @@ LaTeX Font Info:    ... okay on input line 88.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
 LaTeX Font Info:    ... okay on input line 88.
 
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count115
 \scratchdimen=\dimen126
@@ -303,31 +301,31 @@ LaTeX Font Info:    ... okay on input line 88.
 \MPnumerator=\count119
 \makeMPintoPDFobject=\count120
 \everyMPtoPDFconversion=\toks26
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+) (/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+(/local/texlive/2016/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )))
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+(/local/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -336,11 +334,11 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+(/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -355,7 +353,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(/local/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
@@ -364,47 +362,32 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 \openout3 = `histogramNotes.bib'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 121.
+LaTeX Font Info:    Try loading font information for U+msa on input line 124.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 121.
+LaTeX Font Info:    Try loading font information for U+msb on input line 124.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 160.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 184.
 
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+(/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Reference `eq-likelihood' on page 2 undefined on input line 168.
-
-
-
-Package natbib Warning: Citation `Rehacek2007' on page 2 undefined on input lin
-e 174.
-
-
-LaTeX Warning: Reference `eq-rho-k+1' on page 2 undefined on input line 179.
-
-
-Package natbib Warning: Citation `Glancy2012' on page 2 undefined on input line
- 181.
-
-(./histogram.bbl
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 184.
+ [1{/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (./h
+istogram.bbl
 Underfull \hbox (badness 4967) in paragraph at lines 64--73
  \OT1/cmr/m/n/9 quan-tum mag-nets,'' Na-ture \OT1/cmr/bx/n/9 549\OT1/cmr/m/n/9 
 , 242--246 (2014),
  []
 
-
+[3]
 Underfull \hbox (badness 1360) in paragraph at lines 202--209
  \OT1/cmr/m/n/9 from pho-ton num-ber states,'' Na-ture \OT1/cmr/bx/n/9 448\OT1/
 cmr/m/n/9 , 784--786
@@ -413,7 +396,7 @@ cmr/m/n/9 , 784--786
 Missing character: There is no â in font cmr9!
 Missing character: There is no € in font cmr9!
 Missing character: There is no ™ in font cmr9!
-[2]
+
 Underfull \hbox (badness 2376) in paragraph at lines 433--439
  []\OT1/cmr/m/n/9 M. Hillery, ``Quan-tum cryp-tog-ra-phy with squeezed
  []
@@ -423,50 +406,43 @@ Missing character: There is no „ in font cmr9!
 Missing character: There is no Ã in font cmr9!
 Missing character: There is no ¡ in font cmr9!
 
-Underfull \hbox (badness 2573) in paragraph at lines 588--591
+Underfull \hbox (badness 2573) in paragraph at lines 588--594
  []\OT1/cmr/m/n/9 U. Leon-hardt, |   []
  []
 
-)
+[4]
+Underfull \hbox (badness 5970) in paragraph at lines 635--639
+ []\OT1/cmr/m/n/9 William J. Kennedy Jr. and James E. Gen-tle,
+ []
 
-Package natbib Warning: There were undefined citations.
-
-[3] (./histogram.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right .
-
-
- ) 
+) [5] (./histogram.aux) ) 
 Here is how much of TeX's memory you used:
- 5562 strings out of 494797
- 77104 string characters out of 6177472
- 176259 words of memory out of 5000000
- 8788 multiletter control sequences out of 15000+600000
+ 5584 strings out of 492985
+ 77638 string characters out of 6132120
+ 181848 words of memory out of 5000000
+ 9043 multiletter control sequences out of 15000+600000
  16913 words of font info for 63 fonts, out of 8000000 for 9000
- 83 hyphenation exceptions out of 8191
- 41i,8n,38p,640b,341s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on histogram.pdf (3 pages, 201453 bytes).
+ 1141 hyphenation exceptions out of 8191
+ 41i,12n,38p,283b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+</local/texlive/2016/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx9.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ex10.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
+local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></local/
+texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></local/texlive
+/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></local/texlive/2016/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></local/texlive/2016/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr9.pfb></local/texlive/2016/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy10.pfb></local/texlive/2016/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy6.pfb></local/texlive/2016/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy7.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmti10.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmti9.pfb>
+Output written on histogram.pdf (5 pages, 209019 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

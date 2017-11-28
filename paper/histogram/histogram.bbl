@@ -6,7 +6,7 @@
 %Control: page (1) range
 %Control: year (0) verbatim
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{45}%
+\begin{thebibliography}{49}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -588,4 +588,52 @@
   {Leonhardt}},\ }\href@noop {} {\emph {\bibinfo {title} {Measuring the Quantum
   State of Light}}}\ (\bibinfo  {publisher} {Cambridge University Press},\
   \bibinfo {address} {New York},\ \bibinfo {year} {1997})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {{\v{R}}eh{\'a}{\v{c}}ek}\ \emph
+  {et~al.}(2007)\citenamefont {{\v{R}}eh{\'a}{\v{c}}ek}, \citenamefont
+  {Hradil}, \citenamefont {Knill},\ and\ \citenamefont
+  {Lvovsky}}]{Rehacek2007}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Jaroslav}\
+  \bibnamefont {{\v{R}}eh{\'a}{\v{c}}ek}}, \bibinfo {author} {\bibfnamefont
+  {Zden{\v{e}}k}\ \bibnamefont {Hradil}}, \bibinfo {author} {\bibfnamefont
+  {E.}~\bibnamefont {Knill}}, \ and\ \bibinfo {author} {\bibfnamefont {A.~I.}\
+  \bibnamefont {Lvovsky}},\ }\bibfield  {title} {\enquote {\bibinfo {title}
+  {Diluted maximum-likelihood algorithm for quantum tomography},}\ }\href
+  {\doibase 10.1103/PhysRevA.75.042108} {\bibfield  {journal} {\bibinfo
+  {journal} {Phys.\ Rev.~A}\ }\textbf {\bibinfo {volume} {75}},\ \bibinfo
+  {pages} {042108} (\bibinfo {year} {2007})},\ \Eprint
+  {http://arxiv.org/abs/quant-ph/0611244v2} {arXiv:quant-ph/0611244v2}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Glancy}\ \emph {et~al.}(2012)\citenamefont {Glancy},
+  \citenamefont {Knill},\ and\ \citenamefont {Girard}}]{Glancy2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.~C.}\ \bibnamefont
+  {Glancy}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Knill}}, \
+  and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Girard}},\
+  }\bibfield  {title} {\enquote {\bibinfo {title} {Gradient-based stopping
+  rules for maximum-likelihood quantum-state tomography},}\ }\href@noop {}
+  {\bibfield  {journal} {\bibinfo  {journal} {New J.\ Phys.}\ }\textbf
+  {\bibinfo {volume} {14}},\ \bibinfo {pages} {095017} (\bibinfo {year}
+  {2012})},\ \Eprint {http://arxiv.org/abs/1205.4043 [quant-ph]}
+  {arXiv:1205.4043 [quant-ph]} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lvovsky}\ and\ \citenamefont
+  {Raymer}(2009)}]{Lvovsky2009}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~I.}\ \bibnamefont
+  {Lvovsky}}\ and\ \bibinfo {author} {\bibfnamefont {M.~G.}\ \bibnamefont
+  {Raymer}},\ }\bibfield  {title} {\enquote {\bibinfo {title}
+  {Continuous-variable optical quantum-state tomography},}\ }\href@noop {}
+  {\bibfield  {journal} {\bibinfo  {journal} {Rev.\ Mod.\ Phys.}\ }\textbf
+  {\bibinfo {volume} {81}},\ \bibinfo {pages} {299} (\bibinfo {year} {2009})},\
+  \Eprint {http://arxiv.org/abs/quant-ph/0511044} {arXiv:quant-ph/0511044}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Jr.}\ and\ \citenamefont
+  {Gentle}(1980)}]{Kennedy1980}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {William J.~Kennedy}\
+  \bibnamefont {Jr.}}\ and\ \bibinfo {author} {\bibfnamefont {James~E.}\
+  \bibnamefont {Gentle}},\ }\href@noop {} {\emph {\bibinfo {title} {Statistical
+  Computing}}}\ (\bibinfo  {publisher} {Marcel Dekker, Inc.},\ \bibinfo
+  {address} {New York},\ \bibinfo {year} {1980})\ \bibinfo {note} {see section
+  6.4.3.}\BibitemShut {Stop}%
 \end{thebibliography}%

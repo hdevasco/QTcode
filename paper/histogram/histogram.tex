@@ -250,8 +250,11 @@ In 1979 Scott derived a formula for the asymptotically optimal bin width:
 h^{\star} = \left[ \frac{6}{n \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
 \label{eq-hstar}
 \end{eqnarray}
-where $f(x)$ is a continuous probability density function with two continuous bounded derivatives and $n$ is the sample size. 
-For a Gaussian probability density, we have
+where $f(x)$ is a continuous probability density function with two
+continuous bounded derivatives and $n$ is the sample size. \SGc{$n$
+  was earlier the maximum photon number, but I want to use $\hat{n}$
+  as the photon number operator below.  We need to sort out the
+  notation.}  For a Gaussian probability density, we have
 \begin{eqnarray}
 \int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
 \label{eq-intnormaldist}
@@ -263,6 +266,55 @@ h = 3.5 \, \sigma \, n^{-1/3}.
 \end{eqnarray}
 This formula is known as Scott's rule, and is optimal if the data is close to being normally distributed, but is also 
 appropriate for most other distributions.
+
+
+\section{Estimating mean photon number}
+\SGc{Here are some quick and rough notes explaining how we can
+  estimate the mean number of photons.  They will need a lot of
+  revision before they are really part of the paper.  I am only
+  putting them here, because it seemed like a convenient way to share
+  with Hilma and Leonardo.}  In order to use Leonhardt's advice for
+choosing the histogram bin width, we need to estimate the mean number
+$\langle n \rangle$ of photons in the measured state from the
+phase-quadrature data set.  To find an estimator, we first compute the
+mean value of $(\hat{X}_{\theta})^{2}$, averaged over $\theta$, treating
+$\theta$ as if it is random and uniformly distributed bewtween $0$ and
+$\pi$.
+\begin{equation}
+\langle (\hat{X}_{\theta})^{2} \rangle = \langle \hat{X}^{2}\cos^{2}\theta + (\hat{X}\hat{P}+\hat{P}\hat{X})\cos\theta\sin\theta + \hat{P}^{2}\sin^{2}\theta \rangle
+\end{equation}
+The phase $\theta$ is independent of $\hat{X}$ and $\hat{P}$, so we can compute the expectation over $\theta$ as
+\begin{align}
+\langle (\hat{X}_{\theta})^{2} \rangle &= \Big\langle \int_{0}^{\pi} (\hat{X}^{2}\cos^{2}\theta + (\hat{X}\hat{P}+\hat{P}\hat{X})\cos\theta\sin\theta \nonumber \\
+ & \qquad \qquad + \hat{P}^{2}\sin^{2}\theta) \mathrm{Prob}(\theta) \mathrm{d}\theta \Big\rangle \\
+\langle (\hat{X}_{\theta})^{2} \rangle &= \Big\langle \int_{0}^{\pi} (\hat{X}^{2}\cos^{2}\theta + (\hat{X}\hat{P}+\hat{P}\hat{X})\cos\theta\sin\theta \nonumber \\
+ & \qquad \qquad + \hat{P}^{2}\sin^{2}\theta) \frac{1}{\pi} \mathrm{d}\theta \Big\rangle \\
+ &= \left\langle (\hat{X}^{2}\frac{\pi}{2} + \hat{P}^{2}\frac{\pi}{2})\frac{1}{\pi} \right\rangle \\
+ &= \frac{1}{2}\left\langle \hat{X}^{2} + \hat{P}^{2} \right\rangle
+\end{align}
+Leonardo showed that
+\begin{equation}
+\hat{n} = \frac{1}{2}\left(\hat{X}^{2}+\hat{P}^{2}-1\right).
+\end{equation}
+Therefore
+\begin{align}
+\langle\hat{n}\rangle &= \frac{1}{2}\left(\langle\hat{X}^{2}+\hat{P}^{2}\rangle-1\right) \\
+\langle\hat{n}\rangle &= \langle \hat{X}_{\theta}^{2}\rangle-\frac{1}{2}.
+\end{align}
+Thus calculating the expectation value of $\hat{X}_{\theta}^{2}$ gives us the mean number of photons.  We can estimate $\langle \hat{n} \rangle$ by computing
+\begin{equation}
+\overline{\langle \hat{n} \rangle} = \frac{1}{N} \sum_{i=1}^{N}x_{i}^{2} - \frac{1}{2}.
+\end{equation}
+Note that when $\theta$ is uniformly distributed over $[0,\pi)$, the values of $\theta$ are not needed to compute $\overline{\langle \hat{n} \rangle}$.
+
+To compute this estimate, we need a new Matlab function that takes the
+quadrature data as input and computes the square of each quadrature.
+Then we simply average the squares and subtract 1/2.  Then, instead of
+using the true value of $\langle \hat{n} \rangle$ as we have been
+doing, we should use $\overline{\langle \hat{n} \rangle}$ in
+Leonhardt's formula to choose bin size.
+
+
 
 \section{Conclusion}
 \label{conclusion}
