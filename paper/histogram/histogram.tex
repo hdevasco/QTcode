@@ -247,14 +247,11 @@ using homodyne measurement data binning with a bin width suggested by Leonhardt 
 
 In 1979 Scott derived a formula for the asymptotically optimal bin width:
 \begin{eqnarray}
-h^{\star} = \left[ \frac{6}{n \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
+h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
 \label{eq-hstar}
 \end{eqnarray}
 where $f(x)$ is a continuous probability density function with two
-continuous bounded derivatives and $n$ is the sample size. \SGc{$n$
-  was earlier the maximum photon number, but I want to use $\hat{n}$
-  as the photon number operator below.  We need to sort out the
-  notation.}  For a Gaussian probability density, we have
+continuous bounded derivatives and $s$ is the sample size. For a Gaussian probability density, we have
 \begin{eqnarray}
 \int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
 \label{eq-intnormaldist}
@@ -262,7 +259,7 @@ continuous bounded derivatives and $n$ is the sample size. \SGc{$n$
 where $\sigma$ is the standard deviation. Combining Eq. (\ref{eq-hstar}) and Eq. (\ref{eq-intnormaldist}), we obtain the 
 optimal bin width for normal data distribution:
 \begin{eqnarray}
-h = 3.5 \, \sigma \, n^{-1/3}.
+h = 3.5 \, \sigma \, s^{-1/3}.
 \end{eqnarray}
 This formula is known as Scott's rule, and is optimal if the data is close to being normally distributed, but is also 
 appropriate for most other distributions.
