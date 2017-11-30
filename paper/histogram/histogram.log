@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  28 NOV 2017 15:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.18)  30 NOV 2017 15:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -381,13 +381,13 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 184.
  [1{/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (./h
-istogram.bbl
+istogram.bbl [3]
 Underfull \hbox (badness 4967) in paragraph at lines 64--73
  \OT1/cmr/m/n/9 quan-tum mag-nets,'' Na-ture \OT1/cmr/bx/n/9 549\OT1/cmr/m/n/9 
 , 242--246 (2014),
  []
 
-[3]
+
 Underfull \hbox (badness 1360) in paragraph at lines 202--209
  \OT1/cmr/m/n/9 from pho-ton num-ber states,'' Na-ture \OT1/cmr/bx/n/9 448\OT1/
 cmr/m/n/9 , 784--786
@@ -403,6 +403,7 @@ Underfull \hbox (badness 2376) in paragraph at lines 433--439
 
 Missing character: There is no Å in font cmr9!
 Missing character: There is no „ in font cmr9!
+[4]
 Missing character: There is no Ã in font cmr9!
 Missing character: There is no ¡ in font cmr9!
 
@@ -410,20 +411,20 @@ Underfull \hbox (badness 2573) in paragraph at lines 588--594
  []\OT1/cmr/m/n/9 U. Leon-hardt, |   []
  []
 
-[4]
+
 Underfull \hbox (badness 5970) in paragraph at lines 635--639
  []\OT1/cmr/m/n/9 William J. Kennedy Jr. and James E. Gen-tle,
  []
 
 ) [5] (./histogram.aux) ) 
 Here is how much of TeX's memory you used:
- 5584 strings out of 492985
- 77638 string characters out of 6132120
- 181848 words of memory out of 5000000
- 9043 multiletter control sequences out of 15000+600000
+ 5585 strings out of 492985
+ 77648 string characters out of 6132120
+ 180848 words of memory out of 5000000
+ 9044 multiletter control sequences out of 15000+600000
  16913 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,38p,283b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,12n,38p,283b,401s stack positions out of 5000i,500n,10000p,200000b,80000s
 </local/texlive/2016/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx9.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -439,7 +440,7 @@ e1/public/amsfonts/cm/cmsy6.pfb></local/texlive/2016/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy7.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb></local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmti9.pfb>
-Output written on histogram.pdf (5 pages, 209019 bytes).
+Output written on histogram.pdf (5 pages, 209292 bytes).
 PDF statistics:
  80 PDF objects out of 1000 (max. 8388607)
  57 compressed objects within 1 object stream
