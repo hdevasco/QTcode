@@ -20,7 +20,7 @@ etaDetector        = 0.9;
 maxIterations      = 2000;
 stoppingCriterion  = 0.01;
 alpha              = [1] ;
-phase              = 0;
+%phase              = 0;
 etaState           = 0.8;
 
 % Number of angles equally spaced from 0 to pi
@@ -47,7 +47,7 @@ numAngles          = 20;
                 timeML2             = zeros(numSim,1);
                 timeRhoHistogram    = zeros(numSim,1);
                 timeRhoScott        = zeros(numSim,1);
-                n                   = zeros(numSim,1);
+                n_bar               = zeros(numSim,1);
                 deltaq              = zeros(numSim,1);
                 t                   = 1;
                 
@@ -68,9 +68,21 @@ numAngles          = 20;
             
                 
                Samples = homodyne_samples(-7,7,etaDetector,angles,Rho,S);
+
+%                 ratioSwitch     = 'ratio';
+%                 S   = init_tables(maxPhotonNumber);
+%                 
+%                 variance = 3/4;
+%                 state = generate_squeezed_vacuum_vector(variance, maxPhotonNumber, ratioSwitch);
+%                 
+%                 Rho = apply_loss(state,etaState,S);
+%                 
+%                 
+%                 Samples = homodyne_samples(-7,7,etaDetector,angles,Rho,S);
                 
                 % estimates the average number of photons
                 n(t) = n_quadrature(Samples,numMeasurements);
+                n_bar(t) = n(t)/etaDetector;
                
                 % We determined the histogram box width from the estimated average number of photons
                 deltaq(t) = pi/(2*sqrt(2*n(t)+1));
@@ -101,9 +113,9 @@ numAngles          = 20;
                 
                 fHistogram(t)       = fidelity(RhoHistogram, Rho); % Calculates the fidelity of RhoHistogram and Rho
                 fScott(t)           = fidelity(RhoScott, Rho);     % Calculates the fidelity of RhoScott and Rho
-                fHistogramPsi(t)    = fidelity(RhoHistogram, psi); % Calculates the fidelity of RhoHistogram and Psi
-                fML2Psi(t)          = fidelity(RhoML2, psi);       % Calculates the fidelity of RhoML2 and Psi
-                fScottPsi(t)        = fidelity(RhoScott, psi);     % Calculates the fidelity of RhoScott and Rho
+               % fHistogramPsi(t)    = fidelity(RhoHistogram, psi); % Calculates the fidelity of RhoHistogram and Psi
+               % fML2Psi(t)          = fidelity(RhoML2, psi);       % Calculates the fidelity of RhoML2 and Psi
+                %fScottPsi(t)        = fidelity(RhoScott, psi);     % Calculates the fidelity of RhoScott and Rho
                 
                 fidelityDiff(t)     = fML2(t)-fHistogram(t);       % Difference between fidelities [fidelity(RhoML2,Rho)-fidelity(RhoHistogram,Rho)]
                 fidelityDiff2(t)    = fML2(t)-fScott(t);           % Difference between fidelities [fidelity(RhoML2,Rho)-fidelity(RhoScott,Rho)]
@@ -120,7 +132,7 @@ numAngles          = 20;
                 meanTimeRhoML2          = mean(timeML2);
                 meanTimeRhoHistogram    = mean(timeRhoHistogram);
                 meanTimeRhoScott        = mean(timeRhoScott);
-                mean_n_bar              = mean(n);
+                mean_n_bar              = mean(n_bar);
                 mean_deltaq             = mean(deltaq);
                 stdFHistogram           = std(fHistogram);        % Standard deviation of fHistogram
                 stdFML2                 = std(fML2);              % Standard deviation of fML2
@@ -128,7 +140,7 @@ numAngles          = 20;
                 stdTML2                 = std(timeML2);
                 stdTRhoHistogram        = std(timeRhoHistogram);
                 stdTRhoScott            = std(timeRhoScott);
-                std_n_bar               = std(n);
+                std_n_bar               = std(n_bar);
                 std_deltaq              = std(deltaq);
                 home;
                 fprintf('>> Progress: %.2f%%\n', t/numSim*100);
