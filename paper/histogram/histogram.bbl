@@ -6,7 +6,7 @@
 %Control: page (1) range
 %Control: year (0) verbatim
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{49}%
+\begin{thebibliography}{55}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -636,4 +636,70 @@
   Computing}}}\ (\bibinfo  {publisher} {Marcel Dekker, Inc.},\ \bibinfo
   {address} {New York},\ \bibinfo {year} {1980})\ \bibinfo {note} {see section
   6.4.3.}\BibitemShut {Stop}%
+\bibitem [{\citenamefont {Leonhardt}\ \emph {et~al.}(1996)\citenamefont
+  {Leonhardt}, \citenamefont {Munroe}, \citenamefont {Kiss}, \citenamefont
+  {Richter},\ and\ \citenamefont {Raymer}}]{Leonhardt1996}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {U.}~\bibnamefont
+  {Leonhardt}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Munroe}},
+  \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Kiss}}, \bibinfo {author}
+  {\bibfnamefont {Th.}\ \bibnamefont {Richter}}, \ and\ \bibinfo {author}
+  {\bibfnamefont {M.G.}\ \bibnamefont {Raymer}},\ }\bibfield  {title} {\enquote
+  {\bibinfo {title} {Sampling of photon statistics and density matrix using
+  homodyne detection},}\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+  {journal} {Opt.\ Commun.}\ }\textbf {\bibinfo {volume} {127}},\ \bibinfo
+  {pages} {144--160} (\bibinfo {year} {1996})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Schwemmer}\ \emph {et~al.}(2015)\citenamefont
+  {Schwemmer}, \citenamefont {Knips}, \citenamefont {Richart}, \citenamefont
+  {Weinfurter}, \citenamefont {Moroder}, \citenamefont {Kleinmann},\ and\
+  \citenamefont {G\"uhne}}]{Schwemmer2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {Schwemmer}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Knips}},
+  \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Richart}}, \bibinfo
+  {author} {\bibfnamefont {H.}~\bibnamefont {Weinfurter}}, \bibinfo {author}
+  {\bibfnamefont {T.}~\bibnamefont {Moroder}}, \bibinfo {author} {\bibfnamefont
+  {M.}~\bibnamefont {Kleinmann}}, \ and\ \bibinfo {author} {\bibfnamefont
+  {O.}~\bibnamefont {G\"uhne}},\ }\bibfield  {title} {\enquote {\bibinfo
+  {title} {Systematic errors in current quantum state tomography tools},}\
+  }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Phys.\ Rev.\
+  Lett.}\ }\textbf {\bibinfo {volume} {114}},\ \bibinfo {pages} {080403}
+  (\bibinfo {year} {2015})},\ \Eprint {http://arxiv.org/abs/1310.8465
+  [quant-ph]} {arXiv:1310.8465 [quant-ph]} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Efron}\ and\ \citenamefont
+  {Tibshirani}(1993)}]{Efron1993}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Efron}}\ and\ \bibinfo {author} {\bibfnamefont {R.~J.}\ \bibnamefont
+  {Tibshirani}},\ }\href@noop {} {\emph {\bibinfo {title} {An Introduction to
+  the Bootstrap}}}\ (\bibinfo  {publisher} {Chapman and Hall},\ \bibinfo
+  {address} {New York},\ \bibinfo {year} {1993})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Blume-Kohout}(2012)}]{Blume-Kohout2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Blume-Kohout}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Robust
+  error bars for quantum tomography},}\ }\href@noop {} {\  (\bibinfo {year}
+  {2012})},\ \Eprint {http://arxiv.org/abs/1202.5270 [quant-ph]}
+  {arXiv:1202.5270 [quant-ph]} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Christandl}\ and\ \citenamefont
+  {Renner}(2012)}]{Christandl2012}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont
+  {Christandl}}\ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {Renner}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Reliable quantum
+  state tomography},}\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+  {journal} {Phys.\ Rev.\ Lett.}\ }\textbf {\bibinfo {volume} {109}},\ \bibinfo
+  {pages} {120403} (\bibinfo {year} {2012})},\ \Eprint
+  {http://arxiv.org/abs/1108.5329v1} {arXiv:1108.5329v1} \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Faist}\ and\ \citenamefont
+  {Renner}(2016)}]{Faist2015}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Philippe}\
+  \bibnamefont {Faist}}\ and\ \bibinfo {author} {\bibfnamefont {Renato}\
+  \bibnamefont {Renner}},\ }\bibfield  {title} {\enquote {\bibinfo {title}
+  {Practical and reliable error bars in quantum tomography},}\ }\href {\doibase
+  10.1103/PhysRevLett.117.010404} {\bibfield  {journal} {\bibinfo  {journal}
+  {Phys.\ Rev.\ Lett.}\ }\textbf {\bibinfo {volume} {117}},\ \bibinfo {pages}
+  {010404} (\bibinfo {year} {2016})},\ \Eprint {http://arxiv.org/abs/1509.06763
+  [quant-ph]} {arXiv:1509.06763 [quant-ph]} \BibitemShut {NoStop}%
 \end{thebibliography}%
