@@ -44,14 +44,14 @@ longbibliography
 ]{revtex4-1}
 
 \usepackage{graphicx}% Include figure files
-\usepackage{dcolumn}% Align table columns on decimal point
-\usepackage{bm}% bold math
+% \usepackage{dcolumn}% Align table columns on decimal point \SGc{We don't have any tables.}
+% \usepackage{bm}% bold math \SGc{We don't seem to be using this.}
 \usepackage{color}% Allows color text
-%\usepackage{hyperref}% add hypertext capabilities
+\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
 \usepackage{ulem}% allows strike-out using sout
-\usepackage[caption=false]{subfig}
+% \usepackage[caption=false]{subfig} \SGc{Don't have any subfigs.}
 
 %\usepackage[showframe,%Uncomment any one of the following lines to test 
 %%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
@@ -61,29 +61,33 @@ longbibliography
 %%height=10in,a5paper,hmargin={3cm,0.8in},
 %]{geometry}
 
-\providecommand{\auedit}[1]{#1}
+
 \newif\ifcmnt
 %  Use \cmntfalse to not see comments when it is latex'ed
-%\cmntfalse
+% \cmntfalse
 %  Use \cmnttrue to see the comments
-\cmnttrue
-
+\cmnttrue 
 \ifcmnt
     \providecommand{\aucmnt}[1]{#1}
+    \providecommand{\editcolor}[2]{\textcolor{#1}{#2}}
 \else
     \providecommand{\aucmnt}[1]{}
+    \providecommand{\editcolor}[2]{#2}
 \fi
-\newcommand{\HV}[1]{\auedit{\textcolor{blue}{#1}}}
-\newcommand{\HVc}[1]{\aucmnt{\textcolor{blue}{[HV: #1]}}}
-\newcommand{\HVs}[1]{\auedit{\textcolor{blue}{\sout{#1}}}}
-\newcommand{\SG}[1]{\auedit{\textcolor{magenta}{#1}}}
-\newcommand{\SGc}[1]{\aucmnt{\textcolor{magenta}{[SG: #1]}}}
-\newcommand{\SGs}[1]{\auedit{\textcolor{magenta}{\sout{#1}}}}
-\newcommand{\LS}[1]{\auedit{\textcolor{green}{#1}}}
-\newcommand{\LSc}[1]{\aucmnt{\textcolor{green}{[GS: #1]}}}
-\newcommand{\TC}[1]{\auedit{\textcolor{red}{#1}}}
+\newcommand{\HV}[1]{\editcolor{blue}{#1}}
+\newcommand{\HVc}[1]{\aucmnt{\editcolor{blue}{[HV: #1]}}}
+\newcommand{\HVs}[1]{\aucmnt{\editcolor{blue}{\sout{#1}}}}
+\newcommand{\SG}[1]{\editcolor{magenta}{#1}}
+\newcommand{\SGs}[1]{\aucmnt{\editcolor{magenta}{\sout{#1}}}}
+\newcommand{\SGc}[1]{\aucmnt{\editcolor{magenta}{[SG: #1]}}}
+\newcommand{\LS}[1]{\editcolor{green}{#1}}
+\newcommand{\LSs}[1]{\aucmnt{\editcolor{green}{\sout{#1}}}}
+\newcommand{\LSc}[1]{\aucmnt{\editcolor{green}{[LS: #1]}}}
+% find more colors at https://en.wikibooks.org/wiki/LaTeX/Colors#The_68_standard_colors_known_to_dvips
+
 
 \newcommand{\rhotrue}{\rho_{\text{true}}}
+
 
 \begin{document}
 
@@ -95,7 +99,7 @@ longbibliography
 \affiliation{Departamento de Engenharia de Teleinform\'atica, Universidade Federal do Cear\'a, Fortaleza, Cear\'a, 60440, Brazil}
 \author{H. M. Vasconcelos}
 \email{hilma@ufc.br}
-\affiliation{Departamento de Engenharia de Teleinform\'atica, Universidade Federal do Cear\'a, Fortaleza, Cear\'a, Brazil}
+\affiliation{Departamento de Engenharia de Teleinform\'atica, Universidade Federal do Cear\'a, Fortaleza, Cear\'a, 60440, Brazil}
 \affiliation{Applied and Computational Mathematics Division, National Institute of Standards and Technology, Boulder, Colorado, 80305, USA}
 \author{S. Glancy}
 \affiliation{Applied and Computational Mathematics Division, National Institute of Standards and Technology, Boulder, Colorado, 80305, USA}
@@ -106,9 +110,21 @@ longbibliography
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Quantum state tomography (QST) aims to determine the quantum state of a system from measured data and is an essential tool for quantum information. When dealing with quantum states of light, QST is done by measuring  quantum  noise  statistics  of the  field  amplitudes  at different  optical  phases using homodyne detection. The quadrature-phase homodyne measurement outputs a continuous variable, but we can histogram the continuous measurements and make the statistical estimation faster without losing too much information. This paper investigate different ways to determine the quadrature 
-histograms for optical homodyne QST.
-
+  Quantum state tomography \SGs{(QST)} aims to determine the quantum
+  state of a system from measured data and is an essential tool for
+  quantum information. When dealing with \SG{continuous variable}
+  quantum states of light, QST is \SG{often} done by measuring
+  \SGs{quantum noise statistics of} the field amplitudes at different
+  optical phases using homodyne detection. The quadrature-phase
+  homodyne measurement outputs a continuous variable, \SG{so to reduce
+    the computational cost of tomography, researchers often discretize
+    the measurements into histogram bin.  We show that this can be
+    done without significantly degrading the fidelity of the estimated
+    state.  This paper tests different strategies for determining the
+    histogram bins.} \SGs{but we can histogram the continuous
+    measurements and make the statistical estimation faster without
+    losing too much information. This paper investigate different ways
+    to determine the quadrature histograms for optical homodyne QST.}
 \end{abstract}
 
 \pacs{
@@ -124,69 +140,200 @@ histograms for optical homodyne QST.
 
 \section{Introduction}
 \label{intro}
-Quantum information science and engineering is now at the point where 
-rudimentary quantum computers are available in the laboratory and 
+\SGc{Vocabulary list: We discretize the data.  The process is
+  discretization.  The data goes into bins.  The collection of data
+  that is in bins after discretization is a histogram.  For
+  consistency, lets try to always use these words and avoid ``bin''
+  and ``hisgotram'' as verbs.}
+
+Quantum information science and engineering \SG{are}\SGs{is now} at
+the point where rudimentary quantum computers are available in the
+laboratory and
 commercially~\cite{kandala2017,Linke2017,Monk2017,Denchev2016}.
-Consequently, precise reconstruction and diagnostic tools used to estimate 
-quantum states~\cite{Vogel1989, Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007, Neergaard2006}, 
-processes~\cite{Chuang1997, Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003, Obrien2004,Kupchak2015}, and 
-measurements~\cite{Luis1999, Fiurasek2001, Dariano2004, Lundeen2009} are fundamental.
+\SG{However, further advancing quantum technologies requires
+  improvements in the fidelities of basic operations.}  Consequently,
+\SG{more} precise \SG{and efficient} reconstruction and diagnostic
+tools used to estimate quantum states~\cite{Vogel1989, Smithey1993,
+  Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007,
+  Neergaard2006}, processes~\cite{Chuang1997, Poyatos1997,
+  Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003,
+  Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999,
+  Fiurasek2001, Dariano2004, Lundeen2009} are
+\SGs{fundament}\SG{essential}.
 
-Quantum tomography techniques for quantum states of light became a subject of
-major interest in recent years, since quantum light sources are essential
-for implementations of continuous-variable (CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002, Jeong2002, Ralph2003}. 
-These source are also extensively exploited in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002, Pirandola2008, Luiz2017}, 
-quantum metrology~\cite{Eberle2010, Demkowicz2013}, state teleportation~\cite{Vaidman1994, Braunstein1998, He2015}, dense 
-coding~\cite{Braunstein2000, Lee2014} and cloning~\cite{Cerf2000, Braunstein2001}. 
+Quantum tomography techniques for \SG{optical} quantum states \SGs{of
+  light has become a standard tool because} \SGs{became a subject of
+  major interest in recent years, since}\SGc{I think that enough years
+  have passed that we can no longer call this ``recent''.} quantum
+light sources are essential for implementations of continuous-variable
+(CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002,
+  Jeong2002, Ralph2003}.  These source are also extensively exploited
+in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002,
+  Pirandola2008, Luiz2017}, quantum metrology~\cite{Eberle2010,
+  Demkowicz2013}, state teleportation~\cite{Vaidman1994,
+  Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014}
+and cloning~\cite{Cerf2000, Braunstein2001}.
 
-In quantum state tomography, we perform a large number of experimental measurements on
-a collection of quantum systems, all prepared in a same unknown state. The goal is to
-estimate this unknown state from the experimental measurements results. This estimation can be done from the experimental statistical data by different methods. In here we will be dealing with Maximum Likelihood Estimation (MLE), that finds among all possible states, the one which maximizes the probability of obtaining the experimental data set in hand. 
+In quantum state tomography, we perform \SGs{a large number of
+  experimental measurements} \SG{a measurement} on \SG{each member of}
+a collection of quantum systems, \SGs{each}\SGs{all} prepared in
+\SGs{a}\SG{the} same unknown state. The goal is to estimate this
+unknown state from the \SGs{experimental} measurement\SGs{s}
+results. This estimation can be done \SGs{from the experimental
+  statistical data} by different methods\SGs{. In here we will be
+  dealing with}\SG{, but we study} Maximum Likelihood Estimation
+(MLE), \SGs{that}\SG{which} finds among all possible states, the one
+\SGs{which}\SG{that} maximizes the probability of obtaining the
+\SG{observed data}\SGs{ experimental data set in hand}.
 
-Quantum homodyne tomography is one of the most popular optical tomography techniques
-available. It rapidly became a versatile tool and has been applied in many different quantum optics experimental settings since it was proposed by Vogel and Risken in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et al.} in 1993~\cite{Smithey1993}. This technique permits to characterize a light quantum state by means of the electric field quantum noise statistics collected through multiple phase-sensitive measurements. 
+Quantum homodyne tomography is one of the most popular optical
+tomography techniques available\SG{\cite{Lvovsky2004}}. It rapidly
+became a versatile tool and has been applied in many different quantum
+optics experimental settings since it was proposed by Vogel and Risken
+in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et
+  al.}  in 1993~\cite{Smithey1993}. This technique permits \SG{one} to
+characterize \SGs{a light}\SG{an optical} quantum state by \SGs{means
+  of the electric field quantum noise statistics collected through
+  multiple phase-sensitive measurements.}\SG{analyzing multiple
+  phase-sensitive measurements of the field quadratures.} \SGc{I don't
+  like calling the quadratures ``noise'', becuase noise is usually
+  some error that contanimates the signal that one wants to measure.
+  For us, although the quadratures are random, they are the signal.}
 
-A homodyne measurement generates a continuous value. While no data binning is necessarily needed, we believe that the loss due to binning may be insignificant. On the other hand, discretization of the data by binning it reduces considerably the number of data, expediting the reconstruction algorithm. But how can we estimate the quadrature bin width, such that the bins are not too small nor too big? Bins should not be too small in order to guarantee a save in calculation time and memory. And bins should not be too large in order to avoid a lack of resolution, making the histogram a poor representation 
-of the underlying distribution shape.
+A homodyne measurement generates a continuous value.  \SGs{While no
+  data binning is necessarily needed}\SG{Although discretization is
+  not absolutely necessary, it is a popular practice, and} we believe
+that the \SGs{loss due to binning}\SG{information lost by
+  discrtization} may be insignificant. On the other hand,
+discretization of the data \SGs{by binning it} \SG{considerably}
+reduces \SGs{considerably} the \SGs{number of}\SG{size of the} data,
+expediting the reconstruction algorithm. \SGs{But how can we estimate
+  the quadrature bin width}\SG{How should we choose a discretization
+  strategy} such that the bins are not too small nor too big? \SG{Bins
+  should not be too small in order to guarantee a save in}\SG{Larger
+  bins will reduce} calculation time and memory\SGs{. And}\SG{, but}
+bins should not be too large in order to avoid a lack of resolution,
+making the histogram a poor representation of the underlying
+distribution\SGs{ shape}.
  
-In this paper, we use numerical experiments to simulate optical homodyne tomography of quantum optical states and perform maximum likelihood tomography on the data with and without binning. When choosing a quadrature bin width, we use and compare two different ways: Scott's rule~\cite{Scott2010} and equation (5.136) from Leonhardt's book~\cite{Leonhardt1997}. The paper is divide as follow: in Section \ref{MLE} we review maximum likelihood in homodyne tomography.  In Section \ref{numerical-experiments} we describe our numerical experiments and present our results. In Section \ref{conclusion} we discuss the interpretation of our results and make some concluding remarks.
+In this paper, we use numerical experiments to simulate optical
+homodyne tomography \SGs{of quantum optical states} and perform
+maximum likelihood tomography on the data with and without
+\SGs{binning}\SG{discretization}. When choosing a quadrature bin
+width, we use and compare two different \SGs{ways}\SG{strategies}:
+Scott's rule~\cite{Scott2010} and \SGs{equation}\SG{Eq.~}(5.136) from
+Leonhardt's book~\cite{Leonhardt1997}. The paper is divide as follow:
+in Section \ref{MLE} we review maximum likelihood in homodyne
+tomography.  In Section \ref{numerical-experiments} we describe our
+numerical experiments and present our results. In Section
+\ref{conclusion} we discuss the interpretation of our results and make
+some concluding remarks.
+
 
 
 \section{Maximum likelihood in homodyne tomography}
 \label{MLE}
-Let us consider $N$ quantum systems, each of them prepared in an optical state described by a density matrix $\rhotrue$. In each experimental run, we measure the field quadrature at different phases $\theta$ of a local oscillator, i.e. a reference system prepared in a high amplitude coherent state. Each measurement is associated with an observable $\hat{X}_{\theta} = \hat{X} \cos \theta + \hat{P} \sin \theta$, where $\hat{X}$ and $\hat{P}$ are the position and momentum operators, respectively. For a given phase $\theta$, we measure a quadrature value $x$, resulting on a data set $\{(\theta_i, x_i)\}$.
+Let us consider $N$ quantum systems, each \SGs{of them }prepared in an
+optical state described by a density matrix $\rhotrue$. In each
+experimental \SGs{run}\SG{trial $i$}, we measure the field quadrature
+\SG{of one of the systems} at \SGs{different phases}\SG{some phase}
+$\theta_i$ of a local oscillator, i.e. a reference system prepared in
+a high amplitude coherent state. Each measurement is associated with
+an observable
+$\hat{X}_{\theta_i} = \hat{X} \cos \theta_i + \hat{P} \sin \theta_i$,
+where $\hat{X}$ and $\hat{P}$ are \SGs{the}\SG{analogous to
+  mechanical} position and momentum operators, respectively. For a
+given phase $\theta_i$, we measure a quadrature value $x_i$, resulting
+\SGs{on a}\SG{in the} data set
+$\{(\theta_i, x_i)| i = 1, \ldots, N\}$.
 
-The outcome of the $i$-th measurement is described by a positive-operator-valued measure (POVM) element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set \{$(\theta_{i},
-x_i): i = 1, ..., N$\}, we can write the likelihood of a candidate density matrix $\rho$ as
+The outcome of the $i$-th measurement is \SGs{described
+  by}\SG{associated with} a positive-operator-valued measure (POVM)
+element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set
+\SGs{\{$(\theta_{i}, x_i): i = 1, ..., N$\}}, \SGs{we can write} the
+likelihood of a candidate density matrix $\rho$ \SGs{as}\SG{is}
 \begin{eqnarray}
-\mathcal{L} (\rho)= \prod_{i=1}^{N} \mathrm{Tr} (\Pi_i \rho),
-\label{eq-likelihood}
+  \mathcal{L} (\rho)= \prod_{i=1}^{N} \mathrm{Tr} (\Pi_i \rho),
+  \label{eq-likelihood}
 \end{eqnarray}
-where $\mathrm{Tr}(\rho \Pi_i)$ is the probability, when measuring with phase $\theta_i$, to obtain outcome $x_i$, according to the candidate density matrix $\rho$.
+where $\mathrm{Tr}(\rho \Pi_i)$ is the probability, when measuring
+with phase $\theta_i$, to obtain outcome $x_i$, according to the
+candidate density matrix $\rho$.
 
-MLE searches within the density matrix space the one that maximizes the likelihood in~(\ref{eq-likelihood}). Equivalently, it usually is more convenient to maximize the logarithm of the likelihood (the ``log-likelihood''):
+MLE searches \SGs{within}\SG{for} the density matrix \SGs{space the
+  one} that maximizes the likelihood
+in~(\ref{eq-likelihood}). Equivalently, it usually is more convenient
+to maximize the logarithm of the likelihood (the ``log-likelihood''):
 \begin{eqnarray}
-L (\rho) = \ln \mathcal{L} (\rho)= \sum_{i=1}^{N} \ln [\mathrm{Tr} (\Pi_i \rho)],
+  L (\rho) = \ln \mathcal{L} (\rho)= \sum_{i=1}^{N} \ln [\mathrm{Tr} (\Pi_i \rho)],
 \end{eqnarray} 
-which is maximized by the same density matrix as the likelihood. The MLE is essentially a function optimization problem, and since the log-likelihood function is concave, the convergence to an unique solution will be achieved by most iterative optimization methods.
+which is maximized by the same density matrix as the likelihood. The
+MLE is essentially a function optimization problem, and since the
+log-likelihood function is concave, \SGs{the} convergence to
+\SGs{an}\SG{a} unique solution will be achieved by most iterative
+optimization methods.
 
-In our numerical simulations, we use an algorithm for likelihood maximization that begins with interactions of the $R\rho R$ algorithm~\cite{Rehacek2007} followed by iterations of a regularized gradient ascent algorithm (RGA). The main reason to switch from one algorithm to another is the fact that an expressive slow-down is observed in the $R\rho R$ algorithm after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is parametrized as 
+In our numerical simulations, we use an algorithm for likelihood
+maximization that begins with \SGs{interactions}\SG{iterations} of the
+$R\rho R$ algorithm~\cite{Rehacek2007} followed by iterations of a
+regularized gradient ascent algorithm (RGA). The main reason to switch
+from one algorithm to another is \SGs{the fact} that \SGs{an
+  expressive}\SG{a} slow-down is observed in the $R\rho R$ algorithm
+after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is
+parametrized as
 \begin{equation}
   \rho^{(k+1)}=\frac{\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)}{\mathrm{Tr}\left[\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)\right]},
-\label{eq-rho-k+1}
+  \label{eq-rho-k+1}
 \end{equation}
-where $\rho^{(k)}$ is the density found by the last interaction of $R \rho R$, and $A$ may be any complex matrix of the same dimensions as $\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a physical density matrix for any chosen $A$. The matrix $A$ should maximize the quadratic
-approximation of the log-likelihood subject to $\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number adjusted by the algorithm to guarantee that the log-likelihood increases with each iteration. To halt the interactions, we use the stopping criterion of \cite{Glancy2012}, $L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
+where $\rho^{(k)}$ is the density \SG{matrix} found by the \SGs{last
+  interaction of $R \rho R$}\SG{previous iteration}, and $A$ may be
+any complex matrix of the same dimensions as
+$\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a
+\SGs{physical} density matrix for any \SGs{chosen} $A$. The matrix $A$
+\SGs{should}\SG{is chosen} maximize the quadratic approximation of the
+log-likelihood subject to $\text{Tr}(AA^{\dagger})\leq u$, where $u$
+is a positive number adjusted by the algorithm to guarantee that the
+log-likelihood increases with each iteration. To halt the
+\SGs{interactions}\SG{iterations}, we use the stopping criterion of
+\cite{Glancy2012}, \SGs{which stops iterations when}
+$L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where
+$L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
+
+
 
 \section{Numerical experiments}
 \label{numerical-experiments}
 Our numerical experiments simulate single mode optical homodyne
-measurements~\cite{Lvovsky2009} of Gaussian cat and squeezed vacuum states. 
-Each considered state is represented by a density matrix $\rho_{\mathrm{true}}$ in an $n$ photon basis. 
+measurements\SGs{~\cite{Lvovsky2009}} of \SG{two typse of states: (1)}
+\SGs{Gaussian cat}\{superpositions of coherent states of opposite
+phase (called ``cat states'') and (2) squeezed vacuum states.  Each
+\SGs{considered} state is represented by a density matrix
+$\rho_{\mathrm{true}}$ \SG{truncated} in an $n$ photon basis.
 
-In order to calculate the probability to obtain homodyne measurement outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase $\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon basis considered. If $|x\rangle$ is the photon number basis representation of the x-quadrature eigenstate with eigenvalue $x$, and $U(\theta)$ is the phase evolution unitary operator, then for an ideal homodyne measurement, we have $\Pi (x|\theta) = U(\theta)^{\dagger}|x\rangle \langle x| U(\theta)$. Moreover, it is more realistic to consider that homodyne detectors suffer from photon loss, by including that loss in the POVM elements. In this case, the projector operator is replaced by $\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger} U(\theta)^{\dagger}|x\rangle \langle x| U(\theta) E_i(\eta)$, where $\eta = 0.9$, which is typical for state-of-the-art homodyne detectors, is used in all
-simulations. Using this strategy, we are able to estimate the state of the system before the occurrence of the regarded loss. We use rejection
-sampling from the distribution given by $P(x|\theta)$ to guarantee random samples of homodyne measurement results~\cite{Kennedy1980}.
+In order to calculate the probability to obtain homodyne measurement
+outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase
+$\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon
+basis \SGs{considered}. If $|x\rangle$ is the photon number basis
+representation of the x-quadrature eigenstate with eigenvalue $x$, and
+$U(\theta)$ is the phase evolution unitary operator, then for an ideal
+homodyne measurement, we have
+$\Pi (x|\theta) = U(\theta)^{\dagger}|x\rangle \langle x|
+U(\theta)$. \SGs{Moreover, it is more realistic to consider that
+  homodyne detectors suffer from photon loss, by including that loss
+  in the POVM elements. In this case the projector operator is
+  replaced by}\SG{To include photon loss or detector inefficiency, we
+  replace} the projector with
+$\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
+U(\theta)^{\dagger}|x\rangle \langle x| U(\theta) E_i(\eta)$, where
+$\eta$ \SG{is the detection efficiency \cite{Lvovsky2004}}.
+\SGs{$ = 0.9$, which is typical for state-of-the-art homodyne
+  detectors, is used in all simulations.} \SG{Typical state-of-the-art
+  homodyne detection systems have efficiency $\eta ~ 0.9$, so we use
+  this value in our simulations.} Using this strategy, we are able to
+\SG{correct for the loss as we} estimate the state\SGs{ of the system
+  before the occurrence of the regarded loss}. We use rejection
+sampling from the distribution given by $P(x|\theta)$ to guarantee
+random samples of homodyne measurement results~\cite{Kennedy1980}.
 
 To choose the phases at which the homodyne measurements are performed, we divide the upper-half-circle evenly among $m$ phases between 0 and $\pi$ and measure $N/m$ times at each phase, where $N$ is the total number of measurements. In all simulations, we use $m=20$ and $N = 20,000$. To secure a single maximum of the likelihood function, we need an informationally complete set of measurement operators, which can be obtained if we use $n+1$ different phases to reconstruct a state that contains at most $n$ photons~\cite{Leonhardt1997}. 
 

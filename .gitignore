@@ -1,0 +1,10 @@
+auto
+*.aux
+*.bbl
+*.blg
+*.log
+*Notes.bib
+*~
+*.dvi
+*.out
+*.ps
