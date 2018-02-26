@@ -335,40 +335,131 @@ $\eta$ \SG{is the detection efficiency \cite{Lvovsky2004}}.
 sampling from the distribution given by $P(x|\theta)$ to guarantee
 random samples of homodyne measurement results~\cite{Kennedy1980}.
 
-To choose the phases at which the homodyne measurements are performed, we divide the upper-half-circle evenly among $m$ phases between 0 and $\pi$ and measure $N/m$ times at each phase, where $N$ is the total number of measurements. In all simulations, we use $m=20$ and $N = 20,000$. To secure a single maximum of the likelihood function, we need an informationally complete set of measurement operators, which can be obtained if we use $n+1$ different phases to reconstruct a state that contains at most $n$ photons~\cite{Leonhardt1997}. 
+To choose the phases at which the homodyne measurements are performed,
+we divide the upper-half-circle evenly among $m$ phases between 0 and
+$\pi$ and measure $N/m$ times at each phase, where $N$ is the total
+number of measurements. In all simulations, we use $m=20$ and
+$N = 20,000$. To secure a single maximum of the likelihood function,
+we need an informationally complete set of measurement operators,
+which can be obtained if we use $n+1$ different phases to reconstruct
+a state that contains at most $n$ photons~\cite{Leonhardt1997}.
 
-To quantify how similar a reconstructed state, $\rho$, is of a true state, $\rho_{\mathrm{true}}$, we use the fidelity, defined by:
+To quantify \SGs{how similar a}\SG{the similarity of the}
+reconstructed state\SGs{,} $\rho$\SGs{,}\SGc{We don't need these
+  commas around the mathematical symbol.  I'm going to delete them
+  whenever I find them.} \SGs{is of a}\SG{to the} true state
+$\rhotrue$ we use the fidelity\SGs{, defined by:}
 \begin{eqnarray}
-F = Tr \sqrt{\rho^{1/2}\, \rho_{\mathrm{true}} \, \rho^{1/2}}.
-\end{eqnarray}  
-The fidelity shown in the graphs are obtained by calculating the arithmetic mean of the 100 fidelities, since we reconstruct each state 100 times, each time obtaining the fidelity between the reconstructed state and the true state. The uncertainty in each fidelity estimate (shown as error bars in the figures) is the standard deviation of the mean of the fidelity.
+  F = Tr \sqrt{\rho^{1/2}\, \rhotrue \, \rho^{1/2}}.
+\end{eqnarray}
+\SGc{It might be better to put the remainder of this paragraph in the
+  results section.}\SGs{The fidelity shown in the graphs are obtained
+  by calculating the arithmetic mean of the 100 fidelities, since we
+  reconstruct each state 100 times, each time obtaining the fidelity
+  between the reconstructed state and the true state. The uncertainty
+  in each fidelity estimate (shown as error bars in the figures) is
+  the standard deviation of the mean of the fidelity.} \SG{To make the
+  graphs below, for each choice of parameters, we simulate 100
+  tomography experiments, making 100 desnity matrix estimates.  The
+  graphs show the arithmetic mean of the 100 fidelities of the
+  reconstructed states.  The error bars show the standard deviation of
+  the mean of the fidelities.} \SGc{I think that the standard
+  deviation of the 100 (not of the mean) is the natural quantity to
+  use for the error bars.  The standard deviation of the 100 tells
+  readers ``If I do one experiment, in what interval will the result
+  probably be?''.}
 
-We calculate and compare the fidelity between the reconstructed state and the true state for four different situations: (i) the state is reconstructed using the continuous values of homodyne measurement results, that is without binning; (ii) the state is reconstructed using homodyne measurement data binning with a chosen bin width (iii) the state is reconstructed using homodyne measurement data binning with a bin width given by Scott's rule~\cite{Scott2010}; and (iv) the state is reconstructed using homodyne measurement data binning with a bin width suggested by Leonhardt in~\cite{Leonhardt1997}.
+We \SGs{calculate and compare the fidelity between the reconstructed
+  state and the true state for} \SGs{we report fidelities for} four
+different situations: (i) the state is reconstructed using the
+continuous values of homodyne measurement results, that is without
+\SGs{binning}\SG{discretization}; (ii) the state is reconstructed
+\SGs{using homodyne measurement data} with \SGs{a} chosen bin
+width\SG{s} (iii) the state is reconstructed \SGs{using homodyne
+  measurement data binning} with \SGs{a} bin width\SG{s} given by
+Scott's rule~\cite{Scott2010}; and (iv) the state is reconstructed
+\SGs{using homodyne measurement data binning} with \SGs{a} bin
+width\SG{s} suggested by Leonhardt in~\cite{Leonhardt1997}. \SG{We
+  only consider histograms with contiguous bins of equal width for
+  each phase.}
 
-In 1979 Scott derived a formula for the asymptotically optimal bin width:
+In 1979 Scott derived a formula \SGs{for the asymptotically optimal}
+\SG{recommding a bin width for discretizing data sampled from a
+  probability density function $f$ for a single random variable
+  $x$. The recommended bin width is}
 \begin{eqnarray}
-h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
-\label{eq-hstar}
+  h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3}.
+  \label{eq-hstar}
 \end{eqnarray}
-where $f(x)$ is a continuous probability density function with two continuous bounded derivatives and $s$ is the sample size. For a Gaussian probability density, we have
+where \SGs{$f(x)$ is a continuous probability density function with
+  two continuous bounded derivatives and} \SG{the first and second
+  derivatives of $f$ must be continuous and bounded and} $s$ is the
+sample size. \SG{Because one does not know $f$ in an experiment we
+  assume a normal distribution.} For a \SGs{Gaussian probability
+  density,}\SG{normal $f$} we have
 \begin{eqnarray}
-\int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
-\label{eq-intnormaldist}
+  \int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
+  \label{eq-intnormaldist}
 \end{eqnarray}
-where $\sigma$ is the standard deviation. Combining Eqs. (\ref{eq-hstar}) and (\ref{eq-intnormaldist}), we obtain the optimal bin width for normal data distribution:
+where $\sigma$ is the \SG{distribution's} standard
+deviation. Combining Eqs.~(\ref{eq-hstar}) and
+(\ref{eq-intnormaldist}), we obtain the \SGs{optimal}\SG{recommended}
+bin width for a normal \SGs{data} distribution:
 \begin{eqnarray}
-h = 3.5 \, \sigma \, s^{-1/3}.
+  h = 3.5 \, \sigma \, s^{-1/3}.
 \end{eqnarray}
-This formula is known as Scott's rule, and is optimal if the data is close to being normally distributed, but is also appropriate for most other distributions. 
+This formula is known as Scott's rule, and is optimal \SGc{Optimal for
+  what purpose?} if the data \SGs{is close to being} normally
+distributed\SGs{,} but is also appropriate for \SGs{most}\SG{many}
+other distributions.  \SG{In our simulations we compute a bin size
+  separetely for each phase's quadrature measurements, and we use the
+  corrected sample standard deviation in place of
+  $\sigma$.}\SGc{Depending on how Scott's rule is optimal, it might be
+  good to say something about why it might be useful for tomography or
+  not.}
 
-On the other hand, Leonhardt states that if we desire to reconstructed a density matrix of a state with $n$ photons, we need a bin width narrower than $q_n/2$, where $q_n$ is given by
+\SG{Although Scott's rule is optimal for ???, it may not be optimal
+  for homodyne tomography because we are estimating the density matrix
+  rather than each phase's quadrature distribution individually.  Also
+  many interesting optical states do not have normal quadrature
+  distributions, for example our cat states.  In fact, one might
+  expect that the bin width should be related to the number of photons
+  in a quantum state because higher photon number states have more
+  narrow features in their quadrature distributions, which should not
+  be washed-out by the discretization.} \SGs{On the other hand,}
+Leonhardt states that if we desire to reconstructed a density matrix
+of a state with $n$ photons, we need a bin width narrower than
+$q_n/2$, where $q_n$ is given by
 \begin{eqnarray}
-q_n = \frac{\pi}{\sqrt{2 n + 1}}.
-\label{eq-leonhardt}
+  q_n = \frac{\pi}{\sqrt{2 n + 1}}.
+  \label{eq-leonhardt}
 \end{eqnarray}
-This result was shown initially in~\cite{Leonhardt1996}, and was obtained by using a semiclassical approximation for the amplitude pattern functions in quantum state
-sampling. This result is also valid for phase-space tomography, since they are both 
-mathematically equivalent. In a real experiment, we probably do not have any knowledge of the quantum state, including the mean number of photons in it. All we have access is to quadrature measurements. To be able to use Eq.~(\ref{eq-leonhardt}), we need to find a way to determine the mean photon number from the quadrature measurements. We propose a method to determine the mean photon number from the quadrature measurement results in the next section. 
+This result was shown initially in~\cite{Leonhardt1996}\SGc{Maybe we
+  should only cite this paper instead of the textbook.}, and was
+obtained by using a semiclassical approximation for the amplitude
+pattern functions in quantum state sampling. \SGs{This result is also
+  valid for phase-space tomography, since they are both mathematically
+  equivalent.}\SGc{They are not equivalent.} \SG{Leonhardt recommends
+  using the maximum photon number in Eq.~(\ref{eq-leonhardt}), however
+  many states have no maximum photon number, and whether a state has a
+  true maximum photon number is not possible to learn with certainty
+  from tomography.  Instead, we have tested using the photon number at
+  which the reconstruction Hilbert space is truncated \SGc{Do we
+    discuss these tests later?} and an estimate of the mean photon
+  number in Eq.~(\ref{eq-leonhardt}).  The truncation must be chosen
+  in advance to be large enough that the probability that $\rhotrue$
+  contains more photons than the truncation limit is very small.  We
+  estimate the mean photon number from the quadrature measurements as
+  described in the next section.}\SGs{In a real experiment, we
+  probably do not have any knowledge of the quantum state, such as the
+  mean number of photons in it. All we have access is to quadrature
+  measurements. To be able to use Eq.~(\ref{eq-leonhardt}), we need to
+  find a way to determine the mean photon number from the quadrature
+  measurements. We propose a method to determine the mean photon
+  number from the quadrature measurement results in the next
+  section.}\SGc{I had to restructure this a little, because I wanted
+  to mention the distinction between truncation number vs. mean photon
+  number.  We might want to introduce separate symbols for these two.}
 
 \section{Estimating mean photon number}
 \label{sec-photon-estimation}
