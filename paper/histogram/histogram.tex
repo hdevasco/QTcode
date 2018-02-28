@@ -511,7 +511,7 @@ $\overline{\langle \hat{n} \rangle}$.
 
 
 \section{Results}
-In \SG{our} study \SGs{cases}, we compute the fidelity between the
+In \SG{our} study \SGs{cases}, we compute the fidelities between the
 true state and (i) the density matrix reconstructed without binning,
 $\rho_{\mathrm{ML2}}$; (ii) the density matrix reconstructed using
 data binning with \SGs{a random} chosen bin width\SG{s},
@@ -522,9 +522,9 @@ $\rho_{\mathrm{Scott}}$.
 %DISCUSSION OF FIGURE 1
 Our first result is shown in
 Fig.~\ref{fig-methods_fidelity_singledata}. The state considered is a
-cat state with amplitude $\alpha = 1$,\SGc{Have we defined $\alpha$?}
-and the Hilbert space \SGs{was} truncated at $10$ photons. Scott's
-method finds \SGs{an}\SG{a different} optimal bin width for each phase
+cat state with amplitude $\alpha = 1$,\SGc{Define $\alpha$.}  and the
+Hilbert space \SGs{was} truncated at $10$ photons. Scott's method
+finds \SGs{an}\SG{a different} optimal bin width for each phase
 considered, \SGs{such that we have a mean bin width in this case}
 \SG{so we report the mean bin width averaged over the 20 phases in
   these cases}. \SGs{In here}\SG{Here} the mean bin width for Scott's
@@ -573,112 +573,224 @@ corresponds to the case where we do not \SGs{apply any
 %DISCUSSION OF FIGURE 2
 The next set of results is presented in
 Fig.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate}, where we
-\SGs{have}\SG{show} the fidelity as a function of the bin width for
-cat states with amplitudes $\alpha=1$ and $\alpha=2$. The states are
-reconstructed in a 15 photons Hilbert space. \SGs{The first thing that
-  we can notice in this graph is that the}\SG{The} fidelity for a
-$\alpha=1$ cat state is always greater than the fidelity for a
-$\alpha=2$ cat state, including the case when we have no binning. This
-is expected, because a $\alpha = 2$ state requires more parameters to
-effectively describe its density matrix \SG{in the photon number
-  basis}, so for a given amount of data, there is greater statistical
-uncertainty. \SGc{Joining paragraphs} \SGs{We may also notice that
-  the}\SG{The} fidelity for the $\alpha = 2$ cat state decreases
-faster than the fidelity for \SGs{a}\SG{the} $\alpha=1$ cat state as
-the bin size increases. This is also expected because the $\alpha = 2$
-state has more wiggles in its probability distribution, so more
-information is lost when the bins are larger. The average bin width
-\SGs{for}\SG{used by} Scott's method is $0.35$ for the $\alpha=1$ cat
-state, and $0.64$ for the $\alpha=2$ cat state\SG{, which results in
-  significant fidelity loss.}\SGc{We should discuss the choices of 10 and 15 in Leonhardt's formula.}
+\SGs{have the fidelity}\SG{show average fidelities} as a function of
+the bin width for cat states with amplitudes $\alpha=1$ and
+$\alpha=2$. The states are reconstructed in a 15 photons Hilbert
+space. \SGs{The first thing that we can notice in this graph is that
+  the}\SG{The} fidelity for a $\alpha=1$ cat state is always greater
+than the fidelity for a $\alpha=2$ cat state, including the case when
+we have no binning. This is expected, because a $\alpha = 2$ state
+requires more parameters to effectively describe its density matrix
+\SG{in the photon number basis}, so for a given amount of data, there
+is greater statistical uncertainty. \SGc{Joining paragraphs} \SGs{We
+  may also notice that the}\SG{The} fidelity for the $\alpha = 2$ cat
+state decreases faster than the fidelity for \SGs{a}\SG{the}
+$\alpha=1$ cat state as the bin size increases. This is also expected
+because the $\alpha = 2$ state has more wiggles in its probability
+distribution, so more information is lost when the bins are
+larger. The average bin width \SGs{for}\SG{used by} Scott's method is
+$0.35$ for the $\alpha=1$ cat state, and $0.64$ for the $\alpha=2$ cat
+state\SG{, which results in significant fidelity loss.}\SGc{We should
+  discuss the choices of 10 and 15 in Leonhardt's formula.  The
+  Hilbert space has 15 photons, so why quote the 10 photon bin width?}
 
-%FIGURE 2
+% FIGURE 2
 \begin{figure}
-\includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_15_photons_catstate.eps}
-\caption{Fidelity as a function of the bin width for cat states with amplitudes $\alpha=1$ and $\alpha=2$. The Hilbert space is truncated at 15 photons. The mean bin width for Scott's method are $0.35$ ($\alpha=1$ cat state) and $0.64$ ($\alpha=2$ cat state).}
-\label{fig-fidelity_vs_binwidth_15_photons_catstate}
+  \includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_15_photons_catstate.eps}
+  \caption{\SG{Average} fidelity as a function of the bin width for
+    cat states with amplitudes $\alpha=1$ and $\alpha=2$. The Hilbert
+    space is truncated at 15 photons. The mean bin width for Scott's
+    method are $0.35$ ($\alpha=1$ cat state) and $0.64$ ($\alpha=2$
+    cat state).}
+  \label{fig-fidelity_vs_binwidth_15_photons_catstate}
 \end{figure}
 
-%DISCUSSION OF FIGURE 3
-Figure~\ref{fig-squeezedvacuum_15_photons_Var=075} shows the fidelity as a function
-of the bin width for a squeezed vacuum state whose squeezed quadrature has a variance 3/4 of the vacuum variance.  We use a 15 photon Hilbert space to reconstruct this state. In this graph, we extended the bin width until $1.05$ to help visualize the decreasing in the fidelity when the bin width increases. Using a bin width of $1.05$ gives us a fidelity loss of about $7\%$, while the loss when we use Scott's optimal bin width (0.25) is of about $0.02\%$.
+% DISCUSSION OF FIGURE 3
+Figure~\ref{fig-squeezedvacuum_15_photons_Var=075} shows the
+\SG{average} fidelity as a function of the bin width for a squeezed
+vacuum state whose squeezed quadrature has a variance 3/4 of the
+vacuum variance.  We use a 15 photon Hilbert space to reconstruct this
+state. In this graph, we extended the bin width \SGs{until}\SG{to}
+$1.05$ to \SGs{help visualize the decreasing in}\SG{show} the fidelity
+\SG{decreasing} when the bin width increases. Using a bin width of
+$1.05$ gives us a fidelity loss of about \SGs{$7\%$}\SG{0.07}\SGc{I
+  find the percent number ot be a bit confusing because it might mean
+  multiply by 0.93 or it might mean subtract 0.07.  I prefer to always
+  avoid $\%$.}, while the \SG{fidelitly} loss when we use Scott's
+optimal bin width (0.25) is of about $0.0002$.
 
 %In Figs.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate} and~\ref{fig-%squeezedvacuum_15_photons_Var=075}, we indicate the bin width obtained using Eq.~(\ref{eq-leonhardt}) for a maximum number of photon in the Hilbert space of $10$ and $15$, respectively. 
 
 %FIGURE 3
-\begin{figure}[h]
-\includegraphics[width=0.49\textwidth]{squeezedvacuum_15_photons_Var=075.eps}
-\caption{Fidelity as a function of the bin width for a squeezed vacuum state whose squeezed quadrature has a variance 3/4 of the vacuum variance. The Hilbert space is truncated at 15 photons. The mean bin width for Scott's method is $0.25$.}
-\label{fig-squeezedvacuum_15_photons_Var=075}
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{squeezedvacuum_15_photons_Var=075.eps}
+  \caption{\SG{Average} fidelity as a function of the bin width for a
+    squeezed vacuum state whose squeezed quadrature has a variance 3/4
+    of the vacuum variance. The Hilbert space is truncated at 15
+    photons. The mean bin width for Scott's method is $0.25$.}
+  \label{fig-squeezedvacuum_15_photons_Var=075}
 \end{figure}
 
 %DISCUSSION OF FIGURES 4, 5 AND 6
-Until now, as mentioned before, each bin's measurement operator represents a measurement that occurs at the center of the bin. In order to improve our analysis,
-we now change each bin's measurement operator so that it represents a measurement that occurs anywhere in the bin, rather than a measurement that happens exactly at the center of the bin. For that, we integrate the measurement operators over the width of each histogram bin. We will identify each case by adding $[$POVM-center$]$ and $[$POVM-integral$]$ to the fidelity identifier.
+Until now, as mentioned before, \SGs{each bin's measurement operator
+  representes a measurement that occurs at the center of the
+  bin}\SG{every measurement outcome in a given bin has been associated
+  with the measurement operator for the quadrature value at the center
+  of that bin.  Although this may be a useful approximation for very
+  small bins,} to improve our analysis, we now change each bin's
+measurement operator so that it represents a measurement that occurs
+anywhere in the bin\SGs{, rather than a measurement that happens
+  exactly at the center of the bin}. For that, we \SG{numerically}
+integrate the measurement operators over the width of each histogram
+bin. We \SGs{will} identify each case by adding $[$POVM-center$]$ and
+$[$POVM-integral$]$ to the \SGs{fidelity identifier}\SG{legends in the
+  graphs}.
 
-We also add to our analysis the fidelity calculation when using a bin width given by Leonhardt's formula, Eq.~(\ref{eq-leonhardt}), calculated with the mean photon number estimated by Eq.~(\ref{eq-photon-estimation}). In this case, we compute the fidelity between the true state and the density matrix reconstructed using data binning with a bin width given by Leonhardt's formula, $\rho_{\mathrm{Leonhardt}}$. We reminder the reader that Leonhardt suggests that the used bin width should be equal or smaller to the one calculated using Eq.~(\ref{eq-leonhardt}). 
+We also add to our analysis the \SG{use of the mean photon number
+  estimate in Leonhardt's formula, and we calculate the fidelity
+  between $\rhotrue$ and the state $\rho_{\mathrm{Leonhardt}}$
+  estimated using the resulting bin width.}\SGs{fidelity calculation
+  when using a bin width given by Leonhardt's formula,
+  Eq.~(\ref{eq-leonhardt}), calculated with the mean photon number
+  estimated by Eq.~(\ref{eq-photon-estimation}). In this case, we
+  compute the fidelity between the true state and the density matrix
+  reconstructed using data binning with a bin width given by
+  Leonhardt's formula, $\rho_{\mathrm{Leonhardt}}$.} \SGs{We reminder
+  the reader}\SG{Recall} that Leonhardt \SGs{suggests}\SG{recommends}
+that the \SGs{used} bin width should be equal or smaller to the one
+calculated using \SG{the \em{maximum} photon number in}
+Eq.~(\ref{eq-leonhardt})\SG{but here we use the mean photon number
+  instead.}
 
-In Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1} and
-~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}, we have the fidelity
-as a function of the bin width for cat states with amplitudes $\alpha=1$ and
-$\alpha=2$, respectively. We used a $10$ photon Hilbert space to reconstruct the
-$\alpha = 1$ cat state, while the $\alpha = 2$ cat state was reconstructed in a
-$15$ photon space. On the other hand, Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} shows the fidelity as a function of the 
-bin width for a squeezed vacuum state whose squeezed quadrature has a variance 3/4 of the vacuum variance, with a Hilbert space truncated at 10 photons.
+\SGs{In} Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
+and ~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}\SGs{, we have
+  the fidelity}\SG{show average fidelities} as functions of the bin
+width for cat states with amplitudes $\alpha=1$ and $\alpha=2$,
+respectively. We used a $10$ photon Hilbert space to reconstruct the
+$\alpha = 1$ cat state, while the $\alpha = 2$ cat state was
+reconstructed in a $15$ photon space. \SGs{On the other hand,}
+Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} shows the
+\SG{average} fidelity as a function of the bin width for a squeezed
+vacuum state whose squeezed quadrature has a variance 3/4 of the
+vacuum variance, with a Hilbert space truncated at 10 photons.
 
-For the $\alpha = 1$ cat state in Fig.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}, the estimated mean number of photons is $0.6109$ (real mean number of photons is $0.6093$), what gives us, by Leonhardt's formula, Eq.~(\ref{eq-leonhardt}), a bin width of $1.05$. As mentioned before, the average bin width for Scott's method in this case is $0.35$. For the $\alpha = 2$ cat state in Fig.~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}, the estimated mean number of photons is $3.1983$ (real mean number of photons is $3.1978$), giving a bin width of $0.58$. The average bin width for Scott's method is $0.64$ for this state. The squeezed vacuum state of Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} has an estimated mean number of photons of
-$0.0162$ (real mean number of photons is $0.0167$), giving a bin width, by Eq.~(\ref{eq-leonhardt}), of $1.54$. The average bin width for Scott's method, in this case, is $0.25$.
+For the $\alpha = 1$ cat state in
+Fig.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}, the
+estimated mean number of photons is $0.6109$ (\SG{wheras the true}
+\SGs{real} mean number of photons is $0.6093$), \SGs{what}\SG{which}
+gives us, by Leonhardt's formula\SGs{, Eq.~(\ref{eq-leonhardt}),} a
+bin width of $1.05$. As mentioned before, the average bin width for
+Scott's method in this case is $0.35$. For the $\alpha = 2$ cat state
+in Fig.~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}, the
+estimated mean number of photons is $3.1983$ (\SG{wheras the
+  true}\SGs{real} mean number of photons is $3.1978$), giving a bin
+width of $0.58$. The average bin width for Scott's method is $0.64$
+for this state. The squeezed vacuum state of
+Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} has an estimated
+mean number of photons of $0.0162$ (\SG{wheras the true}\SGs{real}
+mean number of photons is $0.0167$), giving a bin width, by
+Eq.~(\ref{eq-leonhardt}), of $1.54$. The average bin width for Scott's
+method, in this case, is $0.25$.\SGc{Maybe move these numbers into the
+  figure captions, so they are easier to see while looking at the
+  figures.}
 
-Analyzing the graphs shown in Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}-\ref{fig-squeezed_vacuum_variance_075_Mph_10}, we see that integrating the measurement operators over the width of each histogram bin improves considerably the fidelity for all the cases. We can also see that, for this case, Leonhardt's suggestion can be safely considered an upper bound for the bin width. The two methods considered here, Leonhardt's and Scott's methods, give faster fidelity estimates with no significant loss of information.
+Analyzing the graphs shown in
+Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}-\ref{fig-squeezed_vacuum_variance_075_Mph_10},
+we see that integrating the measurement operators over the width of
+each histogram bin improves considerably the fidelity for all the
+cases. We can also see that, for this case, Leonhardt's suggestion
+\SG{using the estimated mean photon number} can be safely
+\SGs{considered an}\SG{used as the} upper bound for the bin width. The
+two methods considered here, Leonhardt's and Scott's methods, give
+faster fidelity estimates with no significant loss of
+information.\SGc{We need some graphs of time vs bin width to justify
+  this claim.}
    
-%FIGURE 4
-\begin{figure}[h]
-\includegraphics[width=0.49\textwidth]{fid_vs_binwidth_catstate_alpha_1_mph_10.eps}
-\caption{Fidelity as a function of the bin width for a cat state with amplitude
-$\alpha = 1$. The Hilbert space is truncated at 10 photons. The mean bin width for Scott's method is $0.35$, and the bin width given by Leonhardt's formula is $1.05$.}
-\label{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
+% FIGURE 4
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{fid_vs_binwidth_catstate_alpha_1_mph_10.eps}
+  \caption{Fidelity as a function of the bin width for a cat state
+    with amplitude $\alpha = 1$. The Hilbert space is truncated at 10
+    photons. The mean bin width for Scott's method is $0.35$, and the
+    bin width given by Leonhardt's formula is $1.05$. \SGc{Because the
+      estimated and true mean photon numbers are so close, I would
+      only show the fidelity marker for the estimated mean photon
+      number in these three graphs.}}
+  \label{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
 \end{figure}
 
-%FIGURE 5
-\begin{figure}[h]
-\includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_catstate_alpha_2.eps}
-\caption{Fidelity as a function of the bin width for a cat state with amplitude
-$\alpha = 2$. The Hilbert space is truncated at 15 photons. The mean bin width for Scott's method is $0.64$, and the bin width given by Leonhardt's formula is $0.58$.}
-\label{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}
+% FIGURE 5
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_catstate_alpha_2.eps}
+  \caption{Fidelity as a function of the bin width for a cat state
+    with amplitude $\alpha = 2$. The Hilbert space is truncated at 15
+    photons. The mean bin width for Scott's method is $0.64$, and the
+    bin width given by Leonhardt's formula is $0.58$.}
+  \label{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}
 \end{figure}
 
-%FIGURE 6
-\begin{figure}[h]
-\includegraphics[width=0.49\textwidth]{squeezed_vacuum_variance_075_Mph_10.eps}
-\caption{Fidelity as a function of the bin width for a squeezed vacuum state whose squeezed quadrature has a variance 3/4 of the vacuum variance. The Hilbert space is truncated at 10 photons. The mean bin width for Scott's method is $0.25$, and the bin width given by Leonhardt's formula is $1.54$.}
-\label{fig-squeezed_vacuum_variance_075_Mph_10}
+% FIGURE 6
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{squeezed_vacuum_variance_075_Mph_10.eps}
+  \caption{Fidelity as a function of the bin width for a squeezed
+    vacuum state whose squeezed quadrature has a variance 3/4 of the
+    vacuum variance. The Hilbert space is truncated at 10 photons. The
+    mean bin width for Scott's method is $0.25$, and the bin width
+    given by Leonhardt's formula is $1.54$.}
+  \label{fig-squeezed_vacuum_variance_075_Mph_10}
 \end{figure}
 
 \section{Conclusion}
 \label{conclusion}
 
 We have used idealized numerical experiments to generate simulated
-data, performed tomography on the data with and without binning, and estimated the fidelity between the reconstructed state and the true state. We used two different
-methods to choose the bin width: Scott's and Leonhardt's methods. We considered the bin’s measurement operator to represent a measurement that occurs at the center of the bin or anywhere in the bin. Our study has focused on maximum likelihood tomography of cat states and squeezed vacuum states. 
+data, performed \SG{maximum likelihood} tomography on \SG{data sampled
+  from cat states and squeezed vacuum states} with and without
+\SGs{binning}\SG{discretization}, and estimated the fidelities between
+the reconstructed states and the true state. We used two different
+methods to choose the bin width: Scott's and Leonhardt's methods. We
+\SGs{considered the bin's measurement operator to represent a
+  measurement that occurs at the center of the bin or anywhere in the
+  bin} \SG{studied using measurement operators calculated using the
+  quadrature exactly at the center of each bin and integrating the
+  measurement operators along the length of the bin}. \SGs{Our study
+  has focused on maximum likelihood tomography of cat states and
+  squeezed vacuum states.}
 
-Scott's method calculates an optimal bin width, for each phase, based on the size and
-the standard deviation of the sample. Leonhardt's states that we need a bin width
-narrower than $q_n/2$, where $q_n$ depends on the number of photons in the state
-being reconstructed. Since, in a real experiment, we may not know the mean number
-of photons in the state considered, we have proposed a method to determine the 
-mean photon number from the quadrature measurement results.    
+Scott's method calculates an optimal bin width, for each phase, based
+on the size and the standard deviation of the sample. Leonhardt's
+\SG{method recommends} \SG{states that we need} a bin width narrower
+than $q_n/2$, where $q_n$ depends on the number of photons in the
+state being reconstructed. Since, in a real experiment, we
+\SGs{may}\SG{do} not know the mean number of photons in the state
+considered, we have \SGs{proposed a method to determine
+  the}\SG{estimate the} mean photon number from the quadrature
+measurement results.\SGc{This method to estimate mean photon number has
+  probably been proposed already; I just don't know where.}
 
-We have found that our proposed method to find the mean number of photons from the quadrature measurement results gives accurate results. We checked that by comparing
-the estimated mean number of photons with the real mean number of photons for the
-known states we considered: cat states and squeezed vacuum states. We also have found that integrating the measurement operators over the width of each histogram bin improves significantly the fidelity. Using this strategy, Leonhardt's formula safely establishes an upper bound to the bin width, and both methods provides a faster statistical estimation without losing too much information. 
+We have found that our proposed method to find the mean number of
+photons from the quadrature measurement results gives accurate
+results. We checked that by comparing the estimated mean number of
+photons with the \SGs{real}\SG{true} mean number of photons for the
+\SGs{known states we considered:} cat states and squeezed vacuum
+states. We also have found that integrating the measurement operators
+over the width of each histogram bin significantly improves the
+fidelity. Using this strategy, Leonhardt's formula safely establishes
+an upper bound to the bin width, and both methods provides a faster
+statistical estimation without losing too much information.  \SGc{Do
+  we have any cases in which Scott's method is really bad?}
 
 
 
 \begin{acknowledgments}
-\SGs{We thank Kevin Coakley, Adam Keith, and Emanuel Knill for helpful
-comments on the manuscript.}  H. M. Vasconcelos thanks the Schlumberger 
-Foundation's Faculty for the Future program for financial support. J. L. E. Silva thanks Coordena\c c\~ao de Aperfei\c coamento de Pessoal de N\'ivel Superior (CAPES) for financial support. This work includes contributions of the National Institute of Standards and
-Technology, which are not subject to U.S. copyright.
+  \SGs{We thank Kevin Coakley, Adam Keith, and Emanuel Knill for
+    helpful comments on the manuscript.}  H. M. Vasconcelos thanks the
+  Schlumberger Foundation's Faculty for the Future program for
+  financial support. J. L. E. Silva thanks Coordena\c c\~ao de
+  Aperfei\c coamento de Pessoal de N\'ivel Superior (CAPES) for
+  financial support. This work includes contributions of the National
+  Institute of Standards and Technology, which are not subject to
+  U.S. copyright.
 \end{acknowledgments}
 
 
