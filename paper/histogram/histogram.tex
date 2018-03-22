@@ -110,21 +110,18 @@ longbibliography
              %  but any date may be explicitly specified
 
 \begin{abstract}
-  Quantum state tomography \SGs{(QST)} aims to determine the quantum
+  Quantum state tomography aims to determine the quantum
   state of a system from measured data and is an essential tool for
-  quantum information. When dealing with \SG{continuous variable}
-  quantum states of light, QST is \SG{often} done by measuring
-  \SGs{quantum noise statistics of} the field amplitudes at different
+  quantum information. When dealing with continuous variable
+  quantum states of light, QST is often done by measuring
+  the field amplitudes at different
   optical phases using homodyne detection. The quadrature-phase
-  homodyne measurement outputs a continuous variable, \SG{so to reduce
+  homodyne measurement outputs a continuous variable, so to reduce
     the computational cost of tomography, researchers often discretize
     the measurements into histogram bin.  We show that this can be
     done without significantly degrading the fidelity of the estimated
     state.  This paper tests different strategies for determining the
-    histogram bins.} \SGs{but we can histogram the continuous
-    measurements and make the statistical estimation faster without
-    losing too much information. This paper investigate different ways
-    to determine the quadrature histograms for optical homodyne QST.}
+    histogram bins.
 \end{abstract}
 
 \pacs{
@@ -140,31 +137,23 @@ longbibliography
 
 \section{Introduction}
 \label{intro}
-\SGc{Vocabulary list: We discretize the data.  The process is
-  discretization.  The data goes into bins.  The collection of data
-  that is in bins after discretization is a histogram.  For
-  consistency, lets try to always use these words and avoid ``bin''
-  and ``hisgotram'' as verbs.}
-
-Quantum information science and engineering \SG{are}\SGs{is now} at
+Quantum information science and engineering are at
 the point where rudimentary quantum computers are available in the
 laboratory and
 commercially~\cite{kandala2017,Linke2017,Monk2017,Denchev2016}.
-\SG{However, further advancing quantum technologies requires
-  improvements in the fidelities of basic operations.}  Consequently,
-\SG{more} precise \SG{and efficient} reconstruction and diagnostic
+However, further advancing quantum technologies requires
+  improvements in the fidelities of basic operations.  Consequently,
+more precise and efficient reconstruction and diagnostic
 tools used to estimate quantum states~\cite{Vogel1989, Smithey1993,
   Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007,
   Neergaard2006}, processes~\cite{Chuang1997, Poyatos1997,
   Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003,
   Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999,
   Fiurasek2001, Dariano2004, Lundeen2009} are
-\SGs{fundament}\SG{essential}.
+essential.
 
-Quantum tomography techniques for \SG{optical} quantum states \SGs{of
-  light has become a standard tool because} \SGs{became a subject of
-  major interest in recent years, since}\SGc{I think that enough years
-  have passed that we can no longer call this ``recent''.} quantum
+Quantum tomography techniques for optical quantum states of
+  light has become a standard tool because quantum
 light sources are essential for implementations of continuous-variable
 (CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002,
   Jeong2002, Ralph2003}.  These source are also extensively exploited
@@ -174,84 +163,56 @@ in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002,
   Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014}
 and cloning~\cite{Cerf2000, Braunstein2001}.
 
-In quantum state tomography, we perform \SGs{a large number of
-  experimental measurements} \SG{a measurement} on \SG{each member of}
-a collection of quantum systems, \SGs{each}\SGs{all} prepared in
-\SGs{a}\SG{the} same unknown state. The goal is to estimate this
-unknown state from the \SGs{experimental} measurement\SGs{s}
-results. This estimation can be done \SGs{from the experimental
-  statistical data} by different methods\SGs{. In here we will be
-  dealing with}\SG{, but we study} Maximum Likelihood Estimation
-(MLE), \SGs{that}\SG{which} finds among all possible states, the one
-\SGs{which}\SG{that} maximizes the probability of obtaining the
-\SG{observed data}\SGs{ experimental data set in hand}.
+In quantum state tomography, we perform a measurement on each member of
+a collection of quantum systems, prepared in
+the same unknown state. The goal is to estimate this
+unknown state from the measurements
+results. This estimation can be done by different methods, but we study 
+Maximum Likelihood Estimation (MLE), which finds among all possible states, the one
+that maximizes the probability of obtaining the observed data.
 
 Quantum homodyne tomography is one of the most popular optical
-tomography techniques available\SG{\cite{Lvovsky2004}}. It rapidly
+tomography techniques available~\cite{Lvovsky2004}. It rapidly
 became a versatile tool and has been applied in many different quantum
 optics experimental settings since it was proposed by Vogel and Risken
 in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et
-  al.}  in 1993~\cite{Smithey1993}. This technique permits \SG{one} to
-characterize \SGs{a light}\SG{an optical} quantum state by \SGs{means
-  of the electric field quantum noise statistics collected through
-  multiple phase-sensitive measurements.}\SG{analyzing multiple
-  phase-sensitive measurements of the field quadratures.} \SGc{I don't
-  like calling the quadratures ``noise'', becuase noise is usually
-  some error that contanimates the signal that one wants to measure.
-  For us, although the quadratures are random, they are the signal.}
+  al.}  in 1993~\cite{Smithey1993}. This technique permits one to
+characterize an optical quantum state by analyzing multiple
+  phase-sensitive measurements of the field quadratures. 
 
-A homodyne measurement generates a continuous value.  \SGs{While no
-  data binning is necessarily needed}\SG{Although discretization is
-  not absolutely necessary, it is a popular practice, and} we believe
-that the \SGs{loss due to binning}\SG{information lost by
-  discrtization} may be insignificant. On the other hand,
-discretization of the data \SGs{by binning it} \SG{considerably}
-reduces \SGs{considerably} the \SGs{number of}\SG{size of the} data,
-expediting the reconstruction algorithm. \SGs{But how can we estimate
-  the quadrature bin width}\SG{How should we choose a discretization
-  strategy} such that the bins are not too small nor too big? \SG{Bins
-  should not be too small in order to guarantee a save in}\SG{Larger
-  bins will reduce} calculation time and memory\SGs{. And}\SG{, but}
-bins should not be too large in order to avoid a lack of resolution,
-making the histogram a poor representation of the underlying
-distribution\SGs{ shape}.
+A homodyne measurement generates a continuous value. Although discretization is
+  not absolutely necessary, it is a popular practice, and we believe
+that the information lost by discretization may be insignificant. On the other hand,
+discretization of the data considerably reduces the size of the data,
+expediting the reconstruction algorithm. How should we choose a discretization
+strategy such that the bins are not too small nor too big? Larger
+bins will reduce calculation time and memory, but bins should not be too large 
+in order to avoid a lack of resolution, making the histogram a poor 
+representation of the underlying distribution.
  
 In this paper, we use numerical experiments to simulate optical
-homodyne tomography \SGs{of quantum optical states} and perform
-maximum likelihood tomography on the data with and without
-\SGs{binning}\SG{discretization}. When choosing a quadrature bin
-width, we use and compare two different \SGs{ways}\SG{strategies}:
-Scott's rule~\cite{Scott2010} and \SGs{equation}\SG{Eq.~}(5.136) from
-Leonhardt's book~\cite{Leonhardt1997}. The paper is divide as follow:
-in Section \ref{MLE} we review maximum likelihood in homodyne
-tomography.  In Section \ref{numerical-experiments} we describe our
-numerical experiments and present our results. In Section
-\ref{conclusion} we discuss the interpretation of our results and make
-some concluding remarks.
-
-
+homodyne tomography and perform maximum likelihood tomography on the data 
+with and without discretization. When choosing a quadrature bin
+width, we use and compare two different strategies:
+Scott's rule~\cite{Scott2010} and Leonhardt's formula~\cite{Leonhardt1996}. 
+The paper is divide as follow: \HV{we begin by reviewing maximum likelihood in homodyne tomography in Section \ref{MLE}. Then, in Section \ref{numerical-experiments}, we describe our numerical experiments. Next, we discuss the estimation of the mean photon number from the quadrature measurements in Section \ref{sec-photon-estimation}. In Section \ref{results} we present our results, and we make our concluding remarks in Section \ref{conclusion}.}
 
 \section{Maximum likelihood in homodyne tomography}
 \label{MLE}
-Let us consider $N$ quantum systems, each \SGs{of them }prepared in an
+Let us consider $N$ quantum systems, each prepared in an
 optical state described by a density matrix $\rhotrue$. In each
-experimental \SGs{run}\SG{trial $i$}, we measure the field quadrature
-\SG{of one of the systems} at \SGs{different phases}\SG{some phase}
-$\theta_i$ of a local oscillator, i.e. a reference system prepared in
-a high amplitude coherent state. Each measurement is associated with
-an observable
+experimental trial $i$, we measure the field quadrature
+of one of the systems at some phase $\theta_i$ of a local oscillator, 
+i.e. a reference system prepared in a high amplitude coherent state. 
+Each measurement is associated with an observable
 $\hat{X}_{\theta_i} = \hat{X} \cos \theta_i + \hat{P} \sin \theta_i$,
-where $\hat{X}$ and $\hat{P}$ are \SGs{the}\SG{analogous to
-  mechanical} position and momentum operators, respectively. For a
-given phase $\theta_i$, we measure a quadrature value $x_i$, resulting
-\SGs{on a}\SG{in the} data set
-$\{(\theta_i, x_i)| i = 1, \ldots, N\}$.
+where $\hat{X}$ and $\hat{P}$ are analogous to mechanical position and 
+momentum operators, respectively. For a given phase $\theta_i$, we 
+measure a quadrature value $x_i$, resulting in the 
+data set $\{(\theta_i, x_i)| i = 1, \ldots, N\}$.
 
-The outcome of the $i$-th measurement is \SGs{described
-  by}\SG{associated with} a positive-operator-valued measure (POVM)
-element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set
-\SGs{\{$(\theta_{i}, x_i): i = 1, ..., N$\}}, \SGs{we can write} the
-likelihood of a candidate density matrix $\rho$ \SGs{as}\SG{is}
+The outcome of the $i$-th measurement is associated with a positive-operator-valued measure (POVM) element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set, the
+likelihood of a candidate density matrix $\rho$ is
 \begin{eqnarray}
   \mathcal{L} (\rho)= \prod_{i=1}^{N} \mathrm{Tr} (\Pi_i \rho),
   \label{eq-likelihood}
@@ -260,8 +221,7 @@ where $\mathrm{Tr}(\rho \Pi_i)$ is the probability, when measuring
 with phase $\theta_i$, to obtain outcome $x_i$, according to the
 candidate density matrix $\rho$.
 
-MLE searches \SGs{within}\SG{for} the density matrix \SGs{space the
-  one} that maximizes the likelihood
+MLE searches for the density matrix that maximizes the likelihood
 in~(\ref{eq-likelihood}). Equivalently, it usually is more convenient
 to maximize the logarithm of the likelihood (the ``log-likelihood''):
 \begin{eqnarray}
@@ -269,33 +229,28 @@ to maximize the logarithm of the likelihood (the ``log-likelihood''):
 \end{eqnarray} 
 which is maximized by the same density matrix as the likelihood. The
 MLE is essentially a function optimization problem, and since the
-log-likelihood function is concave, \SGs{the} convergence to
-\SGs{an}\SG{a} unique solution will be achieved by most iterative
-optimization methods.
+log-likelihood function is concave, convergence to a unique solution 
+will be achieved by most iterative optimization methods.
 
 In our numerical simulations, we use an algorithm for likelihood
-maximization that begins with \SGs{interactions}\SG{iterations} of the
+maximization that begins with iterations of the
 $R\rho R$ algorithm~\cite{Rehacek2007} followed by iterations of a
 regularized gradient ascent algorithm (RGA). The main reason to switch
-from one algorithm to another is \SGs{the fact} that \SGs{an
-  expressive}\SG{a} slow-down is observed in the $R\rho R$ algorithm
-after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is
-parametrized as
+from one algorithm to another is that a slow-down is observed in the 
+$R\rho R$ algorithm after about $(n+1)^2/4$ iterations. In the RGA, 
+$\rho^{(k+1)}$ is parametrized as
 \begin{equation}
   \rho^{(k+1)}=\frac{\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)}{\mathrm{Tr}\left[\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)\right]},
   \label{eq-rho-k+1}
 \end{equation}
-where $\rho^{(k)}$ is the density \SG{matrix} found by the \SGs{last
-  interaction of $R \rho R$}\SG{previous iteration}, and $A$ may be
-any complex matrix of the same dimensions as
+where $\rho^{(k)}$ is the density matrix found by the previous iteration, and 
+$A$ may be any complex matrix of the same dimensions as
 $\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a
-\SGs{physical} density matrix for any \SGs{chosen} $A$. The matrix $A$
-\SGs{should}\SG{is chosen} maximize the quadratic approximation of the
-log-likelihood subject to $\text{Tr}(AA^{\dagger})\leq u$, where $u$
-is a positive number adjusted by the algorithm to guarantee that the
-log-likelihood increases with each iteration. To halt the
-\SGs{interactions}\SG{iterations}, we use the stopping criterion of
-\cite{Glancy2012}, \SGs{which stops iterations when}
+density matrix for any $A$. The matrix $A$ is chosen to maximize the 
+quadratic approximation of the log-likelihood subject to 
+$\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number adjusted 
+by the algorithm to guarantee that the log-likelihood increases with each 
+iteration. To halt the iterations, we use the stopping criterion of \cite{Glancy2012},
 $L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where
 $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 
@@ -304,34 +259,26 @@ $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 \section{Numerical experiments}
 \label{numerical-experiments}
 Our numerical experiments simulate single mode optical homodyne
-measurements\SGs{~\cite{Lvovsky2009}} of \SG{two typse of states: (1)}
-\SGs{Gaussian cat}\{superpositions of coherent states of opposite
-phase (called ``cat states'') and (2) squeezed vacuum states.  Each
-\SGs{considered} state is represented by a density matrix
-$\rho_{\mathrm{true}}$ \SG{truncated} in an $n$ photon basis.
+measurements of two types of states: (1) superpositions of coherent states of 
+opposite phase $|-\alpha\rangle + |\alpha\rangle$ (called ``cat states'') and 
+(2) squeezed vacuum states. Each state is represented by a density matrix 
+$\rho_{\mathrm{true}}$ truncated in a $n$ photon basis.
 
 In order to calculate the probability to obtain homodyne measurement
 outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase
 $\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon
-basis \SGs{considered}. If $|x\rangle$ is the photon number basis
+basis. If $|x\rangle$ is the photon number basis
 representation of the x-quadrature eigenstate with eigenvalue $x$, and
 $U(\theta)$ is the phase evolution unitary operator, then for an ideal
 homodyne measurement, we have
 $\Pi (x|\theta) = U(\theta)^{\dagger}|x\rangle \langle x|
-U(\theta)$. \SGs{Moreover, it is more realistic to consider that
-  homodyne detectors suffer from photon loss, by including that loss
-  in the POVM elements. In this case the projector operator is
-  replaced by}\SG{To include photon loss or detector inefficiency, we
-  replace} the projector with
-$\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
+U(\theta)$. To include photon loss or detector inefficiency, we replace 
+the projector with $\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
 U(\theta)^{\dagger}|x\rangle \langle x| U(\theta) E_i(\eta)$, where
-$\eta$ \SG{is the detection efficiency \cite{Lvovsky2004}}.
-\SGs{$ = 0.9$, which is typical for state-of-the-art homodyne
-  detectors, is used in all simulations.} \SG{Typical state-of-the-art
-  homodyne detection systems have efficiency $\eta ~ 0.9$, so we use
-  this value in our simulations.} Using this strategy, we are able to
-\SG{correct for the loss as we} estimate the state\SGs{ of the system
-  before the occurrence of the regarded loss}. We use rejection
+$\eta$ is the detection efficiency \cite{Lvovsky2004}.
+Typical state-of-the-art homodyne detection systems have efficiency 
+$\eta \sim 0.9$, so we use this value in our simulations. Using this strategy, 
+we are able to correct for the loss as we estimate the state. We use rejection
 sampling from the distribution given by $P(x|\theta)$ to guarantee
 random samples of homodyne measurement results~\cite{Kennedy1980}.
 
@@ -344,132 +291,81 @@ we need an informationally complete set of measurement operators,
 which can be obtained if we use $n+1$ different phases to reconstruct
 a state that contains at most $n$ photons~\cite{Leonhardt1997}.
 
-To quantify \SGs{how similar a}\SG{the similarity of the}
-reconstructed state\SGs{,} $\rho$\SGs{,}\SGc{We don't need these
-  commas around the mathematical symbol.  I'm going to delete them
-  whenever I find them.} \SGs{is of a}\SG{to the} true state
-$\rhotrue$ we use the fidelity\SGs{, defined by:}
+To quantify the similarity of the reconstructed state $\rho$ to the 
+true state $\rhotrue$ we use the fidelity
 \begin{eqnarray}
   F = Tr \sqrt{\rho^{1/2}\, \rhotrue \, \rho^{1/2}}.
 \end{eqnarray}
-\SGc{It might be better to put the remainder of this paragraph in the
-  results section.}\SGs{The fidelity shown in the graphs are obtained
-  by calculating the arithmetic mean of the 100 fidelities, since we
-  reconstruct each state 100 times, each time obtaining the fidelity
-  between the reconstructed state and the true state. The uncertainty
-  in each fidelity estimate (shown as error bars in the figures) is
-  the standard deviation of the mean of the fidelity.} \SG{To make the
-  graphs below, for each choice of parameters, we simulate 100
-  tomography experiments, making 100 desnity matrix estimates.  The
-  graphs show the arithmetic mean of the 100 fidelities of the
-  reconstructed states.  The error bars show the standard deviation of
-  the mean of the fidelities.} \SGc{I think that the standard
-  deviation of the 100 (not of the mean) is the natural quantity to
-  use for the error bars.  The standard deviation of the 100 tells
-  readers ``If I do one experiment, in what interval will the result
-  probably be?''.}
 
-We \SGs{calculate and compare the fidelity between the reconstructed
-  state and the true state for} \SGs{we report fidelities for} four
-different situations: (i) the state is reconstructed using the
-continuous values of homodyne measurement results, that is without
-\SGs{binning}\SG{discretization}; (ii) the state is reconstructed
-\SGs{using homodyne measurement data} with \SGs{a} chosen bin
-width\SG{s} (iii) the state is reconstructed \SGs{using homodyne
-  measurement data binning} with \SGs{a} bin width\SG{s} given by
+We report fidelities for four different situations: 
+(i) the state is reconstructed using the continuous values of homodyne measurement results, that is without discretization; (ii) the state is reconstructed 
+with chosen bin widths (iii) the state is reconstructed with bin widths given by
 Scott's rule~\cite{Scott2010}; and (iv) the state is reconstructed
-\SGs{using homodyne measurement data binning} with \SGs{a} bin
-width\SG{s} suggested by Leonhardt in~\cite{Leonhardt1997}. \SG{We
-  only consider histograms with contiguous bins of equal width for
-  each phase.}
+with bin widths suggested by Leonhardt in~\cite{Leonhardt1997}. We  
+only consider histograms with contiguous bins of equal width for each phase.
 
-In 1979 Scott derived a formula \SGs{for the asymptotically optimal}
-\SG{recommding a bin width for discretizing data sampled from a
-  probability density function $f$ for a single random variable
-  $x$. The recommended bin width is}
+In 1979 Scott derived a formula recommending a bin width for discretizing 
+data sampled from a probability density function $f$ for a single random variable
+$x$. The recommended bin width is
 \begin{eqnarray}
-  h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3}.
+  h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
   \label{eq-hstar}
 \end{eqnarray}
-where \SGs{$f(x)$ is a continuous probability density function with
-  two continuous bounded derivatives and} \SG{the first and second
-  derivatives of $f$ must be continuous and bounded and} $s$ is the
-sample size. \SG{Because one does not know $f$ in an experiment we
-  assume a normal distribution.} For a \SGs{Gaussian probability
-  density,}\SG{normal $f$} we have
+where the first and second derivatives of $f$ must be continuous and bounded and 
+$s$ is the sample size. Because one does not know $f$ in an experiment we 
+assume a normal distribution. For a normal $f$ we have
 \begin{eqnarray}
   \int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
   \label{eq-intnormaldist}
 \end{eqnarray}
-where $\sigma$ is the \SG{distribution's} standard
-deviation. Combining Eqs.~(\ref{eq-hstar}) and
-(\ref{eq-intnormaldist}), we obtain the \SGs{optimal}\SG{recommended}
-bin width for a normal \SGs{data} distribution:
+where $\sigma$ is the distribution's standard deviation. 
+Combining Eqs.~(\ref{eq-hstar}) and (\ref{eq-intnormaldist}), we obtain the recommended
+bin width for a normal distribution:
 \begin{eqnarray}
   h = 3.5 \, \sigma \, s^{-1/3}.
 \end{eqnarray}
-This formula is known as Scott's rule, and is optimal \SGc{Optimal for
-  what purpose?} if the data \SGs{is close to being} normally
-distributed\SGs{,} but is also appropriate for \SGs{most}\SG{many}
-other distributions.  \SG{In our simulations we compute a bin size
-  separetely for each phase's quadrature measurements, and we use the
-  corrected sample standard deviation in place of
-  $\sigma$.}\SGc{Depending on how Scott's rule is optimal, it might be
-  good to say something about why it might be useful for tomography or
-  not.}
+\HV{This formula is known as Scott's rule, and is optimal for each phase 
+if the data is normally distributed.} In our simulations we compute a bin size
+separately for each phase's quadrature measurements, and we use the
+corrected sample standard deviation in place of $\sigma$.
 
-\SG{Although Scott's rule is optimal for ???, it may not be optimal
-  for homodyne tomography because we are estimating the density matrix
-  rather than each phase's quadrature distribution individually.  Also
-  many interesting optical states do not have normal quadrature
-  distributions, for example our cat states.  In fact, one might
-  expect that the bin width should be related to the number of photons
-  in a quantum state because higher photon number states have more
-  narrow features in their quadrature distributions, which should not
-  be washed-out by the discretization.} \SGs{On the other hand,}
-Leonhardt states that if we desire to reconstructed a density matrix
-of a state with $n$ photons, we need a bin width narrower than
-$q_n/2$, where $q_n$ is given by
+\HV{Although Scott's rule is optimal for each phase, it may not be optimal
+for homodyne tomography} because we are estimating the density matrix
+rather than each phase's quadrature distribution individually.  Also
+many interesting optical states do not have normal quadrature
+distributions, for example our cat states.  In fact, one might
+expect that the bin width should be related to the number of photons
+in a quantum state because higher photon number states have more
+narrow features in their quadrature distributions, which should not
+be washed-out by the discretization. 
+  
+Leonhardt states that if we desire to reconstructed a density matrix of a 
+state with $n$ photons, we need a bin width narrower than $q_n/2$, 
+where $q_n$ is given by
 \begin{eqnarray}
   q_n = \frac{\pi}{\sqrt{2 n + 1}}.
   \label{eq-leonhardt}
 \end{eqnarray}
-This result was shown initially in~\cite{Leonhardt1996}\SGc{Maybe we
-  should only cite this paper instead of the textbook.}, and was
-obtained by using a semiclassical approximation for the amplitude
-pattern functions in quantum state sampling. \SGs{This result is also
-  valid for phase-space tomography, since they are both mathematically
-  equivalent.}\SGc{They are not equivalent.} \SG{Leonhardt recommends
-  using the maximum photon number in Eq.~(\ref{eq-leonhardt}), however
-  many states have no maximum photon number, and whether a state has a
-  true maximum photon number is not possible to learn with certainty
-  from tomography.  Instead, we have tested using the photon number at
-  which the reconstruction Hilbert space is truncated \SGc{Do we
-    discuss these tests later?} and an estimate of the mean photon
-  number in Eq.~(\ref{eq-leonhardt}).  The truncation must be chosen
-  in advance to be large enough that the probability that $\rhotrue$
-  contains more photons than the truncation limit is very small.  We
-  estimate the mean photon number from the quadrature measurements as
-  described in the next section.}\SGs{In a real experiment, we
-  probably do not have any knowledge of the quantum state, such as the
-  mean number of photons in it. All we have access is to quadrature
-  measurements. To be able to use Eq.~(\ref{eq-leonhardt}), we need to
-  find a way to determine the mean photon number from the quadrature
-  measurements. We propose a method to determine the mean photon
-  number from the quadrature measurement results in the next
-  section.}\SGc{I had to restructure this a little, because I wanted
-  to mention the distinction between truncation number vs. mean photon
-  number.  We might want to introduce separate symbols for these two.}
-
-
+This result was obtained by using a semiclassical approximation for the amplitude
+pattern functions in quantum state sampling~\cite{Leonhardt1996}. Leonhardt 
+recommends using the maximum photon number in Eq.~(\ref{eq-leonhardt}), however
+many states have no maximum photon number, and whether a state has a
+true maximum photon number is not possible to learn with certainty
+from tomography.  \HV{Instead, we have tested using the photon number at
+which the reconstruction Hilbert space is truncated $M$ and an estimate 
+of the mean photon number $\overline{\langle \hat{n} \rangle}$ in 
+Eq.~(\ref{eq-leonhardt}).} The truncation must be chosen
+in advance to be large enough that the probability that $\rhotrue$
+contains more photons than the truncation limit is very small.  We
+estimate the mean photon number from the quadrature measurements as
+described in the next section.
 
 \section{Estimating mean photon number}
 \label{sec-photon-estimation}
-\SGc{Can we find a reference where someone else has already done this
-  calculation?} In order to use Leonhardt's advice for choosing the
+In order to use Leonhardt's advice for choosing the
 histogram bin width, we need to estimate the mean number
 $\langle n \rangle$ of photons in the measured state from the
-phase-quadrature data set.  To find an estimator, we first compute the
+phase-quadrature data set. To find an estimator, we first compute the
 mean value of $(\hat{X}_{\theta})^{2}$, averaged over $\theta$,
 treating $\theta$ as if it is random and uniformly distributed between
 $0$ and $\pi$.
@@ -485,16 +381,16 @@ can compute the expectation over $\theta$ as
                                          & \qquad \qquad + \hat{P}^{2}\sin^{2}\theta) \frac{1}{\pi} \mathrm{d}\theta \Big\rangle \\
                                          &= \frac{1}{2}\left\langle \hat{X}^{2} + \hat{P}^{2} \right\rangle.
 \end{align}
-\SG{Because the photon number operator is}
+Because the photon number operator is
 \begin{equation}
   \hat{n} = \frac{1}{2}\left(\hat{X}^{2}+\hat{P}^{2}-1\right),
 \end{equation}
-\SG{we obtain}
+we obtain
 \begin{equation}
   \langle\hat{n}\rangle = \langle \hat{X}_{\theta}^{2}\rangle-\frac{1}{2}. 
 \end{equation}
-\SG{We estimate $\langle \hat{n} \rangle$ by computing the sample
-  mean of all quadrature measurements:}
+We estimate $\langle \hat{n} \rangle$ by computing the sample
+mean of all quadrature measurements~\HV{\cite{Hradil2,Munroe1996}}:
 \begin{equation}
   \overline{\langle \hat{n} \rangle} = \frac{1}{N} \sum_{i=1}^{N}x_{i}^{2} - \frac{1}{2}.
   \label{eq-photon-estimation}
@@ -503,60 +399,54 @@ Note that when $\theta$ is uniformly distributed over $[0,\pi)$, the
 values of $\theta$ are not needed to compute
 $\overline{\langle \hat{n} \rangle}$.  
 
-\SGs{ Since we use known quantum states in our idealized numerical
-  experiments, we can calculate the real mean number of photons in
-  each state. This can be used to verify how good is the estimation
-  using Eq.~(\ref{eq-photon-estimation}).}
-
-
 
 \section{Results}
-In \SG{our} study \SGs{cases}, we compute the fidelities between the
-true state and (i) the density matrix reconstructed without binning,
+\label{results}
+In our study, we compute the fidelities between the
+true state and (i) the density matrix reconstructed without discretization,
 $\rho_{\mathrm{ML2}}$; (ii) the density matrix reconstructed using
-data binning with \SGs{a random} chosen bin width\SG{s},
-$\rho_{\mathrm{Hist}}$; (iii) and the density matrix reconstructed
-using data binning with a bin width given by Scott's method,
-$\rho_{\mathrm{Scott}}$.
+histograms with chosen bin widths, $\rho_{\mathrm{Hist}}$; 
+(iii) and the density matrix reconstructed using histograms 
+with a bin width given by Scott's method, $\rho_{\mathrm{Scott}}$.
+
+To make the graphs below, for each choice of parameters, we simulate 100
+tomography experiments, making 100 density matrix estimates.  The
+graphs show the arithmetic mean of the 100 fidelities of the
+reconstructed states. The error bars show the standard deviation of
+the 100 fidelities.
 
 %DISCUSSION OF FIGURE 1
 Our first result is shown in
 Fig.~\ref{fig-methods_fidelity_singledata}. The state considered is a
-cat state with amplitude $\alpha = 1$,\SGc{Define $\alpha$.}  and the
-Hilbert space \SGs{was} truncated at $10$ photons. Scott's method
-finds \SGs{an}\SG{a different} optimal bin width for each phase
-considered, \SGs{such that we have a mean bin width in this case}
-\SG{so we report the mean bin width averaged over the 20 phases in
-  these cases}. \SGs{In here}\SG{Here} the mean bin width for Scott's
-method is $0.35$. When choosing a bin width, we go up to $0.34$, the
-value we obtain when we use Eq.~(\ref{eq-leonhardt}) for $n=10$, the
-number of photons \SGs{for}\SG{at} which we truncated the Hilbert
-space. In all cases, each bin's measurement operator represents
-\SGs{a}\SG{the} measurement \SGs{that occurs}\SG{as if it occurred} at
-the center of \SGs{the}\SG{each} bin.
+cat state with $\alpha = 1$, where $\alpha$ is the amplitude
+of the coherent state in the superposition. \HV{The state is reconstructed in a
+Hilbert space truncated at $M=10$ photons}. Scott's method
+finds a different optimal bin width for each phase
+considered, so we report the mean bin width averaged over the 20 phases in
+these cases. Here the mean bin width for Scott's method is $0.35$. 
+When choosing a bin width, we go up to $0.34$, the value we obtain when 
+we use Eq.~(\ref{eq-leonhardt}) for $M=10$, the number of photons 
+at which we truncated the Hilbert space. In all cases, each bin's 
+measurement operator represents the measurement as if it occurred at
+the center of each bin.
  
 In Fig~\ref{fig-methods_fidelity_singledata}, each set of points
 corresponds to a different data set. Our goal was to check that
 different data sets would have similar behavior as we change the bin
 size. As we can see in this figure, the highest values of fidelity
-corresponds to the case where we do not \SGs{apply any
-  binning}\SG{discretization}, as expected. We also see that \SGs{the
-  smaller the chosen bin width, the best are the results for the
-  fidelity}\SG{smaller bin widths result in the highest
-  fidelities}. However, \SGs{the greatest loss in fidelity that we
-  have is of $0.5\%$} \SG{even the largest bin widths tested result in
-  a fidelity loss of only 0.005 compared to the raw data.}
+corresponds to the case where we do not use discretization, as expected. 
+We also see that smaller bin widths result in the highest fidelities. 
+However, even the largest bin widths tested result in a fidelity loss 
+of only 0.005 compared to the raw data.
 
 %FIGURE 1
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{methods_fidelity_singledata.eps}
-  \caption{Fidelity as a function of the bin width for a cat state
-    with amplitude $\alpha=1$. The Hilbert space is truncated at 10
-    photons. Each set of points \SG{with the same color and marker
-      shape} corrresponds to a different data set. The mean bin width
-    for Scott method is $0.35$. \SGc{I have to zoom a lot to read the
-      axis labels, so I recommend increasing font size.}\SGc{Mark
-      Leonhardt's bin size.}}
+  \caption{Average fidelity as a function of the bin width for a cat state
+    with amplitude $\alpha=1$. The Hilbert space is truncated at $M=10$
+    photons. Each set of points with the same color and marker
+    shape corrresponds to a different data set. The mean bin width
+    for Scott method is $0.35$.}
   \label{fig-methods_fidelity_singledata}
 \end{figure}
 
@@ -573,217 +463,193 @@ corresponds to the case where we do not \SGs{apply any
 %DISCUSSION OF FIGURE 2
 The next set of results is presented in
 Fig.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate}, where we
-\SGs{have the fidelity}\SG{show average fidelities} as a function of
-the bin width for cat states with amplitudes $\alpha=1$ and
-$\alpha=2$. The states are reconstructed in a 15 photons Hilbert
-space. \SGs{The first thing that we can notice in this graph is that
-  the}\SG{The} fidelity for a $\alpha=1$ cat state is always greater
-than the fidelity for a $\alpha=2$ cat state, including the case when
-we have no binning. This is expected, because a $\alpha = 2$ state
-requires more parameters to effectively describe its density matrix
-\SG{in the photon number basis}, so for a given amount of data, there
-is greater statistical uncertainty. \SGc{Joining paragraphs} \SGs{We
-  may also notice that the}\SG{The} fidelity for the $\alpha = 2$ cat
-state decreases faster than the fidelity for \SGs{a}\SG{the}
-$\alpha=1$ cat state as the bin size increases. This is also expected
-because the $\alpha = 2$ state has more wiggles in its probability
-distribution, so more information is lost when the bins are
-larger. The average bin width \SGs{for}\SG{used by} Scott's method is
-$0.35$ for the $\alpha=1$ cat state, and $0.64$ for the $\alpha=2$ cat
-state\SG{, which results in significant fidelity loss.}\SGc{We should
-  discuss the choices of 10 and 15 in Leonhardt's formula.  The
-  Hilbert space has 15 photons, so why quote the 10 photon bin width?}
+show average fidelities as a function of the bin width for cat states 
+with amplitudes $\alpha=1$ and $\alpha=2$. The states are reconstructed 
+in a $M=15$ photons Hilbert space. The fidelity for a $\alpha=1$ cat state 
+is always greater than the fidelity for a $\alpha=2$ cat state, including 
+the case when we do not use discretization. This is expected, because a 
+$\alpha = 2$ state requires more parameters to effectively describe its 
+density matrix in the photon number basis, so for a given amount of data, 
+there is greater statistical uncertainty. 
+
+The fidelity for the $\alpha = 2$ cat state decreases faster than the fidelity for the $\alpha=1$ cat state as the bin size increases. This is also expected because the $\alpha = 2$ state has more wiggles in its probability distribution, so more information is lost when the bins are larger. The average bin width used by Scott's 
+method is $0.35$ for the $\alpha=1$ cat state, and $0.64$ for the $\alpha=2$ 
+cat state, which results in significant fidelity loss. \HV{The Leonhardt's width
+indicated in Fig.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate} is obtained 
+by using $M=15$, the number of photons at which the Hilbert space is truncated, in Eq.~(\ref{eq-leonhardt}).}
 
 % FIGURE 2
 \begin{figure}
-  \includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_15_photons_catstate.eps}
-  \caption{\SG{Average} fidelity as a function of the bin width for
+  \includegraphics[width=0.49\textwidth]{catstate-alpha=1and2-15photons.eps}
+  \caption{Average fidelity as a function of the bin width for
     cat states with amplitudes $\alpha=1$ and $\alpha=2$. The Hilbert
-    space is truncated at 15 photons. The mean bin width for Scott's
+    space is truncated at $M=15$ photons. The mean bin width for Scott's
     method are $0.35$ ($\alpha=1$ cat state) and $0.64$ ($\alpha=2$
     cat state).}
   \label{fig-fidelity_vs_binwidth_15_photons_catstate}
 \end{figure}
 
 % DISCUSSION OF FIGURE 3
-Figure~\ref{fig-squeezedvacuum_15_photons_Var=075} shows the
-\SG{average} fidelity as a function of the bin width for a squeezed
-vacuum state whose squeezed quadrature has a variance 3/4 of the
-vacuum variance.  We use a 15 photon Hilbert space to reconstruct this
-state. In this graph, we extended the bin width \SGs{until}\SG{to}
-$1.05$ to \SGs{help visualize the decreasing in}\SG{show} the fidelity
-\SG{decreasing} when the bin width increases. Using a bin width of
-$1.05$ gives us a fidelity loss of about \SGs{$7\%$}\SG{0.07}\SGc{I
-  find the percent number ot be a bit confusing because it might mean
-  multiply by 0.93 or it might mean subtract 0.07.  I prefer to always
-  avoid $\%$.}, while the \SG{fidelitly} loss when we use Scott's
-optimal bin width (0.25) is of about $0.0002$.
+%Figure~\ref{fig-squeezedvacuum_15_photons_Var=075} shows the
+%average fidelity as a function of the bin width for a squeezed
+%vacuum state whose squeezed quadrature has a variance 3/4 of the
+%vacuum variance.  We use a 15 photon Hilbert space to reconstruct this
+%state. In this graph, we extended the bin width to $1.05$ to show the 
+%fidelity decreasing when the bin width increases. Using a bin width of
+%$1.05$ gives us a fidelity loss of about 0.07, while the fidelitly 
+%loss when we use Scott's optimal bin width (0.25) is of about $0.0002$.
 
 %In Figs.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate} and~\ref{fig-%squeezedvacuum_15_photons_Var=075}, we indicate the bin width obtained using Eq.~(\ref{eq-leonhardt}) for a maximum number of photon in the Hilbert space of $10$ and $15$, respectively. 
 
 %FIGURE 3
-\begin{figure}
-  \includegraphics[width=0.49\textwidth]{squeezedvacuum_15_photons_Var=075.eps}
-  \caption{\SG{Average} fidelity as a function of the bin width for a
-    squeezed vacuum state whose squeezed quadrature has a variance 3/4
-    of the vacuum variance. The Hilbert space is truncated at 15
-    photons. The mean bin width for Scott's method is $0.25$.}
-  \label{fig-squeezedvacuum_15_photons_Var=075}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=0.49\textwidth]{squeezedvacuum-15photons-Var=075.eps}
+%  \caption{Average fidelity as a function of the bin width for a
+%    squeezed vacuum state whose squeezed quadrature has a variance 3/4
+%    of the vacuum variance. The Hilbert space is truncated at 15
+%    photons. The mean bin width for Scott's method is $0.25$.}
+%  \label{fig-squeezedvacuum_15_photons_Var=075}
+%\end{figure}
 
 %DISCUSSION OF FIGURES 4, 5 AND 6
-Until now, as mentioned before, \SGs{each bin's measurement operator
-  representes a measurement that occurs at the center of the
-  bin}\SG{every measurement outcome in a given bin has been associated
-  with the measurement operator for the quadrature value at the center
-  of that bin.  Although this may be a useful approximation for very
-  small bins,} to improve our analysis, we now change each bin's
+Until now, as mentioned before, every measurement outcome in a given 
+bin has been associated with the measurement operator for the quadrature 
+value at the center of that bin. Although this may be a useful approximation 
+for very small bins, to improve our analysis, we now change each bin's
 measurement operator so that it represents a measurement that occurs
-anywhere in the bin\SGs{, rather than a measurement that happens
-  exactly at the center of the bin}. For that, we \SG{numerically}
-integrate the measurement operators over the width of each histogram
-bin. We \SGs{will} identify each case by adding $[$POVM-center$]$ and
-$[$POVM-integral$]$ to the \SGs{fidelity identifier}\SG{legends in the
-  graphs}.
+anywhere in the bin. For that, we numerically integrate the measurement 
+operators over the width of each histogram bin. We identify each case by 
+adding $[$POVM-center$]$ and $[$POVM-integral$]$ to the legends in the
+graphs.
 
-We also add to our analysis the \SG{use of the mean photon number
-  estimate in Leonhardt's formula, and we calculate the fidelity
-  between $\rhotrue$ and the state $\rho_{\mathrm{Leonhardt}}$
-  estimated using the resulting bin width.}\SGs{fidelity calculation
-  when using a bin width given by Leonhardt's formula,
-  Eq.~(\ref{eq-leonhardt}), calculated with the mean photon number
-  estimated by Eq.~(\ref{eq-photon-estimation}). In this case, we
-  compute the fidelity between the true state and the density matrix
-  reconstructed using data binning with a bin width given by
-  Leonhardt's formula, $\rho_{\mathrm{Leonhardt}}$.} \SGs{We reminder
-  the reader}\SG{Recall} that Leonhardt \SGs{suggests}\SG{recommends}
-that the \SGs{used} bin width should be equal or smaller to the one
-calculated using \SG{the \em{maximum} photon number in}
-Eq.~(\ref{eq-leonhardt})\SG{but here we use the mean photon number
-  instead.}
+We also add to our analysis the use of the mean photon number
+estimate in Leonhardt's formula, and we calculate the fidelity
+between $\rhotrue$ and the state $\rho_{\mathrm{Leonhardt}}$
+estimated using the resulting bin width. Recall that Leonhardt recommends
+that the bin width should be equal or smaller to the one
+calculated using the maximum photon number in Eq.~(\ref{eq-leonhardt}) 
+but here we use the mean photon number instead.
 
-\SGs{In} Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
-and ~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}\SGs{, we have
-  the fidelity}\SG{show average fidelities} as functions of the bin
-width for cat states with amplitudes $\alpha=1$ and $\alpha=2$,
-respectively. We used a $10$ photon Hilbert space to reconstruct the
-$\alpha = 1$ cat state, while the $\alpha = 2$ cat state was
-reconstructed in a $15$ photon space. \SGs{On the other hand,}
+Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
+and~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15} show average 
+fidelities as functions of the bin width for cat states with 
+amplitudes $\alpha=1$ and $\alpha=2$, respectively. We used a 
+$M=10$ photon Hilbert space to reconstruct the $\alpha = 1$ cat state, 
+while the $\alpha = 2$ cat state was reconstructed in a $M=15$ photon space. 
 Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} shows the
-\SG{average} fidelity as a function of the bin width for a squeezed
+average fidelity as a function of the bin width for a squeezed
 vacuum state whose squeezed quadrature has a variance 3/4 of the
-vacuum variance, with a Hilbert space truncated at 10 photons.
+vacuum variance, with a Hilbert space truncated at $M=10$ photons.
 
 For the $\alpha = 1$ cat state in
 Fig.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}, the
-estimated mean number of photons is $0.6109$ (\SG{wheras the true}
-\SGs{real} mean number of photons is $0.6093$), \SGs{what}\SG{which}
-gives us, by Leonhardt's formula\SGs{, Eq.~(\ref{eq-leonhardt}),} a
-bin width of $1.05$. As mentioned before, the average bin width for
-Scott's method in this case is $0.35$. For the $\alpha = 2$ cat state
+estimated mean number of photons is $\overline{\langle \hat{n} \rangle}=0.6109$ (wheras the true mean number of photons is $0.6093$), which gives us, by Leonhardt's formula a bin width of $1.05$. For the $\alpha = 2$ cat state
 in Fig.~\ref{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}, the
-estimated mean number of photons is $3.1983$ (\SG{wheras the
-  true}\SGs{real} mean number of photons is $3.1978$), giving a bin
-width of $0.58$. The average bin width for Scott's method is $0.64$
-for this state. The squeezed vacuum state of
-Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} has an estimated
-mean number of photons of $0.0162$ (\SG{wheras the true}\SGs{real}
-mean number of photons is $0.0167$), giving a bin width, by
-Eq.~(\ref{eq-leonhardt}), of $1.54$. The average bin width for Scott's
-method, in this case, is $0.25$.\SGc{Maybe move these numbers into the
-  figure captions, so they are easier to see while looking at the
-  figures.}
+estimated mean number of photons is $\overline{\langle \hat{n} \rangle}=3.1983$ (wheras the true mean number of photons is $3.1978$), giving a bin
+width of $0.58$. The squeezed vacuum state of Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10} has an estimated mean number of photons of $\overline{\langle \hat{n} \rangle}=0.0162$ (wheras the true
+mean number of photons is $0.0167$), giving a bin width, by Eq.~(\ref{eq-leonhardt}), of $1.54$.
 
 Analyzing the graphs shown in
 Figs.~\ref{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}-\ref{fig-squeezed_vacuum_variance_075_Mph_10},
 we see that integrating the measurement operators over the width of
 each histogram bin improves considerably the fidelity for all the
 cases. We can also see that, for this case, Leonhardt's suggestion
-\SG{using the estimated mean photon number} can be safely
-\SGs{considered an}\SG{used as the} upper bound for the bin width. The
+using the estimated mean photon number can be safely
+used as the upper bound for the bin width. The
 two methods considered here, Leonhardt's and Scott's methods, give
-faster fidelity estimates with no significant loss of
-information.\SGc{We need some graphs of time vs bin width to justify
-  this claim.}
+faster fidelity estimates, as we can see in Figs.~\ref{fig-time-catstate}
+and~\ref{fig-time-squeezed}, with no significant loss of
+information.
    
 % FIGURE 4
 \begin{figure}
-  \includegraphics[width=0.49\textwidth]{fid_vs_binwidth_catstate_alpha_1_mph_10.eps}
-  \caption{Fidelity as a function of the bin width for a cat state
-    with amplitude $\alpha = 1$. The Hilbert space is truncated at 10
-    photons. The mean bin width for Scott's method is $0.35$, and the
-    bin width given by Leonhardt's formula is $1.05$. \SGc{Because the
-      estimated and true mean photon numbers are so close, I would
-      only show the fidelity marker for the estimated mean photon
-      number in these three graphs.}}
+  \includegraphics[width=0.49\textwidth]{catstate-alpha=1-10photons.eps}
+  \caption{Average fidelity as a function of the bin width for a cat state
+    with amplitude $\alpha = 1$. The Hilbert space is truncated at $M=10$
+    photons. \HV{The estimated mean number of photons is $\overline{\langle \hat{n} \rangle}=0.6109$, giving a bin width by Leonhardt's formula of $1.05$. 
+The mean bin width for Scott's method is $0.35$.}}
   \label{fig-Fidelity_vs_binwidth_catstate_Mph_10_alpha_1}
 \end{figure}
 
 % FIGURE 5
 \begin{figure}
-  \includegraphics[width=0.49\textwidth]{fidelity_vs_binwidth_catstate_alpha_2.eps}
-  \caption{Fidelity as a function of the bin width for a cat state
-    with amplitude $\alpha = 2$. The Hilbert space is truncated at 15
-    photons. The mean bin width for Scott's method is $0.64$, and the
-    bin width given by Leonhardt's formula is $0.58$.}
+  \includegraphics[width=0.49\textwidth]{catstate-alpha=2-15photons.eps}
+  \caption{Average fidelity as a function of the bin width for a cat state
+    with amplitude $\alpha = 2$. The Hilbert space is truncated at $M=15$
+    photons. The estimated mean number of photons is $\overline{\langle \hat{n} \rangle}=3.1983$, giving a bin width by Leonhardt's formula of $0.58$.
+    The mean bin width for Scott's method is $0.64$.}
   \label{fig-Fid_vs_binwidth_catstate_alpha_2_Mph_15}
 \end{figure}
 
 % FIGURE 6
 \begin{figure}
-  \includegraphics[width=0.49\textwidth]{squeezed_vacuum_variance_075_Mph_10.eps}
-  \caption{Fidelity as a function of the bin width for a squeezed
+  \includegraphics[width=0.49\textwidth]{squeezedvacuum-10photons-Var=075.eps}
+  \caption{Average fidelity as a function of the bin width for a squeezed
     vacuum state whose squeezed quadrature has a variance 3/4 of the
-    vacuum variance. The Hilbert space is truncated at 10 photons. The
+    vacuum variance. The Hilbert space is truncated at $M=10$ photons. 
+    The estimated mean number of photons is $\overline{\langle \hat{n} \rangle}=0.0162$, giving a bin width by Leonhardt's formula of $1.54$.
+    The mean bin width for Scott's method is $0.25$.}
+  \label{fig-squeezed_vacuum_variance_075_Mph_10}
+\end{figure}
+
+% FIGURE 7
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{time-estadogato_alpha_1.eps}
+  \caption{Mean time as a function of the bin width for a cat state
+    with amplitude $\alpha = 1$. The Hilbert space is truncated at $M=10$
+    photons. The mean bin width for Scott's method is $0.35$, and the
+    bin width given by Leonhardt's formula is $1.05$.}
+  \label{fig-time-catstate}
+\end{figure}
+
+% FIGURE 8
+\begin{figure}
+  \includegraphics[width=0.49\textwidth]{time-vacuocomprimido.eps}
+  \caption{Mean time as a function of the bin width for a squeezed
+    vacuum state whose squeezed quadrature has a variance 3/4 of the
+    vacuum variance. The Hilbert space is truncated at $M=10$ photons. The
     mean bin width for Scott's method is $0.25$, and the bin width
     given by Leonhardt's formula is $1.54$.}
-  \label{fig-squeezed_vacuum_variance_075_Mph_10}
+  \label{fig-time-squeezed}
 \end{figure}
 
 \section{Conclusion}
 \label{conclusion}
 
 We have used idealized numerical experiments to generate simulated
-data, performed \SG{maximum likelihood} tomography on \SG{data sampled
-  from cat states and squeezed vacuum states} with and without
-\SGs{binning}\SG{discretization}, and estimated the fidelities between
+data, performed maximum likelihood tomography on data sampled
+from cat states and squeezed vacuum states with and without
+discretization, and estimated the fidelities between
 the reconstructed states and the true state. We used two different
 methods to choose the bin width: Scott's and Leonhardt's methods. We
-\SGs{considered the bin's measurement operator to represent a
-  measurement that occurs at the center of the bin or anywhere in the
-  bin} \SG{studied using measurement operators calculated using the
-  quadrature exactly at the center of each bin and integrating the
-  measurement operators along the length of the bin}. \SGs{Our study
-  has focused on maximum likelihood tomography of cat states and
-  squeezed vacuum states.}
+studied using measurement operators calculated using the
+quadrature exactly at the center of each bin and integrating the
+measurement operators along the length of the bin. 
 
 Scott's method calculates an optimal bin width, for each phase, based
 on the size and the standard deviation of the sample. Leonhardt's
-\SG{method recommends} \SG{states that we need} a bin width narrower
-than $q_n/2$, where $q_n$ depends on the number of photons in the
-state being reconstructed. Since, in a real experiment, we
-\SGs{may}\SG{do} not know the mean number of photons in the state
-considered, we have \SGs{proposed a method to determine
-  the}\SG{estimate the} mean photon number from the quadrature
-measurement results.\SGc{This method to estimate mean photon number has
-  probably been proposed already; I just don't know where.}
+method recommends a bin width narrower than $q_n/2$, where $q_n$ 
+depends on the number of photons in the state being reconstructed. 
+Since, in a real experiment, we do not know the mean number of photons 
+in the state considered, we estimate the mean photon number from the quadrature
+measurement results.
 
 We have found that our proposed method to find the mean number of
 photons from the quadrature measurement results gives accurate
 results. We checked that by comparing the estimated mean number of
-photons with the \SGs{real}\SG{true} mean number of photons for the
-\SGs{known states we considered:} cat states and squeezed vacuum
-states. We also have found that integrating the measurement operators
-over the width of each histogram bin significantly improves the
-fidelity. Using this strategy, Leonhardt's formula safely establishes
-an upper bound to the bin width, and both methods provides a faster
-statistical estimation without losing too much information.  \SGc{Do
-  we have any cases in which Scott's method is really bad?}
+photons with the true mean number of photons for the
+cat states and squeezed vacuum states. We also have found that 
+integrating the measurement operators over the width of each histogram 
+bin significantly improves the fidelity. Using this strategy, Leonhardt's 
+formula safely establishes an upper bound to the bin width, and both 
+methods provides a faster statistical estimation without losing too much 
+information.  
+\SGc{Do we have any cases in which Scott's method is really bad?}
 
 
 
 \begin{acknowledgments}
-  \SGs{We thank Kevin Coakley, Adam Keith, and Emanuel Knill for
+  \HV{We thank ?????????????? for
     helpful comments on the manuscript.}  H. M. Vasconcelos thanks the
   Schlumberger Foundation's Faculty for the Future program for
   financial support. J. L. E. Silva thanks Coordena\c c\~ao de
@@ -821,4 +687,3 @@ statistical estimation without losing too much information.  \SGc{Do
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
-%%% End:
