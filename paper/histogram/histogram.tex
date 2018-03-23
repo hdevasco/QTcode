@@ -110,18 +110,20 @@ longbibliography
              %  but any date may be explicitly specified
 
 \begin{abstract}
-  Quantum state tomography aims to determine the quantum
-  state of a system from measured data and is an essential tool for
-  quantum information. When dealing with continuous variable
-  quantum states of light, QST is often done by measuring
-  the field amplitudes at different
-  optical phases using homodyne detection. The quadrature-phase
-  homodyne measurement outputs a continuous variable, so to reduce
-    the computational cost of tomography, researchers often discretize
-    the measurements into histogram bin.  We show that this can be
-    done without significantly degrading the fidelity of the estimated
-    state.  This paper tests different strategies for determining the
-    histogram bins.
+  Quantum state tomography aims to determine the quantum state of a
+  system from measured data and is an essential tool for quantum
+  information \SG{science}.  When dealing with continuous variable
+  quantum states of light, QST is often done by measuring the field
+  amplitudes at different optical phases using homodyne detection.
+  The quadrature-phase homodyne measurement outputs a continuous
+  variable, so to reduce the computational cost of tomography,
+  researchers often discretize the measurements into histogram bin.
+  We show that this can be done without significantly degrading the
+  fidelity of the estimated state.  This paper tests different
+  strategies for determining the histogram \SGs{bins}\SG{bin edges}.
+  \SG{We show that computation time can be significantly reduced with
+    little fidelity loss when the measurement operators corresponding
+    to each histogram bin are integrated over the bin width.}
 \end{abstract}
 
 \pacs{
@@ -137,65 +139,79 @@ longbibliography
 
 \section{Introduction}
 \label{intro}
-Quantum information science and engineering are at
-the point where rudimentary quantum computers are available in the
-laboratory and
-commercially~\cite{kandala2017,Linke2017,Monk2017,Denchev2016}.
-However, further advancing quantum technologies requires
-  improvements in the fidelities of basic operations.  Consequently,
-more precise and efficient reconstruction and diagnostic
-tools used to estimate quantum states~\cite{Vogel1989, Smithey1993,
-  Dunn1995, Banaszek1999, Banaszek2000, White2002, Ourjoumtsev2007,
-  Neergaard2006}, processes~\cite{Chuang1997, Poyatos1997,
-  Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003,
+Quantum information science and engineering \SGs{are at}\SG{have
+  advanced to} the point where rudimentary quantum computers are
+available in the laboratory and commercially~\cite{kandala2017,
+  Linke2017, Monk2017, Denchev2016}.  However, further advancing
+quantum technologies requires improvements in the fidelities of basic
+operations.  Consequently, more precise and efficient reconstruction
+and diagnostic tools used to estimate quantum states~\cite{Vogel1989,
+  Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002,
+  Ourjoumtsev2007, Neergaard2006}, processes~\cite{Chuang1997,
+  Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003,
   Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999,
-  Fiurasek2001, Dariano2004, Lundeen2009} are
-essential.
-
-Quantum tomography techniques for optical quantum states of
-  light has become a standard tool because quantum
-light sources are essential for implementations of continuous-variable
-(CV) quantum computation~\cite{Lloyd1999, Gottesman2001, Bartlett2002,
+  Fiurasek2001, Dariano2004, Lundeen2009} are essential.  \SGc{joining
+  paragraphs}Quantum \SGs{tomography}\SG{tomographic} techniques for
+optical quantum states of light \SGs{has}\SG{have} become \SGs{a}
+standard tool\SG{s} because quantum light sources are essential for
+implementations of continuous-variable (CV) quantum computation
+\SG{and communication}~\cite{Lloyd1999, Gottesman2001, Bartlett2002,
   Jeong2002, Ralph2003}.  These source are also extensively exploited
-in quantum criptography~\cite{Ralph1999, Hillery2000, Silberhorn2002,
+in quantum cryptography~\cite{Ralph1999, Hillery2000, Silberhorn2002,
   Pirandola2008, Luiz2017}, quantum metrology~\cite{Eberle2010,
   Demkowicz2013}, state teleportation~\cite{Vaidman1994,
   Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014}
 and cloning~\cite{Cerf2000, Braunstein2001}.
 
-In quantum state tomography, we perform a measurement on each member of
-a collection of quantum systems, prepared in
-the same unknown state. The goal is to estimate this
-unknown state from the measurements
-results. This estimation can be done by different methods, but we study 
-Maximum Likelihood Estimation (MLE), which finds among all possible states, the one
-that maximizes the probability of obtaining the observed data.
+In \SG{the} quantum state tomography \SG{studied here},
+\SGs{we}\SG{one} performs a measurement on each member of a collection
+of quantum systems, prepared in the same unknown state. \SG{Each
+  system is measured in a basis chosen from a complete set of
+  measurements.}  The goal is to estimate the unknown state from the
+measurements results.  This estimation can be done by different
+methods, but we study Maximum Likelihood Estimation (MLE), which finds
+among all possible states, the one that maximizes the probability of
+obtaining the observed data.
 
 Quantum homodyne tomography is one of the most popular optical
-tomography techniques available~\cite{Lvovsky2004}. It rapidly
-became a versatile tool and has been applied in many different quantum
-optics experimental settings since it was proposed by Vogel and Risken
-in 1989~\cite{Vogel1989} and first implemented by Smithey \textit{et
-  al.}  in 1993~\cite{Smithey1993}. This technique permits one to
-characterize an optical quantum state by analyzing multiple
-  phase-sensitive measurements of the field quadratures. 
+tomography techniques available~\cite{Lvovsky2004}. It rapidly became
+a versatile tool and has been applied in many different quantum optics
+experimental settings since it was proposed by Vogel and Risken in
+1989~\cite{Vogel1989} and first implemented by Smithey \textit{et al.}
+in 1993~\cite{Smithey1993}. This technique permits one to characterize
+an optical quantum state by analyzing multiple phase-sensitive
+measurements of the field quadratures.
 
-A homodyne measurement generates a continuous value. Although discretization is
-  not absolutely necessary, it is a popular practice, and we believe
-that the information lost by discretization may be insignificant. On the other hand,
-discretization of the data considerably reduces the size of the data,
-expediting the reconstruction algorithm. How should we choose a discretization
-strategy such that the bins are not too small nor too big? Larger
-bins will reduce calculation time and memory, but bins should not be too large 
-in order to avoid a lack of resolution, making the histogram a poor 
-representation of the underlying distribution.
+A homodyne measurement generates a continuous value.  \SG{It is a
+  popular practice to discretize the measurement result, because this
+  can considerably reduce the size of the data and expedite the
+  reconstruction calculation.  However the discretization necessairly
+  loses information contained in the original measurements.}
+\SGs{Although discretization is not absolutely necessary, it is a
+  popular practice, and we believe that the information lost by
+  discretization may be insignificant. On the other hand,
+  discretization of the data considerably reduces the size of the
+  data, expediting the reconstruction algorithm.} How should we choose
+a discretization strategy such that the bins are not too small nor too
+large? Larger bins will reduce calculation time and memory, but
+\SGs{the bins should not be too large in order to avoid a lack of
+  resolution, making the histogram a poor representation of the
+  underlying distribution}\SG{smaller bins will provide a better
+  representation of the underlying distribution}.
  
 In this paper, we use numerical experiments to simulate optical
-homodyne tomography and perform maximum likelihood tomography on the data 
-with and without discretization. When choosing a quadrature bin
-width, we use and compare two different strategies:
-Scott's rule~\cite{Scott2010} and Leonhardt's formula~\cite{Leonhardt1996}. 
-The paper is divide as follow: \HV{we begin by reviewing maximum likelihood in homodyne tomography in Section \ref{MLE}. Then, in Section \ref{numerical-experiments}, we describe our numerical experiments. Next, we discuss the estimation of the mean photon number from the quadrature measurements in Section \ref{sec-photon-estimation}. In Section \ref{results} we present our results, and we make our concluding remarks in Section \ref{conclusion}.}
+homodyne tomography and perform maximum likelihood tomography on the
+data with and without discretization. When choosing a quadrature bin
+width, we use and compare two different strategies: Scott's
+rule~\cite{Scott2010} and Leonhardt's formula~\cite{Leonhardt1996}.
+The paper is divide as follow: we begin by reviewing maximum
+likelihood in homodyne tomography in Section \ref{MLE}. Then, in
+Section \ref{numerical-experiments}, we describe our numerical
+experiments. Next, we discuss the estimation of the mean photon number
+from the quadrature measurements in Section
+\ref{sec-photon-estimation}. In Section \ref{results} we present our
+results, and we make our concluding remarks in Section
+\ref{conclusion}.
 
 \section{Maximum likelihood in homodyne tomography}
 \label{MLE}
@@ -681,9 +697,7 @@ information.
 
 \end{document}
 
-%
-% ****** End of file apssamp.tex ******
-
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
+%%% End:
