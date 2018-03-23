@@ -215,20 +215,22 @@ results, and we make our concluding remarks in Section
 
 \section{Maximum likelihood in homodyne tomography}
 \label{MLE}
-Let us consider $N$ quantum systems, each prepared in an
-optical state described by a density matrix $\rhotrue$. In each
-experimental trial $i$, we measure the field quadrature
-of one of the systems at some phase $\theta_i$ of a local oscillator, 
-i.e. a reference system prepared in a high amplitude coherent state. 
-Each measurement is associated with an observable
+Let us consider $N$ quantum systems, each prepared in an optical state
+described by a density matrix $\rhotrue$. In each experimental trial
+$i$, we measure the field quadrature of one of the systems at some
+phase $\theta_i$ of a local oscillator, i.e.\ a reference system
+prepared in a high amplitude coherent state.  Each measurement is
+associated with an observable
 $\hat{X}_{\theta_i} = \hat{X} \cos \theta_i + \hat{P} \sin \theta_i$,
-where $\hat{X}$ and $\hat{P}$ are analogous to mechanical position and 
-momentum operators, respectively. For a given phase $\theta_i$, we 
-measure a quadrature value $x_i$, resulting in the 
-data set $\{(\theta_i, x_i)| i = 1, \ldots, N\}$.
+where $\hat{X}$ and $\hat{P}$ are analogous to mechanical position and
+momentum operators, respectively. For a given phase $\theta_i$, we
+measure a quadrature value $x_i$, resulting in the data\SGs{ set}
+$\{(\theta_i, x_i)| i = 1, \ldots, N\}$.
 
-The outcome of the $i$-th measurement is associated with a positive-operator-valued measure (POVM) element $\Pi (x_i|\theta_i) = \Pi_i$. Given the data set, the
-likelihood of a candidate density matrix $\rho$ is
+The outcome of the $i$-th measurement is associated with a
+positive-operator-valued measure (POVM) element
+$\Pi (x_i|\theta_i) = \Pi_i$. Given the data\SGs{ set}, the likelihood
+of a candidate density matrix $\rho$ is
 \begin{eqnarray}
   \mathcal{L} (\rho)= \prod_{i=1}^{N} \mathrm{Tr} (\Pi_i \rho),
   \label{eq-likelihood}
@@ -238,35 +240,38 @@ with phase $\theta_i$, to obtain outcome $x_i$, according to the
 candidate density matrix $\rho$.
 
 MLE searches for the density matrix that maximizes the likelihood
-in~(\ref{eq-likelihood}). Equivalently, it usually is more convenient
-to maximize the logarithm of the likelihood (the ``log-likelihood''):
+in\SG{ Eq.}~(\ref{eq-likelihood}). \SGs{Equivalently, }It usually is
+more convenient to maximize the logarithm of the likelihood (the
+``log-likelihood''):
 \begin{eqnarray}
   L (\rho) = \ln \mathcal{L} (\rho)= \sum_{i=1}^{N} \ln [\mathrm{Tr} (\Pi_i \rho)],
 \end{eqnarray} 
 which is maximized by the same density matrix as the likelihood. The
 MLE is essentially a function optimization problem, and since the
-log-likelihood function is concave, convergence to a unique solution 
+log-likelihood function is concave, convergence to a unique solution
 will be achieved by most iterative optimization methods.
 
 In our numerical simulations, we use an algorithm for likelihood
-maximization that begins with iterations of the
-$R\rho R$ algorithm~\cite{Rehacek2007} followed by iterations of a
-regularized gradient ascent algorithm (RGA). The main reason to switch
-from one algorithm to another is that a slow-down is observed in the 
-$R\rho R$ algorithm after about $(n+1)^2/4$ iterations. In the RGA, 
-$\rho^{(k+1)}$ is parametrized as
+maximization that begins with iterations of the $R\rho R$
+algorithm~\cite{Rehacek2007} followed by iterations of a regularized
+gradient ascent \SG{(RGA)} algorithm\SGs{ (RGA)}. \SGs{The main reason
+  to}\SG{We } switch from one algorithm to another \SGs{is
+  that}\SG{because} a slow-down is observed in the $R\rho R$ algorithm
+after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is
+parametrized as
 \begin{equation}
   \rho^{(k+1)}=\frac{\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)}{\mathrm{Tr}\left[\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)\right]},
   \label{eq-rho-k+1}
 \end{equation}
-where $\rho^{(k)}$ is the density matrix found by the previous iteration, and 
-$A$ may be any complex matrix of the same dimensions as
+where $\rho^{(k)}$ is the density matrix found by the previous
+iteration, and $A$ may be any complex matrix of the same dimensions as
 $\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a
-density matrix for any $A$. The matrix $A$ is chosen to maximize the 
-quadratic approximation of the log-likelihood subject to 
-$\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number adjusted 
-by the algorithm to guarantee that the log-likelihood increases with each 
-iteration. To halt the iterations, we use the stopping criterion of \cite{Glancy2012},
+density matrix for any $A$. The matrix $A$ is chosen to maximize the
+quadratic approximation of the log-likelihood subject to
+$\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number
+adjusted by the algorithm to guarantee that the log-likelihood
+increases with each iteration. To halt the iterations, we use the
+stopping criterion of \cite{Glancy2012},
 $L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where
 $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 
@@ -274,29 +279,36 @@ $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 
 \section{Numerical experiments}
 \label{numerical-experiments}
-Our numerical experiments simulate single mode optical homodyne
-measurements of two types of states: (1) superpositions of coherent states of 
-opposite phase $|-\alpha\rangle + |\alpha\rangle$ (called ``cat states'') and 
-(2) squeezed vacuum states. Each state is represented by a density matrix 
-$\rho_{\mathrm{true}}$ truncated in a $n$ photon basis.
+\SGc{I don't love this section title, but I don't have a better idea
+  right now.}  Our numerical experiments simulate single mode optical
+homodyne measurements of two types of states: (1) superpositions of
+coherent states of opposite phase $|-\alpha\rangle + |\alpha\rangle$
+(called ``cat states'') and (2) squeezed vacuum states. \SGc{We might
+  need to include Fock states here.} Each state is represented by a
+density matrix $\rho_{\mathrm{true}}$ truncated in a $n$ photon basis.
+\SG{To better simulate realistic experiments, these pure states are
+  subject to some photon loss before measurement.}
 
 In order to calculate the probability to obtain homodyne measurement
 outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase
 $\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon
-basis. If $|x\rangle$ is the photon number basis
-representation of the x-quadrature eigenstate with eigenvalue $x$, and
-$U(\theta)$ is the phase evolution unitary operator, then for an ideal
-homodyne measurement, we have
-$\Pi (x|\theta) = U(\theta)^{\dagger}|x\rangle \langle x|
-U(\theta)$. To include photon loss or detector inefficiency, we replace 
-the projector with $\Pi (x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
-U(\theta)^{\dagger}|x\rangle \langle x| U(\theta) E_i(\eta)$, where
-$\eta$ is the detection efficiency \cite{Lvovsky2004}.
-Typical state-of-the-art homodyne detection systems have efficiency 
-$\eta \sim 0.9$, so we use this value in our simulations. Using this strategy, 
-we are able to correct for the loss as we estimate the state. We use rejection
-sampling from the distribution given by $P(x|\theta)$ to guarantee
-random samples of homodyne measurement results~\cite{Kennedy1980}.
+basis. If $|x\rangle$ is the photon number basis representation of the
+x-quadrature eigenstate with eigenvalue $x$, and $U(\theta)$ is the
+phase evolution unitary operator, then for an ideal homodyne
+measurement, we have
+$\Pi(x|\theta) = U(\theta)^{\dagger} |x\rangle \langle x|
+U(\theta)$. To include photon loss or detector inefficiency, we
+replace the projector with
+$\Pi(x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
+U(\theta)^{\dagger} |x\rangle \langle x| U(\theta) E_i(\eta)$, where
+$\eta$ is the detection efficiency\SG{and $E_i(\eta)$ are the
+  associated Kraus operators \cite{Lvovsky2004}}.  Typical
+state-of-the-art homodyne detection systems have efficiency
+$\eta \sim 0.9$, so we use this value in our simulations. Using this
+strategy, we are able to correct for the loss as we estimate the
+state. We use rejection sampling from the distribution given by
+$P(x|\theta)$ to guarantee random samples of homodyne measurement
+results~\cite{Kennedy1980}.
 
 To choose the phases at which the homodyne measurements are performed,
 we divide the upper-half-circle evenly among $m$ phases between 0 and
@@ -307,74 +319,85 @@ we need an informationally complete set of measurement operators,
 which can be obtained if we use $n+1$ different phases to reconstruct
 a state that contains at most $n$ photons~\cite{Leonhardt1997}.
 
-To quantify the similarity of the reconstructed state $\rho$ to the 
+To quantify the similarity of the reconstructed state $\rho$ to the
 true state $\rhotrue$ we use the fidelity
 \begin{eqnarray}
   F = Tr \sqrt{\rho^{1/2}\, \rhotrue \, \rho^{1/2}}.
 \end{eqnarray}
+\SGc{joining paragraphs} We report fidelities for four different
+situations: (i) the state is reconstructed using the continuous values
+of homodyne measurement results, that is without discretization; (ii)
+the state is reconstructed with chosen bin widths (iii) the state is
+reconstructed with bin widths given by Scott's rule~\cite{Scott2010};
+and (iv) the state is reconstructed with bin widths suggested by
+Leonhardt in~\cite{Leonhardt1997}. We only consider histograms with
+contiguous bins of equal width\SGs{ for each phase}.
 
-We report fidelities for four different situations: 
-(i) the state is reconstructed using the continuous values of homodyne measurement results, that is without discretization; (ii) the state is reconstructed 
-with chosen bin widths (iii) the state is reconstructed with bin widths given by
-Scott's rule~\cite{Scott2010}; and (iv) the state is reconstructed
-with bin widths suggested by Leonhardt in~\cite{Leonhardt1997}. We  
-only consider histograms with contiguous bins of equal width for each phase.
-
-In 1979 Scott derived a formula recommending a bin width for discretizing 
-data sampled from a probability density function $f$ for a single random variable
-$x$. The recommended bin width is
+In 1979 Scott derived a formula recommending a bin width for
+discretizing data sampled from a probability density function $f$ for
+a single random variable $x$. The recommended bin width is
 \begin{eqnarray}
   h^{\star} = \left[ \frac{6}{s \int_{-\infty}^{\infty} f'(x)^2 dx} \right]^{1/3},
   \label{eq-hstar}
 \end{eqnarray}
-where the first and second derivatives of $f$ must be continuous and bounded and 
-$s$ is the sample size. Because one does not know $f$ in an experiment we 
-assume a normal distribution. For a normal $f$ we have
+where the first and second derivatives of $f$ must be continuous and
+bounded and $s$ is the sample size. Because one does not know $f$ in
+an experiment we assume a normal distribution. For a normal $f$ we
+have
 \begin{eqnarray}
   \int_{-\infty}^{\infty} f'(x)^2 dx = \frac{1}{4 \sqrt{\pi} \sigma ^3},
   \label{eq-intnormaldist}
 \end{eqnarray}
-where $\sigma$ is the distribution's standard deviation. 
-Combining Eqs.~(\ref{eq-hstar}) and (\ref{eq-intnormaldist}), we obtain the recommended
-bin width for a normal distribution:
+where $\sigma$ is the distribution's standard deviation.  Combining
+Eqs.~(\ref{eq-hstar}) and (\ref{eq-intnormaldist}), we obtain the
+recommended bin width for a normal distribution:
 \begin{eqnarray}
   h = 3.5 \, \sigma \, s^{-1/3}.
 \end{eqnarray}
-\HV{This formula is known as Scott's rule, and is optimal for each phase 
-if the data is normally distributed.} In our simulations we compute a bin size
-separately for each phase's quadrature measurements, and we use the
-corrected sample standard deviation in place of $\sigma$.
+This formula is known as Scott's rule, and is optimal for \SG{for
+  estimating $f$ (minimizing total mean-squared error) at} each phase
+if the data is normally distributed. In our simulations we compute a
+bin size separately for each phase's quadrature measurements, and we
+use the \SGs{corrected}\SG{unbiased} sample standard deviation in
+place of $\sigma$.
 
-\HV{Although Scott's rule is optimal for each phase, it may not be optimal
-for homodyne tomography} because we are estimating the density matrix
+Although Scott's rule is optimal for each phase, it may not be optimal
+for homodyne tomography because we are estimating the density matrix
 rather than each phase's quadrature distribution individually.  Also
 many interesting optical states do not have normal quadrature
-distributions, for example our cat states.  In fact, one might
-expect that the bin width should be related to the number of photons
-in a quantum state because higher photon number states have more
-narrow features in their quadrature distributions, which should not
-be washed-out by the discretization. 
-  
-Leonhardt states that if we desire to reconstructed a density matrix of a 
-state with $n$ photons, we need a bin width narrower than $q_n/2$, 
+distributions, for example our cat states.  \SGc{TODO: mention in
+  conculsions that one might tailor Scott's rule using other
+  distributions based on the state one expects to prepare in the
+  experiment.} In fact, one might expect that the bin width should be
+related to the number of photons in a quantum state because higher
+photon number states have more narrow features in their quadrature
+distributions, which should not be washed-out by the discretization.
+
+Leonhardt states that if we desire to reconstruct a density matrix of
+a state with $n$ photons, we need a bin width narrower than $q_n/2$,
 where $q_n$ is given by
 \begin{eqnarray}
   q_n = \frac{\pi}{\sqrt{2 n + 1}}.
   \label{eq-leonhardt}
 \end{eqnarray}
-This result was obtained by using a semiclassical approximation for the amplitude
-pattern functions in quantum state sampling~\cite{Leonhardt1996}. Leonhardt 
-recommends using the maximum photon number in Eq.~(\ref{eq-leonhardt}), however
-many states have no maximum photon number, and whether a state has a
-true maximum photon number is not possible to learn with certainty
-from tomography.  \HV{Instead, we have tested using the photon number at
-which the reconstruction Hilbert space is truncated $M$ and an estimate 
-of the mean photon number $\overline{\langle \hat{n} \rangle}$ in 
-Eq.~(\ref{eq-leonhardt}).} The truncation must be chosen
-in advance to be large enough that the probability that $\rhotrue$
-contains more photons than the truncation limit is very small.  We
-estimate the mean photon number from the quadrature measurements as
+This result was obtained by using a semiclassical approximation for
+the amplitude pattern functions in quantum state
+sampling~\cite{Leonhardt1996}. Leonhardt recommends using the maximum
+photon number in Eq.~(\ref{eq-leonhardt}), however many states have no
+maximum photon number, and whether a state has a true maximum photon
+number is not possible to learn with certainty from tomography.
+Instead, we have tested using the photon number at which the
+reconstruction Hilbert space is truncated $M$ \SGc{Maybe use $T$ for
+  ``truncation'' rather than $M$, because we already used $m$.} and an
+estimate of the mean photon number
+$\overline{\langle \hat{n} \rangle}$ in Eq.~(\ref{eq-leonhardt}).  The
+truncation must be chosen in advance to be large enough that the
+probability that $\rhotrue$ contains more photons than the truncation
+limit is very small.  \SGc{TODO: report excess photon probabilities.}
+We estimate the mean photon number from the quadrature measurements as
 described in the next section.
+
+
 
 \section{Estimating mean photon number}
 \label{sec-photon-estimation}
