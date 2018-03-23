@@ -257,8 +257,8 @@ algorithm~\cite{Rehacek2007} followed by iterations of a regularized
 gradient ascent \SG{(RGA)} algorithm\SGs{ (RGA)}. \SGs{The main reason
   to}\SG{We } switch from one algorithm to another \SGs{is
   that}\SG{because} a slow-down is observed in the $R\rho R$ algorithm
-after about $(n+1)^2/4$ iterations. In the RGA, $\rho^{(k+1)}$ is
-parametrized as
+after about $(t+1)^2/4$ iterations,\SG{where $t+1$ is the Hilbert
+  space dimension}. In the RGA, $\rho^{(k+1)}$ is parametrized as
 \begin{equation}
   \rho^{(k+1)}=\frac{\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)}{\mathrm{Tr}\left[\left(\sqrt{\rho^{(k)}}+A\right)\left(\sqrt{\rho^{(k)}}+A^{\dagger}\right)\right]},
   \label{eq-rho-k+1}
@@ -285,17 +285,18 @@ homodyne measurements of two types of states: (1) superpositions of
 coherent states of opposite phase $|-\alpha\rangle + |\alpha\rangle$
 (called ``cat states'') and (2) squeezed vacuum states. \SGc{We might
   need to include Fock states here.} Each state is represented by a
-density matrix $\rho_{\mathrm{true}}$ truncated in a $n$ photon basis.
-\SG{To better simulate realistic experiments, these pure states are
-  subject to some photon loss before measurement.}
+density matrix $\rho_{\mathrm{true}}$ \SGs{truncated in a $n$ photon
+  basis}\SG{represented in the photon number basis, truncated at $t$
+  photons.}  \SG{To better simulate realistic experiments, these pure
+  states are subject to some photon loss before measurement.}
 
 In order to calculate the probability to obtain homodyne measurement
 outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase
-$\theta$, we need to represent $\Pi (x|\theta)$ in the $n$ photon
-basis. If $|x\rangle$ is the photon number basis representation of the
-x-quadrature eigenstate with eigenvalue $x$, and $U(\theta)$ is the
-phase evolution unitary operator, then for an ideal homodyne
-measurement, we have
+$\theta$, we need to represent $\Pi (x|\theta)$ in the \SGs{$n$}
+photon number basis. If $|x\rangle$ is the photon number basis
+representation of the x-quadrature eigenstate with eigenvalue $x$, and
+$U(\theta)$ is the phase evolution unitary operator, then for an ideal
+homodyne measurement, we have
 $\Pi(x|\theta) = U(\theta)^{\dagger} |x\rangle \langle x|
 U(\theta)$. To include photon loss or detector inefficiency, we
 replace the projector with
@@ -380,34 +381,34 @@ where $q_n$ is given by
   q_n = \frac{\pi}{\sqrt{2 n + 1}}.
   \label{eq-leonhardt}
 \end{eqnarray}
-This result was obtained by using a semiclassical approximation for
-the amplitude pattern functions in quantum state
+This result was obtained \SGs{by using}\SG{from} a semiclassical
+approximation for the amplitude pattern functions in quantum state
 sampling~\cite{Leonhardt1996}. Leonhardt recommends using the maximum
 photon number in Eq.~(\ref{eq-leonhardt}), however many states have no
-maximum photon number, and whether a state has a true maximum photon
-number is not possible to learn with certainty from tomography.
-Instead, we have tested using the photon number at which the
-reconstruction Hilbert space is truncated $M$ \SGc{Maybe use $T$ for
-  ``truncation'' rather than $M$, because we already used $m$.} and an
-estimate of the mean photon number
-$\overline{\langle \hat{n} \rangle}$ in Eq.~(\ref{eq-leonhardt}).  The
-truncation must be chosen in advance to be large enough that the
-probability that $\rhotrue$ contains more photons than the truncation
-limit is very small.  \SGc{TODO: report excess photon probabilities.}
-We estimate the mean photon number from the quadrature measurements as
+maximum photon number, and whether a state has a \SGs{true }maximum
+photon number is not possible to learn with certainty from tomography.
+Instead, we have tested using the photon number \SG{$t$} at which the
+reconstruction Hilbert space is truncated\SGs{ $M$} and an estimate of
+the mean photon number $\overline{\langle \hat{n} \rangle}$ in
+Eq.~(\ref{eq-leonhardt}).  The truncation $t$ must be chosen in
+advance to be large enough that the probability that $\rhotrue$
+contains more \SG{than $t$} photons \SGs{than the truncation limit} is
+very small.  \SGc{TODO: report excess photon probabilities.}  We
+estimate the mean photon number from the quadrature measurements as
 described in the next section.
 
 
 
 \section{Estimating mean photon number}
 \label{sec-photon-estimation}
-In order to use Leonhardt's advice for choosing the
-histogram bin width, we need to estimate the mean number
-$\langle n \rangle$ of photons in the measured state from the
-phase-quadrature data set. To find an estimator, we first compute the
-mean value of $(\hat{X}_{\theta})^{2}$, averaged over $\theta$,
-treating $\theta$ as if it is random and uniformly distributed between
-$0$ and $\pi$.
+In order to use Leonhardt's advice for choosing the histogram bin
+width, we need to estimate the mean number $\langle n \rangle$ of
+photons in the measured state from the phase-quadrature data
+set. \SG{We use the estimator given in
+  Refs.~\cite{Hradil2,Munroe1996}}.  To \SGs{find an}\SG{to obtain
+  this} estimator, we first compute the mean value of
+$(\hat{X}_{\theta})^{2}$, averaged over $\theta$, treating $\theta$ as
+if it is random and uniformly distributed between $0$ and $\pi$.
 \begin{equation}
   \langle (\hat{X}_{\theta})^{2} \rangle = \langle \hat{X}^{2}\cos^{2}\theta + (\hat{X}\hat{P}+\hat{P}\hat{X})\cos\theta\sin\theta + \hat{P}^{2}\sin^{2}\theta \rangle
 \end{equation}
@@ -435,57 +436,69 @@ mean of all quadrature measurements~\HV{\cite{Hradil2,Munroe1996}}:
   \label{eq-photon-estimation}
 \end{equation}
 Note that when $\theta$ is uniformly distributed over $[0,\pi)$, the
-values of $\theta$ are not needed to compute
-$\overline{\langle \hat{n} \rangle}$.  
+\SG{individual} values of $\theta$ are not needed to compute
+$\overline{\langle \hat{n} \rangle}$.
+
 
 
 \section{Results}
 \label{results}
-In our study, we compute the fidelities between the
-true state and (i) the density matrix reconstructed without discretization,
-$\rho_{\mathrm{ML2}}$; (ii) the density matrix reconstructed using
-histograms with chosen bin widths, $\rho_{\mathrm{Hist}}$; 
-(iii) and the density matrix reconstructed using histograms 
-with a bin width given by Scott's method, $\rho_{\mathrm{Scott}}$.
-
-To make the graphs below, for each choice of parameters, we simulate 100
+\SG{To study the performance of various discretization strategies, we
+  compute fidelities between the true state and the states estimated
+  with the different strategies. Below $\rho_{\mathrm{ML2}}$
+  represents the state estimated without discretization,
+  $\rho_{\mathrm{Hist}}$ is estimated with histogram bins of specified
+  width chosen arbitrairly, $\rho_{\mathrm{Scott}}$ is estimated with
+  bin widths chosen according to Scott's rule, and
+  $\rho_{\mathrm{Leonhardt}}$ is estimated with Leonhardt's bin
+  widths.} \SGs{In our study, we compute the fidelities between the
+  true state and (i) the density matrix reconstructed without
+  discretization, $\rho_{\mathrm{ML2}}$; (ii) the density matrix
+  reconstructed using histograms with chosen bin widths,
+  $\rho_{\mathrm{Hist}}$; (iii) and the density matrix reconstructed
+  using histograms with a bin width given by Scott's method,
+  $\rho_{\mathrm{Scott}}$.}  \SGc{joining paragraphs}To make the
+graphs below, for each choice of parameters, we simulate 100
 tomography experiments, making 100 density matrix estimates.  The
 graphs show the arithmetic mean of the 100 fidelities of the
 reconstructed states. The error bars show the standard deviation of
 the 100 fidelities.
 
 %DISCUSSION OF FIGURE 1
-Our first result is shown in
+Our first results are shown in
 Fig.~\ref{fig-methods_fidelity_singledata}. The state considered is a
-cat state with $\alpha = 1$, where $\alpha$ is the amplitude
-of the coherent state in the superposition. \HV{The state is reconstructed in a
-Hilbert space truncated at $M=10$ photons}. Scott's method
-finds a different optimal bin width for each phase
-considered, so we report the mean bin width averaged over the 20 phases in
-these cases. Here the mean bin width for Scott's method is $0.35$. 
-When choosing a bin width, we go up to $0.34$, the value we obtain when 
-we use Eq.~(\ref{eq-leonhardt}) for $M=10$, the number of photons 
-at which we truncated the Hilbert space. In all cases, each bin's 
-measurement operator represents the measurement as if it occurred at
-the center of each bin.
- 
-In Fig~\ref{fig-methods_fidelity_singledata}, each set of points
-corresponds to a different data set. Our goal was to check that
-different data sets would have similar behavior as we change the bin
-size. As we can see in this figure, the highest values of fidelity
-corresponds to the case where we do not use discretization, as expected. 
-We also see that smaller bin widths result in the highest fidelities. 
-However, even the largest bin widths tested result in a fidelity loss 
-of only 0.005 compared to the raw data.
+cat state with $\alpha = 1$, where $\alpha$ is the amplitude of the
+coherent state in the superposition. \SGc{I think this state is sent
+  through some loss before detection.  We should report that here.}
+The state is reconstructed in a Hilbert space truncated at $t=10$
+photons. \SG{(The probability that the $\alpha=1$ state has more than
+  10 photons is ???.)} Scott's method finds a different optimal bin
+width for each phase considered, so we report the mean bin width
+averaged over the 20 phases in these cases.  Here the mean bin width
+for Scott's method is $0.35$.  When choosing a bin width, we go up to
+$0.34$, the value we obtain when we use Eq.~(\ref{eq-leonhardt}) for
+$t=10$, the number of photons at which we truncated the Hilbert space.
+In all cases, each bin's measurement operator represents the
+measurement as if it occurred at the center of each bin. \SGc{joining
+  paragraphs} In Fig~\ref{fig-methods_fidelity_singledata}, each set
+of points corresponds to a different data set. Our goal was to check
+that different data sets would have similar behavior as we change the
+bin size. As we can see in this figure, the highest \SGs{values of
+  fidelity correspond to the case where}\SG{fidelities occur when} we
+do not use discretization, as expected.  We also see that smaller bin
+widths result in \SGs{the highest}\SG{higher} fidelities.  However,
+even the largest bin widths tested result in a fidelity loss of only
+0.005 compared to the raw data.
 
 %FIGURE 1
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{methods_fidelity_singledata.eps}
-  \caption{Average fidelity as a function of the bin width for a cat state
-    with amplitude $\alpha=1$. The Hilbert space is truncated at $M=10$
-    photons. Each set of points with the same color and marker
-    shape corrresponds to a different data set. The mean bin width
-    for Scott method is $0.35$.}
+  \caption{\SGs{Average} Fidelities as functions of the bin width for
+    a cat state with amplitude $\alpha=1$ \SG{and photon loss
+      ???}. The Hilbert space is truncated at $t=10$ photons. Each set
+    of points with the same color and marker shape corrresponds to a
+    different data set. The mean bin width for Scott method is
+    $0.35$.}
   \label{fig-methods_fidelity_singledata}
 \end{figure}
 
