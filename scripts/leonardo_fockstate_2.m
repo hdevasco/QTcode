@@ -21,7 +21,7 @@ numSim             = 100;
 etaDetector        = 0.9;
 maxIterations      = 2000;
 stoppingCriterion  = 0.01;
-n                  = [4,6,8,10];
+ n                = [4,6,8,10];
 etaState           = 0.95; 
 
 % Number of angles equally spaced from 0 to pi
@@ -29,8 +29,8 @@ numAngles          = 20;
 
                 
  for i=1:length(maxPhotonNumber),
-    for j=1:length(n),
-        for k=1:length(numMeasurements),
+    for k=1:length(numMeasurements),
+         for j=1:length(n),
             
             fileName1 = ['maxPhNum',num2str(maxPhotonNumber(i)),'n',num2str(n(j)),'nM',num2str(numMeasurements(k)),'.mat'];
             
@@ -47,7 +47,6 @@ numAngles          = 20;
                 fidelityDiff        = zeros(numSim,1);
                 fidelityDiff2       = zeros(numSim,1);
                  n_bar              = zeros(numSim,1);
-                 n1                 = zeros(numSim,1);
                  deltaq             = zeros(numSim,1);
                  n_RhoHistogram     = zeros(numSim,1);
                  n_RhoScott         = zeros(numSim,1);
@@ -60,29 +59,21 @@ numAngles          = 20;
             while t <= numSim,
                 fprintf(['Iteraction ',num2str(t), '\n']);
                 
-               angles = pi*(0:numAngles-1)/numAngles;
-               angles = repmat(angles,1, ceil(numMeasurements/numAngles));
-               angles = angles(1:numMeasurements)';
-               
-               %generate state 
-               
+              angles = pi*(0:numAngles-1)/numAngles;
+              angles = repmat(angles,1, ceil(numMeasurements/numAngles));
+              angles = angles(1:numMeasurements)';
+              %generate state 
+
                tic;
                 S   = init_tables(maxPhotonNumber(i));
                 psi = generate_fock_vector(n(j), maxPhotonNumber(i));
                 Rho = apply_loss(psi,etaState,S);
             
-                
                Samples = homodyne_samples(-7,7,etaDetector,angles,Rho,S);
-
-
-                
-                % estimates the average number of photons
-                n1(t) = n_quadrature(Samples,numMeasurements);
                 
                 % average number of photons estimated ( \overline{\langle
                 % \hat{n} \rangle}) \overline{\langle \hat{n} \rangle}
-                
-                n_bar(t) = n1(t)/etaDetector;
+                n_bar(t) = n_quadrature(Samples,numMeasurements);
                
                 % We determined the histogram box width from the estimated average number of photons
                 
@@ -111,9 +102,9 @@ numAngles          = 20;
                % reconstructed state RhoHistogram
                  n_RhoHistogram(t) = mean_photons(RhoHistogram);
                  
-                % Constructs the MScott array using the optimal width method (case option = 2 in the matrix_histogram function)
+                % Constructs the MScott array using the optimal width method (case option = 8 in the matrix_histogram function)
                 tic;
-                MScott = matrix_histogram(Samples, 2,'integral');
+                MScott = matrix_histogram(Samples, 8,'integral');
    
                 % Constructs RhoScott using the combined_optimization
                 [RhoScott, Diagnostics] = combined_optimization( MScott, S, etaDetector, 0, maxIterations, stoppingCriterion);
@@ -143,8 +134,8 @@ numAngles          = 20;
                 meanFScott          = mean(fScott);
                 meanFML2Psi         = mean(fML2Psi);
                 meanFHistogramPsi   = mean(fHistogramPsi);
-                meanFScottPsi           = mean(fScottPsi);     
-                mean_n_bar              = mean(n_bar);  % average number of estimated photons
+                meanFScottPsi         = mean(fScottPsi); 
+                mean_n_bar              = mean(n_bar); % average number of estimated photons
                 mean_deltaq             = mean(deltaq);
                 mean_photon_RhoML2      = mean(n_RhoML2);
                 mean_photon_RhoHistogram = mean(n_RhoHistogram);
@@ -156,7 +147,6 @@ numAngles          = 20;
                 stdFML2                 = std(fML2);              % Standard deviation of fML2
                 stdFScott               = std(fScott);            % Standard deviation of fScott
                 std_n_bar               = std(n_bar);
-                std_n                   = std(n1);
                 std_deltaq              = std(deltaq);
                
                 home;
