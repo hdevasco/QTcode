@@ -19,7 +19,9 @@ function M = matrix_histogram(samples, option, H_operator,deltaq)
 %       6 = 'sqrt'
 %       7 = 'BinWidth'(Option 7 specifies the width of the bin, which must be initialized
 %       in matrix_histogram(sample, 7, bin width(scalar))).
-%       values grater than 7 indicates a number of bins.
+%       8 = Determines the actual width of the Scott method without rounding to two significant 
+%       decimal places for the case of integration into the edges of the box.
+%       values grater than 8 indicates a number of bins.
 
 num_measurements = size(samples, 1);
 num_angles = num_measurements/1000;
@@ -80,7 +82,8 @@ if strcmp(H_operator,'center'),
             
         end
         M =M(2:end,:);
-        % else
+        
+
         % Specify method
     elseif (option > 0) && (option < 7),
         
@@ -92,6 +95,7 @@ if strcmp(H_operator,'center'),
             angle = samples(i,1);
             H(:,i) = samples((i:num_angles:end),2);
             [N,edges] = histcounts(H(:,i),'BinMethod', method{option});
+          
             d = diff(edges)/2;
             centers = edges(1:end-1)+d;
             C = centers';
@@ -109,7 +113,7 @@ end
 if strcmp(H_operator,'integral')
     
     % Specify number of bins
-    if option > 7,
+    if option > 8,
         
         num_bins = option;
         angles = pi*(0:num_angles-1)/num_angles;
@@ -155,6 +159,30 @@ if strcmp(H_operator,'integral')
             angle = samples(i,1);
             H(:,i) = samples((i:num_angles:end),2);
             [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width);
+            % The matrix B is the matrix N by 2 that represents in each line the limits of the bin.
+            B = zeros(length(edges-1),2);
+            B = [edges(1:end-1)',edges(2:end)'];
+            MA = [repmat(angle,length(N),1), B , N'];
+            M = [M; MA];
+            
+        end
+        M =M(2:end,:);
+        
+        elseif (option ==8),
+        
+        num_measurements = size(samples, 1);
+        num_angles = num_measurements/1000;
+        H = zeros(num_measurements/num_angles, num_angles);
+        M = zeros(1,4);
+        Bin_Width_Scott = zeros(num_measurements/1000, 1);
+        for i=1:num_angles;
+            
+            angle = samples(i,1);
+            H(:,i) = samples((i:num_angles:end),2);
+            % Bin_Width_Scott determines the optimal width by the Scott method of the 
+            % distribution of each phase without the rounding of MATLAB
+            Bin_Width_Scott(i) = 3.5*std(H(:,i))*(1000^(-1/3));
+            [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width_Scott(i));
             % The matrix B is the matrix N by 2 that represents in each line the limits of the bin.
             B = zeros(length(edges-1),2);
             B = [edges(1:end-1)',edges(2:end)'];
