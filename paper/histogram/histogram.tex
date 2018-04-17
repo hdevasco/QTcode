@@ -112,18 +112,19 @@ longbibliography
 \begin{abstract}
   Quantum state tomography aims to determine the quantum state of a
   system from measured data and is an essential tool for quantum
-  information science.  When dealing with continuous variable
-  quantum states of light, QST is often done by measuring the field
-  amplitudes at different optical phases using homodyne detection.
-  The quadrature-phase homodyne measurement outputs a continuous
-  variable, so to reduce the computational cost of tomography,
-  researchers often discretize the measurements into histogram bin.
-  We show that this can be done without significantly degrading the
-  fidelity of the estimated state.  This paper tests different
-  strategies for determining the histogram bin edges.
-  We show that computation time can be significantly reduced with
-    little fidelity loss when the measurement operators corresponding
-    to each histogram bin are integrated over the bin width.
+  information science.  When dealing with continuous variable quantum
+  states of light, \SGs{QST}\SG{tomography} is often done by measuring
+  the field amplitudes at different optical phases using homodyne
+  detection.  The quadrature-phase homodyne measurement outputs a
+  continuous variable, so to reduce the computational cost of
+  tomography, researchers often discretize the measurements into
+  histogram bin.  We show that this can be done without significantly
+  degrading the fidelity of the estimated state.  This paper tests
+  different strategies for determining the histogram bin
+  \SGs{edges}\SG{widths}.  We show that computation time can be
+  significantly reduced with little fidelity loss when the measurement
+  operators corresponding to each histogram bin are integrated over
+  the bin width.
 \end{abstract}
 
 \pacs{
@@ -608,33 +609,41 @@ respectively. Fig.~\ref{fig-squeezed_vacuum_variance_075_Mph_10}
   \label{fig-squeezed_vacuum_variance_075_Mph_10}
 \end{figure}
 
-As seen in Eq.~(\ref{eq-scott}), Scott's rule gives bin widths proportional
-to the sample standard deviation. Since states with a higher number of 
-photons have higher standard deviation, we expect Scott's method to be less
-efficient for these cases. On the other hand, we expect Leonhardt's method
-to perform better since it uses the estimated mean number of photons to calculate
-the bin width. We can clearly see the expected behavior 
-of both methods for higher number of photons in Fig.~\ref{fig-fock}, where we
-have used a Fock state to check our claim.
+As seen in Eq.~(\ref{eq-scott}), Scott's rule gives bin widths
+proportional to the sample standard deviation. Since states with a
+higher number of photons \SG{can} have higher standard deviations,
+\SGs{we expect Scott's method to be less efficient for these
+  cases}\SG{Scott's method will produce larger bin widths.  This is
+  undesirable because pure states containing many photons have very
+  fine features in their quadrature distributions.}  On the other
+hand, we expect Leonhardt's method to perform better
+\SGs{since}\SG{because} it uses the estimated mean number of photons
+to calculate the bin width. We can clearly see the expected behavior
+of both methods for higher numbers of photons in Fig.~\ref{fig-fock},
+where we have used \SGs{a} Fock \SG{states} to check our claim.
 
 % FIGURE 6
 \begin{figure}
   \includegraphics[width=0.49\textwidth]{fock.eps}
-  \caption{Average fidelity as a function of the bin width for Fock states 
-with different number of photons $n$. The bin widths by Leonhardt's formula are
-0.56 ($n=4$), 0.46 ($n=6$), 0.40 ($n=8$), and 0.36 ($n=10$). The mean bin width 
-for Scott's method are 0.69 ($n=4$), 0.82 ($n=6$), 0.95 ($n=8$), and 1.05 ($n=10$).}
+  \caption{Average fidelities as functions of bin width for Fock
+    states with different numbers of photons $n$. The bin widths from
+    Leonhardt's formula are 0.56 ($n=4$), 0.46 ($n=6$), 0.40 ($n=8$),
+    and 0.36 ($n=10$). The mean bin width from Scott's method are 0.69
+    ($n=4$), 0.82 ($n=6$), 0.95 ($n=8$), and 1.05 ($n=10$).}
   \label{fig-fock}
 \end{figure}
 
-All of the discretization methods considered here
-give much faster fidelity estimates, as we can see in 
-Figs.~\ref{fig-time-catstate} and~\ref{fig-time-squeezed}, with no 
-significant loss of fidelity. The times reported here include
-  any calculations required to determine the desired bin width from
-  the original homodyne data, the construction of histograms, and the
-  ML density matrix estimation. All the simulations were carried out in
-  a 4GB dual-core i3 computer, with 1 TB of memory.
+All of the discretization methods considered here give much faster
+fidelity estimates, as we can see in Figs.~\ref{fig-time-catstate}
+and~\ref{fig-time-squeezed}, with no significant loss of fidelity. The
+times reported here include any calculations required to determine the
+desired bin width from the original homodyne data, the construction of
+histograms, and the ML density matrix estimation. All the simulations
+were carried out in a \SGs{4GB} dual-core \SGs{i3} computer
+\SG{running at XX GHz with 4 GB of RAM}\SGs{, with 1 TB of
+  memory}.\SGc{I want to remove ``i3'' because it is an Intel
+  trademark.  The hard disk size should not be relevant to the speed
+  of the calculations, but the processor speed is important.}
 
 % FIGURE 7
 \begin{figure}
@@ -674,28 +683,31 @@ measurement operators along the length of the bin.
 
 Scott's method calculates an optimal bin width, for each phase, based
 on the size and the standard deviation of the sample. This method
-works well, specially for states with small number of photons.
-States with higher number of photons have higher standard deviations, 
-giving bigger bin widths for each phase. If we have some previous knowledge
-about the state and its distribution, we may tailor Scott's rule
-by using a more appropriate distribution on Eq.~(\ref{eq-hstar}).
-This could be explored in a future work.
+works well \SG{for Gaussian states} and \SGs{specially for} states
+with small numbers of photons.  States with higher number of photons
+have higher standard deviations, giving bigger bin widths for each
+phase. \SG{We implemented Scott's method for Gaussian distributions,
+  but if} \SGs{we have some previous}\SG{one has prior} knowledge
+about the state and its distribution, \SGs{we may}\SG{one could}
+tailor Scott's rule by using \SGs{a} more appropriate distributions in
+Eq.~(\ref{eq-hstar}).  \SGs{This could be explored in a future
+  work.}\SGc{I don't want to do that work.}
 
-Leonhardt's method recommends a bin width narrower than $q_n/2$, 
-where $q_n$ decreases with the square root of the number
-of photons in the state being reconstructed.  Since, in a real
-experiment, we do not know the mean number of photons in the state
-considered, we estimate the mean photon number from the quadrature
-measurement results. We have found that our proposed method to find the 
-mean number of photons from the quadrature measurement results gives 
-accurate results. We checked that by comparing the estimated mean number 
-of photons with the true mean number of photons for the cat states and
-squeezed vacuum states. We also have found that integrating the
-measurement operators over the width of each histogram bin
-significantly improves the fidelity. Using this strategy, Leonhardt's
-formula safely establishes an upper bound to the bin width, and both
-methods provides a faster statistical estimation without losing too
-much information.  
+Leonhardt's method recommends a bin width narrower than $q_n/2$, where
+$q_n$ decreases with the square root of the number of photons in the
+state being reconstructed.  Since, in a real experiment, we do not
+know the mean number of photons in the state considered, we estimate
+the mean photon number from the quadrature measurement results. We
+have found that \SGs{our proposed}\SGc{It was originally proposed by
+  Munroe, not us.}\SG{the} method to find the mean number of photons
+from the quadrature measurement results gives accurate results. We
+checked that by comparing the estimated mean number of photons with
+the true mean number of photons for the cat states and squeezed vacuum
+states. We also have found that integrating the measurement operators
+over the width of each histogram bin significantly improves the
+fidelity. Using this strategy, Leonhardt's formula safely establishes
+an upper bound to the bin width, and both methods provides a faster
+statistical estimation without losing too much information.
 
 
 
