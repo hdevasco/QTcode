@@ -139,37 +139,37 @@ longbibliography
 
 \section{Introduction}
 \label{intro}
-Quantum information science and engineering have
-  advanced to the point where rudimentary quantum computers are
-available in the laboratory and commercially~\cite{kandala2017,
-  Linke2017, Monk2017, Denchev2016}.  However, further advancing
-quantum technologies requires improvements in the fidelities of basic
-operations.  Consequently, more precise and efficient reconstruction
-and diagnostic tools used to estimate quantum states~\cite{Vogel1989,
-  Smithey1993, Dunn1995, Banaszek1999, Banaszek2000, White2002,
-  Ourjoumtsev2007, Neergaard2006}, processes~\cite{Chuang1997,
-  Poyatos1997, Altepeter2003, Dariano1998, Nielsen1998, Mitchell2003,
-  Obrien2004,Kupchak2015}, and measurements~\cite{Luis1999,
-  Fiurasek2001, Dariano2004, Lundeen2009} are essential. Quantum tomographic techniques for optical quantum states of light have become 
-standard tools because quantum light sources are essential for
-implementations of continuous-variable (CV) quantum computation
-and communication~\cite{Lloyd1999, Gottesman2001, Bartlett2002,
-  Jeong2002, Ralph2003}.  These source are also extensively exploited
-in quantum cryptography~\cite{Ralph1999, Hillery2000, Silberhorn2002,
-  Pirandola2008, Luiz2017}, quantum metrology~\cite{Eberle2010,
-  Demkowicz2013}, state teleportation~\cite{Vaidman1994,
-  Braunstein1998, He2015}, dense coding~\cite{Braunstein2000, Lee2014}
-and cloning~\cite{Cerf2000, Braunstein2001}.
+Quantum information science and engineering have advanced to the point
+where rudimentary quantum computers are available in the laboratory
+and commercially~\cite{kandala2017, Linke2017, Monk2017, Denchev2016}.
+However, further advancing quantum technologies requires improvements
+in the fidelities of basic operations.  Consequently, more precise and
+efficient reconstruction and diagnostic tools used to estimate quantum
+states~\cite{Vogel1989, Smithey1993, Dunn1995, Banaszek1999,
+  Banaszek2000, White2002, Ourjoumtsev2007, Neergaard2006},
+processes~\cite{Chuang1997, Poyatos1997, Altepeter2003, Dariano1998,
+  Nielsen1998, Mitchell2003, Obrien2004,Kupchak2015}, and
+measurements~\cite{Luis1999, Fiurasek2001, Dariano2004, Lundeen2009}
+are essential. Quantum tomographic techniques for optical quantum
+states of light have become standard tools because quantum light
+sources are essential for implementations of continuous-variable (CV)
+quantum computation and communication~\cite{Lloyd1999, Gottesman2001,
+  Bartlett2002, Jeong2002, Ralph2003}.  These source are also
+extensively exploited in quantum cryptography~\cite{Ralph1999,
+  Hillery2000, Silberhorn2002, Pirandola2008, Luiz2017}, quantum
+metrology~\cite{Eberle2010, Demkowicz2013}, state
+teleportation~\cite{Vaidman1994, Braunstein1998, He2015}, dense
+coding~\cite{Braunstein2000, Lee2014} and cloning~\cite{Cerf2000,
+  Braunstein2001}.
 
-In the quantum state tomography studied here,
-one performs a measurement on each member of a collection
-of quantum systems, prepared in the same unknown state. Each
-  system is measured in a basis chosen from a complete set of
-  measurements. The goal is to estimate the unknown state from the
-measurements results.  This estimation can be done by different
-methods, but we study Maximum Likelihood Estimation (MLE), which finds
-among all possible states, the one that maximizes the probability of
-obtaining the observed data.
+In the quantum state tomography studied here, one performs a
+measurement on each member of a collection of quantum systems,
+prepared in the same unknown state. Each system is measured in a basis
+chosen from a complete set of measurements. The goal is to estimate
+the unknown state from the measurements results.  This estimation can
+be done by different methods, but we study Maximum Likelihood
+Estimation (MLE), which finds among all possible states, the one that
+maximizes the probability of obtaining the observed data.
 
 Quantum homodyne tomography is one of the most popular optical
 tomography techniques available~\cite{Lvovsky2004}. It rapidly became
@@ -193,7 +193,7 @@ homodyne tomography and perform maximum likelihood tomography on the
 data with and without discretization. When choosing a quadrature bin
 width, we use and compare two different strategies: Scott's
 rule~\cite{Scott2010} and Leonhardt's formula~\cite{Leonhardt1996}.
-The paper is divide as follow: we begin by reviewing maximum
+The paper is \SG{divided} as follow: we begin by reviewing maximum
 likelihood in homodyne tomography in Section \ref{MLE}. Then, in
 Section \ref{numerical-experiments}, we describe our numerical
 experiments. Next, we discuss the estimation of the mean photon number
@@ -254,12 +254,13 @@ after about $(t+1)^2/4$ iterations, where $t+1$ is the Hilbert
 where $\rho^{(k)}$ is the density matrix found by the previous
 iteration, and $A$ may be any complex matrix of the same dimensions as
 $\rho$. Eq.~(\ref{eq-rho-k+1}) ensures that $\rho^{(k+1)}$ is a
-density matrix for any $A$. The matrix $A$ is chosen to maximize the
-quadratic approximation of the log-likelihood subject to
-$\text{Tr}(AA^{\dagger})\leq u$, where $u$ is a positive number
-adjusted by the algorithm to guarantee that the log-likelihood
-increases with each iteration. To halt the iterations, we use the
-stopping criterion of \cite{Glancy2012},
+density matrix for any $A$. \SG{We then use sequential quadratic
+  programming optimization strategy \cite{Nocedal2006} in which $A$}
+is chosen to maximize the quadratic approximation of the
+log-likelihood subject to $\text{Tr}(AA^{\dagger})\leq u$, where $u$
+is a positive number adjusted by the algorithm to guarantee that the
+log-likelihood increases with each iteration. To halt the iterations,
+we use the stopping criterion of \cite{Glancy2012},
 $L(\rho_{\text{ML}})-L(\rho^{(k)})\leq 0.2$, where
 $L(\rho_{\text{ML}})$ is the maximum of the log-likelihood.
 
@@ -275,24 +276,24 @@ photon loss before measurement.
 
 In order to calculate the probability to obtain homodyne measurement
 outcome $x$, when measuring state $\rho_{\mathrm{true}}$ with phase
-$\theta$, we need to represent $\Pi (x|\theta)$ in the
-photon number basis. If $|x\rangle$ is the photon number basis
-representation of the x-quadrature eigenstate with eigenvalue $x$, and
-$U(\theta)$ is the phase evolution unitary operator, then for an ideal
-homodyne measurement, we have
-$\Pi(x|\theta) = U(\theta)^{\dagger} |x\rangle \langle x|
-U(\theta)$. To include photon
-detector inefficiency, we replace the projector with
-$\Pi(x|\theta) = \sum_{i=1}^{n} E_i(\eta)^{\dagger}
-U(\theta)^{\dagger} |x\rangle \langle x| U(\theta) E_i(\eta)$, where
-$\eta$ is the detection efficiency and $E_i(\eta)$ are the
-  associated Kraus operators \cite{Lvovsky2004}.  Typical
-state-of-the-art homodyne detection systems have efficiency
-$\eta \sim 0.9$, so we use this value in our simulations. Using this
-strategy, we are able to correct for the detector
-  inefficiency as we estimate the state. We use rejection sampling
-from the distribution given by $P(x|\theta)$ to guarantee random
-samples of homodyne measurement results~\cite{Kennedy1980}.
+$\theta$, we \SGs{need to} represent \SG{all states and measurements
+  in the photon number basis of a Hilbert space truncated at $t$
+  photons} \SGs{$\Pi (x|\theta)$ in the photon number basis}. If
+$|x\rangle$ is the \SGs{photon number basis representation of the}
+x-quadrature eigenstate with eigenvalue $x$, and $U(\theta)$ is the
+phase evolution unitary operator, then for an ideal homodyne
+measurement, we have $\Pi(x|\theta) = U(\theta)^{\dagger} |x\rangle
+\langle x| U(\theta)$. To include photon detector inefficiency, we
+replace the projector with $\Pi(x|\theta) = \sum_{i=1}^{n}
+E_i(\eta)^{\dagger} U(\theta)^{\dagger} |x\rangle \langle x| U(\theta)
+E_i(\eta)$, where $\eta$ is the detection efficiency and $E_i(\eta)$
+are the associated Kraus operators \cite{Lvovsky2004}.  Typical
+state-of-the-art homodyne detection systems have efficiency $\eta \sim
+0.9$, so we use this value in our simulations. Using this strategy, we
+are able to correct for the detector inefficiency as we estimate the
+state. We use rejection sampling from the distribution given by
+$P(x|\theta)$ to guarantee random samples of homodyne measurement
+results~\cite{Kennedy1980}.
 
 To choose the phases at which the homodyne measurements are performed,
 we divide the upper-half-circle evenly among $m$ phases between 0 and
@@ -381,12 +382,13 @@ photon number from the quadrature measurements as described in the next section.
 \section{Estimating mean photon number}
 \label{sec-photon-estimation}
 In order to use Leonhardt's advice for choosing the histogram bin
-width, we need to estimate the mean number $\langle n \rangle$ of
-photons in the measured state from the phase-quadrature data
-set. We use the estimator given in Refs.~\cite{Hradil2,Munroe1996}.  
-To obtain this estimator, we first compute the mean value of
-$(\hat{X}_{\theta})^{2}$, averaged over $\theta$, treating $\theta$ as
-if it is random and uniformly distributed between $0$ and $\pi$.
+width, we need to estimate the mean number $\langle \hat{n} \rangle$
+\SGc{I gave $n$ a hat.} of photons in the measured state from the
+phase-quadrature data set. We use the estimator given in
+Refs.~\cite{Hradil2,Munroe1996}.  To obtain this estimator, we first
+compute the mean value of $(\hat{X}_{\theta})^{2}$, averaged over
+$\theta$, treating $\theta$ as if it is random and uniformly
+distributed between $0$ and $\pi$.
 \begin{equation}
   \langle (\hat{X}_{\theta})^{2} \rangle = \langle \hat{X}^{2}\cos^{2}\theta + (\hat{X}\hat{P}+\hat{P}\hat{X})\cos\theta\sin\theta + \hat{P}^{2}\sin^{2}\theta \rangle
 \end{equation}
@@ -494,14 +496,17 @@ requires more parameters to effectively describe its density matrix in
 the photon number basis, so for a given amount of data, there is
 greater statistical uncertainty.
 
-The fidelity for the $\alpha = 2$ cat state decreases faster than the
-fidelity for the $\alpha=1$ cat state as the bin size increases. This
-is also expected because the $\alpha = 2$ state has more wiggles in
-its probability distribution, so more information is lost when the
-bins are larger. The average bin width used by Scott's method is
-$0.35$ for the $\alpha=1$ cat state, and $0.64$ for the $\alpha=2$ cat
-state, which results in significant fidelity loss. Leonhardt's width indicated 
-in Fig.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate} is obtained by
+\SGs{The fidelity for the $\alpha = 2$ cat state decreases faster than
+  the fidelity for the $\alpha=1$ cat state as the bin size
+  increases.}  \SG{For a given bin width the fidelity of the
+  $\alpha=2$ cat state is always lower than the fidelity for the
+  $\alpha=1$ cat state.} This is also expected because the $\alpha =
+2$ state has more wiggles in its probability distribution, so more
+information is lost when the bins are larger. The average bin width
+used by Scott's method is $0.35$ for the $\alpha=1$ cat state, and
+$0.64$ for the $\alpha=2$ cat state, which results in significant
+fidelity loss. Leonhardt's width indicated in
+Fig.~\ref{fig-fidelity_vs_binwidth_15_photons_catstate} is obtained by
 using $t=15$ in place of $n$ in Eq.~(\ref{eq-leonhardt}).
 
 % FIGURE 2
@@ -704,13 +709,13 @@ statistical estimation without losing too much information.
 
 
 \begin{acknowledgments}
-  \HV{We thank ?????????????? for
-    helpful comments on the manuscript.}  H. M. Vasconcelos thanks the
-  Schlumberger Foundation's Faculty for the Future program for
-  financial support. J. L. E. Silva thanks Coordena\c c\~ao de
-  Aperfei\c coamento de Pessoal de N\'ivel Superior (CAPES) for
-  financial support. This work includes contributions of the National
-  Institute of Standards and Technology, which are not subject to
+  We thank Karl Mayer and Omar Magana Loaiza for helpful comments on
+  the manuscript.  H. M. Vasconcelos thanks the Schlumberger
+  Foundation's Faculty for the Future program for financial
+  support. J. L. E. Silva thanks Coordena\c c\~ao de Aperfei\c
+  coamento de Pessoal de N\'ivel Superior (CAPES) for financial
+  support. This work includes contributions of the National Institute
+  of Standards and Technology, which are not subject to
   U.S. copyright.
 \end{acknowledgments}
 
