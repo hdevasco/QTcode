@@ -25,8 +25,6 @@ function M = matrix_histogram_new(numAngles, samples, option, H_operator,deltaq)
 
 num_measurements = size(samples, 1);
 method = {'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'};
-M = zeros(1,3);
-
 
 % Specify number of bins
 if option > 8,
