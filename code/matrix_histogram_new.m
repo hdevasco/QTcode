@@ -25,6 +25,8 @@ function M = matrix_histogram_new(numAngles, samples, option, H_operator,deltaq)
 
 num_measurements = size(samples, 1);
 method = {'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'};
+M = zeros(1,3);
+
 
 % Specify number of bins
 if option > 8,
@@ -43,66 +45,54 @@ if option > 8,
         angle  = samples(i,1);
         H(:,i) = samples((i:numAngles:end),2);
         [N(:,i),edges] = histcounts(H(:,i), num_bins);
+        %
+        %         if strcmp(H_operator,'center')
+        %         centers = edges(1:end-1)+d;
+        %         C(:,i) = centers';
+        %
+        %         A2 = A(:);
+        %         C2 = C(:);
+        %         N2 = N(:);
+        %
+        %         ind = find(N2 > 0);
+        %
+        %         A3 = A2(ind);
+        %         C3 = C2(ind);
+        %         N3 = N2(ind);
+        %
+        %         M = [A3, C3, N3];
         
-        if strcmp(H_operator,'center')
-            
-            d = diff(edges)/2;
-            centers = edges(1:end-1)+d;
-            C(:,i) = centers';
-            
-            A2 = A(:);
-            C2 = C(:);
-            N2 = N(:);
-            
-            ind = find(N2 > 0);
-            
-            A3 = A2(ind);
-            C3 = C2(ind);
-            N3 = N2(ind);
-            
-            M = [A3, C3, N3];
-            
-        elseif strcmp(H_operator,'integral')
+        if strcmp(H_operator,'integral')
             
             B = zeros(length(edges-1),2);
             B = [edges(1:end-1)',edges(2:end)'];
             MA = [repmat(angle,length(N(:,i)),1), B , N(:,i)];
             M2 = [M2; MA];
-            
-            M =M2(2:end,:);
         end
+        M =M2(2:end,:);
     end
 end
 
 if (option ==8),
     
     H = zeros(num_measurements/numAngles, numAngles);
-    M = zeros(1,3);
     M2 = zeros(1,4);
     Bin_Width_Scott = zeros(num_measurements/(num_measurements/numAngles), 1);
+    
     for i=1:numAngles;
-        angle1 = samples(i,1);
+        angle = samples(i,1);
         H(:,i) = samples((i:numAngles:end),2);
         Bin_Width_Scott(i) = 3.5*std(H(:,i))*((num_measurements/numAngles)^(-1/3));
         [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width_Scott(i));
         
-        if strcmp(H_operator,'center'),
-            
-            d = diff(edges)/2;
-            centers = edges(1:end-1)+d;
-            C = centers';
-            MA = [repmat(angle1,length(N),1), C, N'];
-            M = [M; MA];
-            M =M(2:end,:);
-            
-        elseif strcmp(H_operator,'integral'),
+        if strcmp(H_operator,'integral'),
             
             B = zeros(length(edges-1),2);
             B = [edges(1:end-1)',edges(2:end)'];
-            MA = [repmat(angle1,length(N),1), B , N'];
+            MA = [repmat(angle,length(N),1), B , N'];
             M2 = [M2; MA];
-            M =M2(2:end,:);
         end
+        M =M2(2:end,:);
     end
 end
 
@@ -110,33 +100,24 @@ if (option ==7),
     
     Bin_Width  = deltaq;
     H = zeros(num_measurements/numAngles, numAngles);
-    M = zeros(1,3);
     M2 = zeros(1,4);
     
     for i=1:numAngles;
-        angle2 = samples(i,1);
+        angle = samples(i,1);
         H(:,i) = samples((i:numAngles:end),2);
         [N,edges] = histcounts(H(:,i), 'BinWidth', Bin_Width);
         
-        if strcmp(H_operator,'center'),
-            
-            d = diff(edges)/2;
-            centers = edges(1:end-1)+d;
-            C = centers';
-            MA = [repmat(angle2,length(N),1), C, N'];
-            M = [M; MA];
-            M =M(2:end,:);
-            
-        elseif strcmp(H_operator,'integral'),
+        if strcmp(H_operator,'integral'),
             
             B = zeros(length(edges-1),2);
             B = [edges(1:end-1)',edges(2:end)'];
-            MA = [repmat(angle2,length(N),1), B , N'];
+            MA = [repmat(angle,length(N),1), B , N'];
             M2 = [M2; MA];
-            M =M2(2:end,:);
-            
         end
+        M =M2(2:end,:);
+        
     end
+    
 end
 
 if (option > 0) && (option < 7),
@@ -147,29 +128,31 @@ if (option > 0) && (option < 7),
     
     for i=1:numAngles;
         
-        angle3 = samples(i,1);
+        angle = samples(i,1);
         H(:,i) = samples((i:numAngles:end),2);
         [N,edges] = histcounts(H(:,i),'BinMethod', method{option});
         
-        if strcmp(H_operator,'center'),
-            
-            d = diff(edges)/2;
-            centers = edges(1:end-1)+d;
-            C = centers';
-            MA = [repmat(angle3,length(N),1), C, N'];
-            M = [M; MA];
-            M =M(2:end,:);
-            
-        elseif strcmp(H_operator,'integral'),
+        if strcmp(H_operator,'integral'),
             
             B = zeros(length(edges-1),2);
             B = [edges(1:end-1)',edges(2:end)'];
-            MA = [repmat(angle3,length(N),1), B , N'];
+            MA = [repmat(angle,length(N),1), B , N'];
             M2 = [M2; MA];
-            M =M2(2:end,:);
-            
         end
+        M =M2(2:end,:);
+        
     end
 end
 
+% if strcmp(H_operator,'center')
+%
+%     d = diff(edges)/2;
+%     centers = edges(1:end-1)+d;
+%     C = centers';
+%     MA = [repmat(angle,length(N),1), C, N'];
+%     M = [M; MA];
+%     M =M(2:end,:);
+%
+% end
 
+end
