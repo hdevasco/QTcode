@@ -39,25 +39,16 @@ numAngles = 20;
 
 deltaq    = 0.5;
 
-optList   = [7];
+optList   = [1, 2, 3, 4, 5, 6, 7, 8, 100];
 
 for j = 1:length(optList)
     
-    if (optList ==7)
-        MHistogram_old_center = matrix_histogram(numAngles, Samples, optList(j),'center',deltaq);
-        MHistogram_new_center = matrix_histogram_new(numAngles, Samples, optList(j),'center',deltaq);
-        isequal(MHistogram_old_center, MHistogram_new_center)
-        
-        MHistogram_old_int = matrix_histogram(numAngles, Samples, optList(j),'integral', deltaq);
-        MHistogram_new_int = matrix_histogram_new(numAngles, Samples, optList(j),'integral', deltaq);
-        isequal(MHistogram_old_int, MHistogram_new_int)  
-     else
-    MHistogram_old_center = matrix_histogram(numAngles, Samples, optList(j),'center');
-    MHistogram_new_center = matrix_histogram_new(numAngles, Samples, optList(j),'center');
+    MHistogram_old_center = matrix_histogram(numAngles, Samples, optList(j),'center', deltaq);
+    MHistogram_new_center = matrix_histogram_new(numAngles, Samples, optList(j),'center', deltaq);
     isequal(MHistogram_old_center, MHistogram_new_center)
     
-    MHistogram_old_int = matrix_histogram(numAngles, Samples, optList(j),'integral');
-    MHistogram_new_int = matrix_histogram_new(numAngles, Samples, optList(j),'integral');
+    MHistogram_old_int = matrix_histogram(numAngles, Samples, optList(j),'integral', deltaq);
+    MHistogram_new_int = matrix_histogram_new(numAngles, Samples, optList(j),'integral', deltaq);
     isequal(MHistogram_old_int, MHistogram_new_int)
-    end
+    
 end
