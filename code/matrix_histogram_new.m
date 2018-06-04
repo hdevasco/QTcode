@@ -23,13 +23,10 @@ for i=1:numAngles
     end
 end
 
-% QuadHist = struct('numAngles', numAngles, ...
-%     'QuadHist.angle', QuadHist.angle, ...
-%     'QuadHist.allQuads', QuadHist.allQuads, ...
-%     'QuadHist.counts', QuadHist.counts , ...
-%     'QuadHist.edges',QuadHist.edges );
-
-QuadHist = struct( numAngles, QuadHist.angle, QuadHist.allQuads, QuadHist.counts , QuadHist.edges);
+QuadHist = struct('QuadHistAngle', QuadHist.angle , ...
+    'QuadHistAllQuads', QuadHist.allQuads, ...
+    'QuadHistCounts', QuadHist.counts , ...
+    'QuadHistEdges',QuadHist.edges);
 
 if H_operator == 'center'
     for i = 1:numAngles
@@ -69,3 +66,5 @@ if H_operator == 'integral'
 end
 
 end
+
+
