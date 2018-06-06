@@ -23,32 +23,4 @@ for i=1:numAngles
     end
 end
 
-if strcmp(H_operator,'center'),
-    
-    for i = 1:numAngles;
-        d = diff(QuadHist(i).edges)/2;
-        QuadHist(i).centers = QuadHist(i).edges(1:end-1)+d;
-        
-    end
-    if option > 8
-     
-        QuadHist = [QuadHist(i).angle, QuadHist(i).centers, QuadHist(i).counts];
-        QuadHist  =QuadHist(2:end,:);
-        
-        ind = find(QuadHist(:,3) > 0);
-        
-        QuadHist = QuadHist(ind,:);
-    end
-end
-if strcmp(H_operator,'integral')
-    for i = 1:numAngles;
-        QuadHist(i).edgesArray = zeros(length(QuadHist(i).edges-1),2);
-        QuadHist(i).edgesArray= [QuadHist(i).edges(1:end-1),QuadHist(i).edges(2:end)];
-        QuadHist = [QuadHist(i).angle, QuadHist(i).edgesArray , QuadHist(i).counts];
-    end
-    QuadHist  = QuadHist(2:end,:);
-    ind = find(QuadHist(:,4) > 0);
-    QuadHist =QuadHist(ind,:);
-end
-M = QuadHist;
 end
