@@ -23,21 +23,27 @@ for i=1:numAngles
     end
 end
 
-if strcmp(H_operator,'center'),
+if strcmp(H_operator,'center')
     
-    for i = 1:numAngles;
+    for i = 1:numAngles
         d = diff(QuadHist(i).edges)/2;
         QuadHist(i).centers = QuadHist(i).edges(1:end-1)+d;
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1), QuadHist(i).centers.',QuadHist(i).counts.'];
-     end
- end
+    end
+    M = vertcat(QuadHist.M);
+    ind = find(M(:,3) > 0);
+    M = M(ind,:);
+end
 
 if strcmp(H_operator,'integral')
-    for i = 1:numAngles;
+    for i = 1:numAngles
         QuadHist(i).edgesArray = zeros(length(QuadHist(i).edges-1),2);
         QuadHist(i).edgesArray= [QuadHist(i).edges(1:end-1).',QuadHist(i).edges(2:end).'];
-         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1) , QuadHist(i).edgesArray ,QuadHist(i).counts.'];
+        QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1) , QuadHist(i).edgesArray ,QuadHist(i).counts.'];
     end
+    M = vertcat(QuadHist.M);
+    ind = find(M(:,4) > 0);
+    M = M(ind,:);
 end
 
 end
