@@ -10,7 +10,7 @@ for i=1:numAngles
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
     if option>8
-        num_bins = option
+        num_bins = option;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_bins);
     elseif option == 8
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
@@ -18,7 +18,7 @@ for i=1:numAngles
     elseif option == 7
         Bin_Width= deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
-    elseif (option > 0) && (option < 7),
+    elseif (option > 0) && (option < 7)
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', method{option});
     end
 end
@@ -31,19 +31,17 @@ if strcmp(H_operator,'center')
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1), QuadHist(i).centers.',QuadHist(i).counts.'];
     end
     M = vertcat(QuadHist.M);
-    ind = find(M(:,3) > 0);
-    M = M(ind,:);
-end
-
-if strcmp(H_operator,'integral')
-    for i = 1:numAngles
+    
+elseif strcmp(H_operator,'integral')
+    for i = 1:numAngles;
         QuadHist(i).edgesArray = zeros(length(QuadHist(i).edges-1),2);
         QuadHist(i).edgesArray= [QuadHist(i).edges(1:end-1).',QuadHist(i).edges(2:end).'];
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1) , QuadHist(i).edgesArray ,QuadHist(i).counts.'];
     end
     M = vertcat(QuadHist.M);
-    ind = find(M(:,4) > 0);
-    M = M(ind,:);
+    
 end
+
+M = M(M(:,end)> 0,:);
 
 end
