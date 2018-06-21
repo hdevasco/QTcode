@@ -30,19 +30,18 @@ if strcmp(H_operator,'center')
         QuadHist(i).centers = QuadHist(i).edges(1:end-1)+d;
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1), QuadHist(i).centers.',QuadHist(i).counts.'];
     end
-    M = vertcat(QuadHist.M);
     
 elseif strcmp(H_operator,'integral')
     
-    for i = 1:numAngles;
+    for i = 1:numAngles
         QuadHist(i).edgesArray = zeros(length(QuadHist(i).edges-1),2);
         QuadHist(i).edgesArray= [QuadHist(i).edges(1:end-1).',QuadHist(i).edges(2:end).'];
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1) , QuadHist(i).edgesArray ,QuadHist(i).counts.'];
     end
-    M = vertcat(QuadHist.M);
-    
+  
 end
 
+M = vertcat(QuadHist.M);
 M = M(M(:,end)> 0,:);
 
 end
