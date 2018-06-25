@@ -1,7 +1,5 @@
 function M = matrix_histogram_new(numAngles, samples, option, H_operator,deltaq)
 
-method = {'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'};
-
 num_measurements = size(samples, 1);
 
 angles = samples(1:numAngles);
@@ -9,17 +7,17 @@ angles = samples(1:numAngles);
 for i=1:numAngles
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
-    if option>8
-        num_bins = option;
-        [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_bins);
-    elseif option == 8
+    if strcmp(option,'number_bins')
+        num_of_bins = number_bins;
+        [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_of_bins);
+    elseif strcmp(option,'scott_true')
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width_Scott);
-    elseif option == 7
+    elseif strcmp(option,'bin_width')
         Bin_Width= deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
-    elseif (option > 0) && (option < 7)
-        [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', method{option});
+    elseif strcmp(option,['auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'])
+        [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
     end
 end
 
