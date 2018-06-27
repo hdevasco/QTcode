@@ -8,7 +8,7 @@ for i=1:numAngles
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
     if strcmp(option,'number_bins')
-        num_of_bins = number_bins;
+        num_of_bins = deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_of_bins);
     elseif strcmp(option,'scott_true')
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
@@ -16,8 +16,10 @@ for i=1:numAngles
     elseif strcmp(option,'bin_width')
         Bin_Width= deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
-    elseif strcmp(option,['auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'])
+    elseif any(strcmp(option,{'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'}))
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
+     else ~ischar(option)
+         error('Error when the option is not (number_bins, bin_width, scott_true, auto, scott, fd, integers, sturges or sqrt)',class(option))
     end
 end
 
