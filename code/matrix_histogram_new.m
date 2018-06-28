@@ -18,8 +18,8 @@ for i=1:numAngles
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
     elseif any(strcmp(option,{'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'}))
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
-     else ~ischar(option)
-         error('Error when the option is not (number_bins, bin_width, scott_true, auto, scott, fd, integers, sturges or sqrt)',class(option))
+     else 
+         error('Error when the option is not (number_bins, bin_width, scott_true, auto, scott, fd, integers, sturges or sqrt)')
     end
 end
 
