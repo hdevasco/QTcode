@@ -14,12 +14,16 @@ for i=1:numAngles
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width_Scott);
     elseif strcmp(option,'bin_width')
-        Bin_Width= deltaq;
+        Bin_Width = deltaq;
+        [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
+    elseif strcmp(option,'bin_leonhardt')
+        n = n_quadrature(samples,num_measurements);
+        Bin_Width = pi/(2*sqrt(2*n+1));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
     elseif any(strcmp(option,{'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'}))
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
      else 
-         error('Error when the option is not (number_bins, bin_width, scott_true, auto, scott, fd, integers, sturges or sqrt)')
+         error('Error when the option is not (number_bins, bin_width,bin_leonhardt, scott_true, auto, scott, fd, integers, sturges or sqrt)')
     end
 end
 
