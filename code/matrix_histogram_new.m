@@ -1,5 +1,10 @@
 function M = matrix_histogram_new(numAngles, samples, option, H_operator,deltaq)
 
+if nargin == 2
+  option = 'bin_leonhardt';
+  H_operator = 'integral';
+end
+
 num_measurements = size(samples, 1);
 
 angles = samples(1:numAngles);
