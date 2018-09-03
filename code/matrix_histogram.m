@@ -1,4 +1,4 @@
-function M = matrix_histogram_new(numAngles, samples, option, H_operator,deltaq)
+function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 %   input : numAngles = number of equally spaced angles between 0 and pi.
 %   samples = matrix with the quantum state sampling. Its second column contains 
 %             the quadrature measurements of the different optical phases.
