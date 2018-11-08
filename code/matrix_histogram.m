@@ -1,32 +1,32 @@
 function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
-%   input : numAngles = number of equally spaced angles between 0 and pi.
-%   samples = matrix with the quantum state sampling. Its second column contains 
-%             the quadrature measurements of the different optical phases.
-%   option = indicates the method that will choose the width of the histogram box.
-%             If option is "number_of_bins", the code constructs the histogram with the number 
-%             of boxes indicated by that input. If option is 'bin_width', this value will be 
-%             exactly the width of the histogram box. If option is 'bin_leonhardt', this value
-%             will be exactly the width of the box at Leonhardt's suggestion. Otherwise the
-%             options ('scott_true', 'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt') will
-%             indicate the optimum width of the histogram box according to the probability distribution
-%             in the sampling of the quantum state.
-%   H_operator = indicates the form in which the measurement operator will be chosen. 
-%                If "H_operator" is "center", the measurement operator to be used on the tomography 
-%                will represent the measurement exactly in the center of the box. If "H_operator" is 
-%                "integral", the measurement operator to be used in the tomography will represent the
-%                measurement that occurs along the length of the entire case.
-%   deltaq = indicates the width that you want to choose for the histogram box.
+%   Entradas da função:
+%   numAngles = número de fases igualmente espaçadas de 0 a pi.
+%   samples = matrix que contem os resultados das medições homódinas
+%   option = indica o método para definir a largura da caixa do histograma
+%           Se a opção for "number_of_bins", O código constrói o histograma
+%            com o número de caixas indicadas por essa entrada. Se a opção for 
+%            'bin_width', esse valor será exatamente a largura da caixa do histograma. 
+%            Se a opção for 'bin_leonhardt', esse valor será exatamente a largura da caixa
+%            da sugestão de Leonhardt. Caso contrário, as opções ('scott_true', 'auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt')
+%            indicarão a largura ideal da caixa do histograma de acordo com a distribuição de probabilidade na amostragem do estado quântico.
 
-% output = Constructs the matrix of histograms M according to the sample and the measurement operator that you 
-% want to use for the reconstruction of the state: measurement operator representing the measurement in 
-% the center of the box (center) and measuring operator along the length of the box ( integral). 
-% If the option chosen for the use of the measuring operator is "center", M will be an array with columns 
-% (angle, measured in the center of the box, number of counts of the box). If the option chosen for the use 
-% of the measurement operator is "integral", M will be a matrix with columns (angle, left edge of the box, 
-% right edge of the box, number of counts of the box).
+%   H_operator = indica a forma de como o operador de medição será escolhido.
+%    Se "H_operator" for "center", o operador de medição a ser usado na tomografia representará a medição que ocorre no centro da caixa.
+%    Se "H_operador" for "integral", o operador de medição a ser usado na tomografia representará a medida que ocorre ao longo do comprimento
+%    de toda a caixa.
 
-% Constructs the histogram matrix using the edges of the boxes whose width is chosen by the Leonhardt method 
-% using the measurement operator along the box.
+%   deltaq = indica a largura que você deseja escolher para a caixa do histograma.
+
+% Saída da função = 
+% Constrói a matriz de histogramas M de acordo com a amostra e o operador de medição que você deseja usar para a reconstrução do 
+% estado: operador de medição representando a medição no centro da caixa (H_operator = center) ou medindo o operador ao longo do comprimento da 
+% caixa (H_operator = integral). Se a opção escolhida para o uso do operador de medição for "center", M será uma matriz com 
+% colunas (ângulo, medido no centro da caixa, número de contagens da caixa). Se a opção escolhida para o uso do operador de medição 
+% for "integral", M será uma matriz com colunas (ângulo, borda esquerda da caixa, borda direita da caixa, número de contagens da caixa).
+
+% O passo a seguir, constrói a matriz do histograma usando as bordas das caixas cuja largura é escolhida pelo método Leonhardt usando o 
+% operador de medição ao longo do comprimento da caixa, considerando que estes método para a escolha do operador nos dá uma melhor estimativa.
+
 if nargin == 2
   option = 'bin_leonhardt';
   H_operator = 'integral';
@@ -36,8 +36,9 @@ num_measurements = size(samples, 1);
 
 angles = samples(1:numAngles);
 
-% constructs the histograms using the homodyne measurements of the sample by choosing the method to 
-% calculate the width of the box.
+% O próximo passo, constrói os histogramas a partir de uma matriz de estruturas usando as medidas homódinas da amostra, 
+% escolhendo o método para calcular a largura da caixa.
+
 for i=1:numAngles
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
@@ -61,8 +62,8 @@ for i=1:numAngles
     end
 end
 
-% Constructs M so that the measurement operator represents the measurement that occurs exactly in the center 
-% of the histogram box.
+% Constrói M para que o operador de medição representa a medição que ocorre exatamente no centro da caixa do histograma.
+
 if strcmp(H_operator,'center')
     
     for i = 1:numAngles
@@ -71,8 +72,8 @@ if strcmp(H_operator,'center')
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1), QuadHist(i).centers.',QuadHist(i).counts.'];
     end
    
-% Constructs M so that the measurement operator represents the measure that occurs along the length of the 
-% histogram box.    
+% Constrói M para que o operador de medição represente a medida que ocorre ao longo do comprimento da caixa do histograma.   
+
 elseif strcmp(H_operator,'integral')
     
     for i = 1:numAngles
@@ -82,6 +83,7 @@ elseif strcmp(H_operator,'integral')
     end
   
 end
+% O passo a seguir finaliza a execução do código, utiliza a matriz de estruturas para construir a matriz de histogramas M.
 
 M = vertcat(QuadHist.M);
 M = M(M(:,end)> 0,:);
