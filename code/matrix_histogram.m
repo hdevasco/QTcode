@@ -1,4 +1,6 @@
 function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
+
+% matrix_histogram discretiza os valores contínuos da saída da função homodyne_samples e retorna uma matriz com a discretização
 %   Entradas da função:
 %   numAngles = número de fases igualmente espaçadas de 0 a pi.
 %   samples = matrix que contem os resultados das medições homódinas
@@ -24,37 +26,47 @@ function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 % colunas (ângulo, medido no centro da caixa, número de contagens da caixa). Se a opção escolhida para o uso do operador de medição 
 % for "integral", M será uma matriz com colunas (ângulo, borda esquerda da caixa, borda direita da caixa, número de contagens da caixa).
 
-% O passo a seguir, constrói a matriz do histograma usando as bordas das caixas cuja largura é escolhida pelo método Leonhardt usando o 
-% operador de medição ao longo do comprimento da caixa, considerando que estes método para a escolha do operador nos dá uma melhor estimativa.
+% A condição abaixo constrói a matriz do histograma usando as bordas das caixas cuja largura é escolhida pelo método Leonhardt usando o 
+% operador de medição ao longo do comprimento da caixa, considerando que estes método para a escolha do operador nos dá uma melhor estimativa
+% entre todos os casos analisados.
 
 if nargin == 2
   option = 'bin_leonhardt';
   H_operator = 'integral';
 end
 
+% A linha abaixo constrói um vetor do tamanho da saída da função homodyne_samples
 num_measurements = size(samples, 1);
 
+% Utiliza a primeira linha da saída da função homodyne_samples para a construção da estrutura QuadHist.
 angles = samples(1:numAngles);
 
-% O próximo passo, constrói os histogramas a partir de uma matriz de estruturas usando as medidas homódinas da amostra, 
-% escolhendo o método para calcular a largura da caixa.
+% O próximo passo, constrói os histogramas a partir de uma matriz de estruturas usando as medidas homódinas da amostra(saída da função
+% homodyne_samples) escolhendo o método para calcular a largura da caixa.
 
 for i=1:numAngles
+% constrói a matriz de estruturas a partir da amostra
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
+% a condição abaixo escolhe o número de caixas da discretização em cada fase  
     if strcmp(option,'number_bins')
         num_of_bins = deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_of_bins);
+% a condição abaixo utiliza o método de Scott para calcular a largura da caixa do histograma para a distribuição
+% em cada fase
     elseif strcmp(option,'scott_true')
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width_Scott);
+% a condição abaixo usa a largura desejada para calcular o comprimento da caixa do histograma
     elseif strcmp(option,'bin_width')
         Bin_Width = deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
+% a condição abaixo constrói a largura da caixa do histograma de acordo com a sugestão de Leohnardt
     elseif strcmp(option,'bin_leonhardt')
         n = n_quadrature(samples,num_measurements);
         Bin_Width = pi/(2*sqrt(2*n+1));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
+% a condição abaixo constrói a largura da caixa do histograma de acordo com a documentação histcounts do MATLAB
     elseif any(strcmp(option,{'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'}))
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
      else 
@@ -83,7 +95,8 @@ elseif strcmp(H_operator,'integral')
     end
   
 end
-% O passo a seguir finaliza a execução do código, utiliza a matriz de estruturas para construir a matriz de histogramas M.
+% O passo a seguir finaliza a execução do código, utiliza a matriz de estruturas para construir a matriz de histogramas M que possui a
+% a discretização dos valores contínuos da amostra
 
 M = vertcat(QuadHist.M);
 M = M(M(:,end)> 0,:);
