@@ -1,23 +1,27 @@
 function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 
 % matrix_histogram discretiza os valores contínuos da saída da função homodyne_samples e retorna uma matriz com a discretização
-%   Entradas da função:
-%   numAngles = número de fases igualmente espaçadas de 0 a pi.
-%   samples = matrix que contem os resultados das medições homódinas
-%   option = indica o método para definir a largura da caixa do histograma
+% Entradas da função:
+% numAngles = número de fases igualmente espaçadas de 0 a pi.
+% samples = matrix que contem os resultados das medições homódinas
+% option = indica o método para definir a largura da caixa do histograma
 %           Se a opção for "number_of_bins", O código constrói o histograma
 %            com o número de caixas indicadas por essa entrada. Se a opção for 
 %            'bin_width', esse valor será exatamente a largura da caixa do histograma. 
 %            Se a opção for 'bin_leonhardt', esse valor será exatamente a largura da caixa
-%            da sugestão de Leonhardt. Caso contrário, as opções ('scott_true', 'auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt')
-%            indicarão a largura ideal da caixa do histograma de acordo com a distribuição de probabilidade na amostragem do estado quântico.
+%            da sugestão de Leonhardt. Se a opção for 'scott_true', a largura da caixa do histograma será escolhida usando o
+%            método de Scott. Caso contrário, as opções ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt')
+%            indicarão a largura da caixa do histograma de acordo com a documentação histcounts do Matlab, de modo a cobrir o 
+%            intervalo de dados e revelar a forma da distribuição de probabilidade na amostragem do estado quântico.
 
 %   H_operator = indica a forma de como o operador de medição será escolhido.
 %    Se "H_operator" for "center", o operador de medição a ser usado na tomografia representará a medição que ocorre no centro da caixa.
 %    Se "H_operador" for "integral", o operador de medição a ser usado na tomografia representará a medida que ocorre ao longo do comprimento
 %    de toda a caixa.
 
-%   deltaq = indica a largura que você deseja escolher para a caixa do histograma.
+%   deltaq = poderá indicar o número de caixas ou a largura de entrada que se deseja construir a caixa do histograma. Se 'option' for 
+%   "number of bins", deltaq representará o número de caixas do histograma. Se 'option' for "Bin_Width", deltaq representará a largura que se 
+%    deseja ter para a caixa do histograma.
 
 % Saída da função = 
 % Constrói a matriz de histogramas M de acordo com a amostra e o operador de medição que você deseja usar para a reconstrução do 
