@@ -6,13 +6,15 @@ function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 % samples = matrix que contem os resultados das medições homódinas
 % option = indica o método para definir a largura da caixa do histograma
 %           Se a opção for "number_of_bins", O código constrói o histograma
-%            com o número de caixas indicadas por essa entrada. Se a opção for 
-%            'bin_width', esse valor será exatamente a largura da caixa do histograma. 
+%            com o número de caixas indicadas por essa entrada na função histcounts. Se a opção for 
+%            'bin_width', esse valor será exatamente a largura da caixa do histograma a ser inserida em histcounts. 
 %            Se a opção for 'bin_leonhardt', esse valor será exatamente a largura da caixa
-%            da sugestão de Leonhardt. Se a opção for 'scott_true', a largura da caixa do histograma será escolhida usando o
-%            método de Scott. Caso contrário, as opções ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt')
-%            indicarão a largura da caixa do histograma de acordo com a documentação histcounts do Matlab, de modo a cobrir o 
-%            intervalo de dados e revelar a forma da distribuição de probabilidade na amostragem do estado quântico.
+%            da sugestão de Leonhardt, sendo essa implementada em histcounts. Se a opção for 'scott_true', a largura da caixa do 
+%            histograma será escolhida usando a expressão analítica do método de Scott a ser implementada em histcounts. Caso contrário, as 
+%            opções ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt' indicarão a largura da caixa do histograma de acordo com 
+%            a documentação histcounts do Matlab, construindo o histograma sem nenhuma largura previamente determinada. O tamanho do bin do 
+%            histograma, nestes casos, buscam cobrir o intervalo de dados e revelar a forma da distribuição de probabilidade na amostragem 
+%            do estado quântico.
 
 %   H_operator = indica a forma de como o operador de medição será escolhido.
 %    Se "H_operator" for "center", o operador de medição a ser usado na tomografia representará a medição que ocorre no centro da caixa.
@@ -27,8 +29,9 @@ function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 % Constrói a matriz de histogramas M de acordo com a amostra e o operador de medição que você deseja usar para a reconstrução do 
 % estado: operador de medição representando a medição no centro da caixa (H_operator = center) ou medindo o operador ao longo do comprimento da 
 % caixa (H_operator = integral). Se a opção escolhida para o uso do operador de medição for "center", M será uma matriz com 
-% colunas (ângulo, medido no centro da caixa, número de contagens da caixa). Se a opção escolhida para o uso do operador de medição 
-% for "integral", M será uma matriz com colunas (ângulo, borda esquerda da caixa, borda direita da caixa, número de contagens da caixa).
+% colunas (ângulo, medida no centro da caixa, número de valores de medição presentes em cada caixa). Se a opção escolhida para o uso do 
+% operador de medição for "integral", M será uma matriz com colunas (ângulo, borda esquerda da caixa, borda direita da caixa, 
+% número de valores de medição presentes em cada caixa).
 
 % A condição abaixo constrói a matriz do histograma usando as bordas das caixas cuja largura é escolhida pelo método Leonhardt usando o 
 % operador de medição ao longo do comprimento da caixa, considerando que estes método para a escolha do operador nos dá uma melhor estimativa
