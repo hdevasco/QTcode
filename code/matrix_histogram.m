@@ -45,11 +45,13 @@ end
 % A linha abaixo constrói um vetor do tamanho da saída da função homodyne_samples
 num_measurements = size(samples, 1);
 
-% Utiliza a primeira linha da saída da função homodyne_samples para a construção da estrutura QuadHist.
+% A linha 50 utiliza a primeira coluna de samples para a construção da estrutura QuadHist, todos os ângulos igualmente espaçados são 
+% armazenados nessa estrutura.
 angles = samples(1:numAngles);
 
-% O próximo passo, constrói os histogramas a partir de uma matriz de estruturas usando as medidas homódinas da amostra(saída da função
-% homodyne_samples) escolhendo o método para calcular a largura da caixa.
+% Da linha 62 a linha 79, as linhas que possuem ([QuadHist(i).counts, QuadHist(i).edges]) constroem os histogramas usando histcounts a partir
+% da matriz de estruturas (QuadHist(i).allQuads), essa estrutura guarda todos os valores de medida de quadratura de samples(saída da função
+% homodyne_samples).
 
 for i=1:numAngles
 % constrói a matriz de estruturas a partir da amostra
