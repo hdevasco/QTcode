@@ -1,90 +1,95 @@
 function M = matrix_histogram(numAngles, samples, option, H_operator,deltaq)
 
-% matrix_histogram discretiza os valores contínuos da saída da função homodyne_samples e retorna uma matriz com a discretização
-% Entradas da função:
-% numAngles = número de fases igualmente espaçadas de 0 a pi.
-% samples = matrix que contem os resultados das medições homódinas
-% option = indica o método para definir a largura da caixa do histograma
-%           Se a opção for "number_of_bins", O código constrói o histograma
-%            com o número de caixas indicadas por essa entrada na função histcounts. Se a opção for 
-%            'bin_width', esse valor será exatamente a largura da caixa do histograma a ser inserida em histcounts. 
-%            Se a opção for 'bin_leonhardt', esse valor será exatamente a largura da caixa
-%            da sugestão de Leonhardt, sendo essa implementada em histcounts. Se a opção for 'scott_true', a largura da caixa do 
-%            histograma será escolhida usando a expressão analítica do método de Scott a ser implementada em histcounts. Caso contrário, as 
-%            opções ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt' indicarão a largura da caixa do histograma de acordo com 
-%            a documentação histcounts do Matlab, construindo o histograma sem nenhuma largura previamente determinada. O tamanho do bin do 
-%            histograma, nestes casos, buscam cobrir o intervalo de dados e revelar a forma da distribuição de probabilidade na amostragem 
-%            do estado quântico.
+% matrix_histogram discretizes the (continuous values) output of the function homodyne_samples,
+% giving as result a matrix containing the discretized values.
+%   Function inputs:
+%      numAngles = number of evenly spaced phases from 0 to Pi. 
+%                  In https://arxiv.org/pdf/1805.07414.pdf this is 'm' (= 20).
+%      samples = matrix containing the results of the homodyne measurements.
+%      option = indicates the method to set the width of the histogram bin:
+%            -If 'number_of_bins' is chosen, the histogram will be constructed using 
+%             a number deltaq of bins.
+%            -If 'bin_width' is chosen, the histogram will be constructed using bins 
+%             with width given by deltaq. 
+%            -If 'bin_leonhardt' is chosen, the bin width will be given by Leohnardt's equation.
+%            -If 'scott_true' is chosen, the width will be given by Scott's formula.
+%            -The other options ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt') use 
+%             the automatic binning algorithm from the Matlab function histcounts. This 
+%             binning algorithm returns bins with a uniform width, chosen to cover the 
+%             range of elements in the distribution and reveal the underlying shape of the
+%             distribution.
+%      H_operator = defines how the measuring operator to be used on the tomography will 
+%      be chosen:
+%            -If 'center' is chosen, each bin’s measurement operator represents the 
+%             measurement as if it occurred at the center of each bin.
+%            -If 'integral' is chosen, each bin’s measurement operator represents a 
+%             measurement that occurs anywhere in the bin. 
+%      deltaq = is used when 'number_of_bins' or 'bin_width' is chosen. deltaq will represent
+%               the number of bins when using 'number_of_bins' and will represent the bin 
+%               width when using 'bin_width'.     
+%  Function output = is a matrix of histograms M, built according to the sample and the chosen
+%                    measuring operator: H_operator = center or H_operator = integral. 
+%                    If H_operator = center, the output matrix M will be a three column 
+%                    matrix (angle, measurement at the center of the bin, number of counts 
+%                    in each bin). If H_operator = integral, the matrix M will be a four 
+%                    column matrix (angle, left edge of the bin, right edge of the bin, 
+%                    number of counts in each bin).
 
-%   H_operator = indica a forma de como o operador de medição será escolhido.
-%    Se "H_operator" for "center", o operador de medição a ser usado na tomografia representará a medição que ocorre no centro da caixa.
-%    Se "H_operador" for "integral", o operador de medição a ser usado na tomografia representará a medida que ocorre ao longo do comprimento
-%    de toda a caixa.
-
-%   deltaq = poderá indicar o número de caixas ou a largura de entrada que se deseja construir a caixa do histograma. Se 'option' for 
-%   "number of bins", deltaq representará o número de caixas do histograma. Se 'option' for "Bin_Width", deltaq representará a largura que se 
-%    deseja ter para a caixa do histograma.
-
-% Saída da função = 
-% Constrói a matriz de histogramas M de acordo com a amostra e o operador de medição que você deseja usar para a reconstrução do 
-% estado: operador de medição representando a medição no centro da caixa (H_operator = center) ou medindo o operador ao longo do comprimento da 
-% caixa (H_operator = integral). Se a opção escolhida para o uso do operador de medição for "center", M será uma matriz com 
-% colunas (ângulo, medida no centro da caixa, número de valores de medição presentes em cada caixa). Se a opção escolhida para o uso do 
-% operador de medição for "integral", M será uma matriz com colunas (ângulo, borda esquerda da caixa, borda direita da caixa, 
-% número de valores de medição presentes em cada caixa).
-
-% A condição abaixo constrói a matriz do histograma usando as bordas das caixas cuja largura é escolhida pelo método Leonhardt usando o 
-% operador de medição ao longo do comprimento da caixa, considerando que estes método para a escolha do operador nos dá uma melhor estimativa
-% entre todos os casos analisados.
-
+% In lines 43 to 46 we construct the histogram matrix when only the two first input of M 
+% are specified (numAngles and sample). In this case, we use the edges of the bins whose 
+% width was chosen by Leonhardt's method and a measurement operator set to 'integral'. When 
+% we use H_operator = integral, we numerically integrate the measurement operators over the
+% width of each histogram bin, getting a better estimative.
 if nargin == 2
   option = 'bin_leonhardt';
   H_operator = 'integral';
 end
 
-% A linha abaixo constrói um vetor do tamanho da saída da função homodyne_samples
+% The following line builds a vector of the same size as the output of the function 
+% homodyne_samples. In https://arxiv.org/pdf/1805.07414.pdf this is 'N' (= 20,000).
 num_measurements = size(samples, 1);
 
-% A linha 50 utiliza a primeira coluna de samples para a construção da estrutura QuadHist, todos os ângulos igualmente espaçados são 
-% armazenados nessa estrutura.
+% In following line, we take the first column of samples to construct the structure 
+% called QuadHist. All spaced angles are storaged in this structure.
 angles = samples(1:numAngles);
 
-% Da linha 62 a linha 79, as linhas que possuem ([QuadHist(i).counts, QuadHist(i).edges]) constroem os histogramas usando histcounts a partir
-% da matriz de estruturas (QuadHist(i).allQuads), essa estrutura guarda todos os valores de medida de quadratura de samples(saída da função
-% homodyne_samples).
-
+% In the block from lines 62 to 90: The quadrature measurement results, which are the
+% outputs of the function homodyne_samples, are stored in the matrix (QuadHist (i) .allQuads).
+% [QuadHist (i) .counts, QuadHist (i) .edges] places these measurement results stored in 
+% (QuadHist (i) .allQuads) in bins. These bins are constructed using the histcounts function
+% with the pre-determined bin width (in the four first cases of option) or the automatic
+% binning algorithm (in the other cases of option).  
 for i=1:numAngles
-% constrói a matriz de estruturas a partir da amostra
+% Storing the measurement results in the matrix (QuadHist (i) .allQuads):
     QuadHist(i).angle = angles(i);
     QuadHist(i).allQuads = samples((i:numAngles:end),2);
-% a condição abaixo escolhe o número de caixas da discretização em cada fase  
+% Building the histograms using a fixed number of bins, given by num_of_bins = deltaq:   
     if strcmp(option,'number_bins')
         num_of_bins = deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, num_of_bins);
-% a condição abaixo utiliza o método de Scott para calcular a largura da caixa do histograma para a distribuição
-% em cada fase
+% Building the histograms using Scott's method to calculate the bin width:
     elseif strcmp(option,'scott_true')
         Bin_Width_Scott = 3.5*std(QuadHist(i).allQuads)*((num_measurements/numAngles)^(-1/3));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width_Scott);
-% a condição abaixo usa a largura desejada para calcular o comprimento da caixa do histograma
+% Building the histograms using a fixed bin width:
     elseif strcmp(option,'bin_width')
         Bin_Width = deltaq;
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
-% a condição abaixo constrói a largura da caixa do histograma de acordo com a sugestão de Leohnardt
+% Building the histograms using Leohnardt's equation to calculate the bin width:
     elseif strcmp(option,'bin_leonhardt')
         n = n_quadrature(samples,num_measurements);
         Bin_Width = pi/(2*sqrt(2*n+1));
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinWidth', Bin_Width);
-% a condição abaixo constrói a largura da caixa do histograma de acordo com a documentação histcounts do MATLAB
+% Building the histograms using the automatic binning algorithm from the Matlab function 
+% histcounts:
     elseif any(strcmp(option,{'auto', 'scott', 'fd', 'integers', 'sturges', 'sqrt'}))
         [QuadHist(i).counts, QuadHist(i).edges]=histcounts(QuadHist(i).allQuads, 'BinMethod', option);
      else 
          error('Error when the option is not (number_bins, bin_width,bin_leonhardt, scott_true, auto, scott, fd, integers, sturges or sqrt)')
     end
 end
-
-% Constrói M para que o operador de medição representa a medição que ocorre exatamente no centro da caixa do histograma.
-
+% In this next step, M is constructed considering that each bin’s measurement operator
+% represents the measurement as if it occurred at the center of each bin -- H_operator = center:
 if strcmp(H_operator,'center')
     
     for i = 1:numAngles
@@ -93,8 +98,9 @@ if strcmp(H_operator,'center')
         QuadHist(i).M = [repmat(angles(i),length(QuadHist(i).counts.'),1), QuadHist(i).centers.',QuadHist(i).counts.'];
     end
    
-% Constrói M para que o operador de medição represente a medida que ocorre ao longo do comprimento da caixa do histograma.   
-
+% And in here, M is constructed considering that each bin’s measurement operator
+% represents the measurement as if it occurred anywhere in the bin. In this case, we
+% numerically integrate the measurement operators over the width of each histogram bin.
 elseif strcmp(H_operator,'integral')
     
     for i = 1:numAngles
@@ -104,9 +110,7 @@ elseif strcmp(H_operator,'integral')
     end
   
 end
-% O passo a seguir finaliza a execução do código, utiliza a matriz de estruturas para construir a matriz de histogramas M que possui a
-% a discretização dos valores contínuos da amostra
-
+% The last step is to vertically concatenate the arrays in QuadHist.M:
 M = vertcat(QuadHist.M);
 M = M(M(:,end)> 0,:);
 
