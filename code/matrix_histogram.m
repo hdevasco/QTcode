@@ -7,8 +7,8 @@ function M = matrix_histogram(numAngles, samples, option, H_operator, ...
 %      numAngles = number of evenly spaced phases from 0 to Pi. 
 %                  In https://arxiv.org/pdf/1805.07414.pdf this is 'm' (= 20).
 %      samples = matrix containing the results of the homodyne
-%   Optional inputs:
 %                measurements, which can be produced by the function homodyne_samples.
+%   Optional inputs:
 %      option = indicates the method used to set the width of the histogram bin:
 %            -If 'number_of_bins' is chosen, the histogram will be constructed using 
 %             a number deltaq of bins.
