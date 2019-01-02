@@ -21,8 +21,8 @@ function M = matrix_histogram(numAngles, samples, option, H_operator, ...
 %             detection" Optics Communications 127, 144 (1996)],
 %             Eq. (41)
 %            -If 'scott_true' is chosen, the width will be given by
-%             Scott's formula from [Scott "Scottâ€™s rule" WIREs
-%             Comp. Stat. 2, 497 (2010)], Eq (?).  Matlab provides
+%             Scott's formula from [Scott "Scott’s rule" WIREs
+%             Comp. Stat. 2, 497 (2010)], Eq (1).  Matlab provides
 %             an implementation of Scott's formula, but Matlab's
 %             implementation applies some rounding.
 %            -The other options ('auto', 'scott', 'fd', 'inteiros', 'sturges', 'sqrt') use 
